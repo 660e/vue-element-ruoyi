@@ -9,7 +9,7 @@ const disabled = computed(() => !model.username || !model.password || !model.cod
 const submitting = ref(false);
 
 onMounted(() => {
-  getCaptcha();
+  // getCaptcha();
 });
 
 async function getCaptcha() {
@@ -51,8 +51,13 @@ async function submit() {
           <el-input v-model="model.password" placeholder="请输入密码" size="large" type="password" clearable show-password />
         </el-form-item>
         <el-form-item>
-          <div class="w-full">
+          <div class="flex w-full gap-3">
             <el-input v-model="model.code" placeholder="请输入验证码" size="large" />
+            <!-- <div
+              :class="[code.status === 'loading' ? 'cursor-not-allowed' : 'cursor-pointer']"
+              @click="getCaptcha"
+              class="flex w-30 shrink-0 items-center justify-center overflow-hidden bg-neutral-100"
+            ></div> -->
           </div>
         </el-form-item>
         <el-button :disabled="disabled" :loading="submitting" class="w-full" native-type="submit" size="large" type="primary">
