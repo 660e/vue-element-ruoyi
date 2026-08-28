@@ -1,4 +1,6 @@
 <script setup>
+import { UserRound, Lock, ScanBarcode } from '@lucide/vue';
+
 import { captchaImage } from '@/api';
 import { globalConfig } from '@/config/global.js';
 
@@ -45,14 +47,14 @@ async function submit() {
       <div class="text-center text-xl leading-none">{{ globalConfig.app.name }}</div>
       <el-form @submit.prevent="submit" class="mt-6">
         <el-form-item>
-          <el-input v-model="model.username" placeholder="请输入账号" size="large" clearable />
+          <el-input v-model="model.username" :prefix-icon="UserRound" placeholder="请输入账号" size="large" clearable />
         </el-form-item>
         <el-form-item>
-          <el-input v-model="model.password" placeholder="请输入密码" size="large" type="password" clearable show-password />
+          <el-input v-model="model.password" :prefix-icon="Lock" placeholder="请输入密码" size="large" type="password" clearable show-password />
         </el-form-item>
         <el-form-item>
           <div class="flex w-full gap-3">
-            <el-input v-model="model.code" placeholder="请输入验证码" size="large" />
+            <el-input v-model="model.code" :prefix-icon="ScanBarcode" placeholder="请输入验证码" size="large" />
             <div @click="getCaptcha" class="w-30 shrink-0">
               <img
                 v-if="code.status === 'success'"
