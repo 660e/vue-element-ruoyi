@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import AutoImport from 'unplugin-auto-import/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
@@ -19,11 +20,13 @@ export default defineConfig({
         globalsPropValue: 'readonly',
       },
       imports: ['vue', 'vue-router'],
+      resolvers: [ElementPlusResolver()],
     }),
 
     // https://github.com/unplugin/unplugin-vue-components
     Components({
       globs: ['src/components/*/index.vue', 'src/components/*.vue'],
+      resolvers: [ElementPlusResolver()],
     }),
 
     // https://tailwindcss.com/docs/installation/using-vite
