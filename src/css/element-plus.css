@@ -1,0 +1,3 @@
+.el-card .el-card__body {
+  padding: calc(var(--spacing) * 6);
+}
