@@ -1,6 +1,16 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 
+import { useAppStore } from '@/stores';
+
+function handleForbidden() {
+  const appStore = useAppStore();
+  if (appStore.forbiddenCount === 0) {
+    appStore.forbiddenCount++;
+    ElMessage.error('登录过期，请重新登录');
+  }
+}
+
 export class Request {
   #instance;
   #setupInterceptors() {
@@ -10,6 +20,7 @@ export class Request {
         if (requestInterceptors) {
           return requestInterceptors(config);
         } else {
+          config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
           return config;
         }
       },
@@ -23,27 +34,25 @@ export class Request {
         const { responseInterceptors } = response.config;
         if (responseInterceptors) {
           return responseInterceptors(response);
-        } else {
-          if (response.data?.code === 200) {
-            return response.data;
-          } else {
-            const { code, msg } = response.data;
-            console.log(code);
-            ElMessage.error(msg);
-            return response;
+        } else if (response.data?.code) {
+          switch (response.data.code) {
+            case 200:
+              return response.data;
+            case 401:
+              handleForbidden();
+              break;
+            default:
+              ElMessage.error(response.data.msg);
+              break;
           }
+        } else {
+          return response;
         }
       },
       (error) => {
         switch (error.response.status) {
           case 401:
-            console.log('401');
-            break;
-          case 404:
-            console.log('404');
-            break;
-          case 500:
-            console.log('500');
+            handleForbidden();
             break;
           default:
             console.log(error.response.status);

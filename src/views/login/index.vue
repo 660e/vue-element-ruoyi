@@ -3,14 +3,18 @@ import { UserRound, Lock, ScanBarcode } from '@lucide/vue';
 
 import { captchaImage, login } from '@/api';
 import { globalConfig } from '@/config/global.js';
+import { useAppStore } from '@/stores';
 
 const router = useRouter();
+const appStore = useAppStore();
+
 const model = reactive({ username: 'admin', password: 'admin123', code: '', uuid: '' });
 const code = reactive({ src: '', status: '' });
 const disabled = computed(() => !model.username || !model.password || !model.code);
 const submitting = ref(false);
 
 onMounted(() => {
+  appStore.resetApp();
   getCaptcha();
 });
 
