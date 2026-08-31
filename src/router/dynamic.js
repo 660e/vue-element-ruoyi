@@ -1,10 +1,15 @@
 import { getRouters } from '@/api';
 import { useAppStore } from '@/stores';
 
+function standardizeRoutes(routes) {
+  console.log(routes);
+
+  return [1, 2, 3];
+}
+
 export async function initializeRouter() {
+  const { data } = await getRouters();
   const appStore = useAppStore();
 
-  await getRouters();
-
-  appStore.setRoutes([1, 2, 3]);
+  appStore.setRoutes(standardizeRoutes(data));
 }
