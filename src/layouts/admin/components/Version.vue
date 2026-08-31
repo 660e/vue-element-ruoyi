@@ -1,3 +1,7 @@
+<script setup>
+import PKG from '@/../package.json';
+</script>
+
 <template>
-  <div>Version</div>
+  <div class="text-muted text-secondary-foreground font-mono text-xs leading-none">{{ PKG.version }}</div>
 </template>

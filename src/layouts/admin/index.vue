@@ -6,7 +6,7 @@ import Version from './components/Version.vue';
 </script>
 
 <template>
-  <div class="flex h-screen flex-col overflow-hidden">
+  <div class="bg-background text-foreground flex h-screen flex-col overflow-hidden">
     <Header class="bg-amber-50" />
     <div class="flex flex-1 overflow-auto">
       <Aside class="bg-blue-50" />

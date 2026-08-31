@@ -20,13 +20,13 @@ export default defineConfig({
         globalsPropValue: 'readonly',
       },
       imports: ['vue', 'vue-router'],
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: false })],
     }),
 
     // https://github.com/unplugin/unplugin-vue-components
     Components({
       globs: ['src/components/*/index.vue', 'src/components/*.vue'],
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: false })],
     }),
 
     // https://tailwindcss.com/docs/installation/using-vite

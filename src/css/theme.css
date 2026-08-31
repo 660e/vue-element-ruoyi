@@ -1,0 +1,6 @@
+@theme {
+  --color-background: var(--el-bg-color);
+  --color-foreground: var(--el-text-color-primary);
+
+  --color-secondary-foreground: var(--el-text-color-secondary);
+}
