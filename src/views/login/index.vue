@@ -61,12 +61,12 @@ async function submit() {
             <el-input v-model="model.code" placeholder="请输入验证码" size="large" clearable>
               <template #prefix><ScanBarcode size="18" /></template>
             </el-input>
-            <div @click="getCaptcha" class="w-30 shrink-0">
+            <div @click="getCaptcha" class="h-10 w-30 shrink-0">
               <img
                 v-if="code.status === 'success'"
                 :class="[submitting ? 'cursor-default' : 'cursor-pointer']"
                 :src="code.src"
-                class="block h-full w-full"
+                class="h-full w-full"
               />
               <el-button v-else :loading="code.status === 'loading'" class="w-full" size="large">
                 {{ code.status === 'loading' ? '加载中...' : '获取验证码' }}
