@@ -6,11 +6,19 @@ import Version from './components/Version.vue';
 </script>
 
 <template>
-  <div>
-    <Header />
-    <Aside />
-    <Version />
-    <Breadcrumb />
-    <RouterView />
+  <div class="flex h-screen flex-col overflow-hidden">
+    <Header class="bg-amber-50" />
+    <div class="flex flex-1 overflow-auto">
+      <Aside class="bg-blue-50" />
+      <div class="flex flex-1 flex-col">
+        <div class="bg-cyan-50">
+          <Breadcrumb />
+          <Version />
+        </div>
+        <div class="flex-1 overflow-y-auto bg-red-50">
+          <RouterView />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
