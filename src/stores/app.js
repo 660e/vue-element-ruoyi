@@ -1,17 +1,21 @@
 import { defineStore } from 'pinia';
 
 export const useAppStore = defineStore('app', () => {
-  const forbiddenCount = ref(0);
-  const routes = ref([]);
-
-  function resetApp() {
-    forbiddenCount.value = 0;
-    localStorage.removeItem('token');
+  const isForbidden = ref(false);
+  function setIsForbidden(n) {
+    isForbidden.value = n;
   }
 
+  const routes = ref([]);
   function setRoutes(n) {
     routes.value = n;
   }
 
-  return { forbiddenCount, routes, resetApp, setRoutes };
+  function resetApp() {
+    isForbidden.value = false;
+    routes.value = [];
+    localStorage.removeItem('token');
+  }
+
+  return { isForbidden, setIsForbidden, routes, setRoutes, resetApp };
 });
