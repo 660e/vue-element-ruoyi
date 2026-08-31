@@ -5,4 +5,6 @@
   --color-border: var(--el-border-color);
 
   --color-secondary-foreground: var(--el-text-color-secondary);
+
+  --color-primary-light-9: var(--el-color-primary-light-9);
 }
