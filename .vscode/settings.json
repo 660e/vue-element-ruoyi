@@ -4,6 +4,7 @@
   },
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true,
+  "js/ts.preferences.autoImportFileExcludePatterns": ["@lucide/vue"],
   "[javascript]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
   },
