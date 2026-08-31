@@ -1,11 +1,11 @@
 <script setup>
 import { UserRound, Lock, ScanBarcode } from '@lucide/vue';
 
-import { captchaImage } from '@/api';
+import { captchaImage, login } from '@/api';
 import { globalConfig } from '@/config/global.js';
 
 const router = useRouter();
-const model = reactive({ username: '', password: '', code: '', uuid: '' });
+const model = reactive({ username: 'admin', password: 'admin123', code: '', uuid: '' });
 const code = reactive({ src: '', status: '' });
 const disabled = computed(() => !model.username || !model.password || !model.code);
 const submitting = ref(false);
@@ -33,8 +33,9 @@ async function submit() {
 
   submitting.value = true;
   try {
-    console.log(model);
-    router.push('/');
+    const { token } = await login(model);
+    localStorage.setItem('token', token);
+    router.push({ name: 'home' });
   } finally {
     submitting.value = false;
   }
