@@ -10,9 +10,15 @@ const router = createRouter({
   scrollBehavior: () => ({ top: 0, left: 0 }),
 });
 
-router.beforeEach((to, from) => {
-  console.log(to);
-  console.log(from);
+router.beforeEach((to) => {
+  const token = localStorage.getItem('token');
+
+  if (to.name !== 'login' && !token) {
+    return { name: 'login' };
+  }
+  if (to.name === 'login' && token) {
+    return { name: 'home' };
+  }
 
   document.title = globalConfig.app.name + (to.meta.title ? ` - ${to.meta.title}` : '');
 
