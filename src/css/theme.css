@@ -2,5 +2,7 @@
   --color-background: var(--el-bg-color);
   --color-foreground: var(--el-text-color-primary);
 
+  --color-border: var(--el-border-color);
+
   --color-secondary-foreground: var(--el-text-color-secondary);
 }

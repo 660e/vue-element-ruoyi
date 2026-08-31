@@ -7,15 +7,15 @@ import Version from './components/Version.vue';
 
 <template>
   <div class="bg-background text-foreground flex h-screen flex-col overflow-hidden">
-    <Header class="bg-amber-50" />
+    <Header />
     <div class="flex flex-1 overflow-auto">
-      <Aside class="bg-blue-50" />
+      <Aside />
       <div class="flex flex-1 flex-col">
-        <div class="bg-cyan-50">
+        <div class="border-border flex h-10 items-center justify-between border-b px-3">
           <Breadcrumb />
           <Version />
         </div>
-        <div class="flex-1 overflow-y-auto bg-red-50">
+        <div class="flex-1 overflow-y-auto">
           <RouterView />
         </div>
       </div>
