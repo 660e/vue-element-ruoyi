@@ -46,7 +46,7 @@ async function submit() {
   <div class="flex h-screen items-center justify-center">
     <el-card class="w-100">
       <div class="text-center text-xl leading-none">{{ globalConfig.app.name }}</div>
-      <el-form @submit.prevent="submit" class="mt-6">
+      <el-form :disabled="submitting" @submit.prevent="submit" class="mt-6">
         <el-form-item>
           <el-input v-model="model.username" placeholder="请输入账号" size="large" clearable>
             <template #prefix><UserRound size="18" /></template>
