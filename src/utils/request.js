@@ -5,7 +5,7 @@ import { useAppStore } from '@/stores';
 
 function handleForbidden() {
   const appStore = useAppStore();
-  if (appStore.isForbidden) {
+  if (!appStore.isForbidden) {
     appStore.setIsForbidden(true);
     ElMessage.error('登录过期，请重新登录');
   }
