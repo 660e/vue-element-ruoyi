@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import { globalConfig } from '@/config/global.js';
 
+import { initializeRouter } from './dynamic.js';
 import staticRoutes from './static.js';
 
 const router = createRouter({
@@ -10,7 +11,7 @@ const router = createRouter({
   scrollBehavior: () => ({ top: 0, left: 0 }),
 });
 
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
   const token = localStorage.getItem('token');
 
   if (to.name !== 'login' && !token) {
@@ -19,6 +20,8 @@ router.beforeEach((to) => {
   if (to.name === 'login' && token) {
     return { name: 'home' };
   }
+
+  await initializeRouter();
 
   document.title = globalConfig.app.name + (to.meta.title ? ` - ${to.meta.title}` : '');
 

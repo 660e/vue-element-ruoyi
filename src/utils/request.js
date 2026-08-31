@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ElMessage } from 'element-plus';
 
 export class Request {
   #instance;
@@ -26,6 +27,9 @@ export class Request {
           if (response.data?.code === 200) {
             return response.data;
           } else {
+            const { code, msg } = response.data;
+            console.log(code);
+            ElMessage.error(msg);
             return response;
           }
         }
