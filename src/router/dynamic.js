@@ -9,9 +9,9 @@ function standardizeRoutes(routes = [], parentName = '') {
   return routes.map((route) => {
     if (route.meta.link) {
       return {
-        path: '/placeholder',
-        name: 'Placeholder',
-        component: () => import('@/views/Placeholder.vue'),
+        path: '/404',
+        name: '404',
+        component: () => import('@/views/404.vue'),
         meta: {
           title: route.meta.title,
           icon: route.meta.icon,
@@ -37,7 +37,7 @@ function standardizeRoutes(routes = [], parentName = '') {
       return {
         path: route.path,
         name: `${parentName}${route.name}`,
-        component: view ? markRaw(view.default) : () => import('@/views/Placeholder.vue'),
+        component: view ? markRaw(view.default) : () => import('@/views/404.vue'),
         meta: {
           title: route.meta.title,
           icon: route.meta.icon,

@@ -27,7 +27,7 @@ export default {
     },
     {
       path: ':pathMatch(.*)*',
-      component: () => import('@/views/404.vue'),
+      component: () => import('@/views/401.vue'),
     },
   ],
 };
