@@ -23,10 +23,13 @@ function standardizeRoutes(routes) {
 }
 
 export async function initializeRouter() {
-  const { data } = await getRouters();
   const appStore = useAppStore();
 
-  console.log(standardizeRoutes(data));
-
-  appStore.setRoutes([1, 2, 3]);
+  try {
+    const { data } = await getRouters();
+    console.log(standardizeRoutes(data));
+    appStore.setRoutes([1, 2, 3]);
+  } catch {
+    appStore.resetApp();
+  }
 }

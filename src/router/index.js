@@ -13,6 +13,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
+  document.title = globalConfig.app.name + (to.meta.title ? ` - ${to.meta.title}` : '');
+
   const appStore = useAppStore();
   const token = localStorage.getItem('token');
 
@@ -24,10 +26,8 @@ router.beforeEach(async (to) => {
   }
   if (appStore.routes.length === 0 && token) {
     await initializeRouter();
-    return { ...to, replace: true };
+    return true;
   }
-
-  document.title = globalConfig.app.name + (to.meta.title ? ` - ${to.meta.title}` : '');
 
   return true;
 });
