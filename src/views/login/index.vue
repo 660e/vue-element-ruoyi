@@ -39,7 +39,7 @@ async function submit() {
   try {
     const { token } = await login(model);
     localStorage.setItem('token', token);
-    router.push({ name: 'home' });
+    router.push({ name: 'Home' });
   } finally {
     submitting.value = false;
   }

@@ -19,10 +19,10 @@ router.beforeEach(async (to) => {
   const token = localStorage.getItem('token');
 
   if (to.name !== 'login' && !token) {
-    return { name: 'login' };
+    return { name: 'Login' };
   }
   if (to.name === 'login' && token) {
-    return { name: 'home' };
+    return { name: 'Home' };
   }
   if (appStore.routes.length === 0 && token) {
     await initializeRouter();

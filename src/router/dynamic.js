@@ -6,6 +6,12 @@ function standardizeRoutes(routes) {
     switch (route.component) {
       case 'Layout': {
         console.log(route);
+        if (route.meta.link) {
+          return {
+            path: '/placeholder',
+            name: 'Placeholder',
+          };
+        }
         break;
       }
 

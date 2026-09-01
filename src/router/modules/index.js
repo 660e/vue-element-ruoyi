@@ -3,13 +3,13 @@ export default {
   children: [
     {
       path: '',
-      name: 'layout-admin',
+      name: 'LayoutAdmin',
       component: () => import('@/layouts/admin/index.vue'),
       redirect: { name: 'home' },
       children: [
         {
           path: 'home',
-          name: 'home',
+          name: 'Home',
           component: () => import('@/views/home/index.vue'),
           meta: {
             title: '首页',
@@ -19,7 +19,7 @@ export default {
     },
     {
       path: 'login',
-      name: 'login',
+      name: 'Login',
       component: () => import('@/views/login/index.vue'),
       meta: {
         title: '登录',

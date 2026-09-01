@@ -3,7 +3,7 @@ export default {
   children: [
     {
       path: '',
-      name: 'playground',
+      name: 'Playground',
       component: () => import('@/views/playground/index.vue'),
     },
   ],
