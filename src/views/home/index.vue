@@ -1,3 +1,3 @@
 <template>
-  <div class="h-500">home</div>
+  <div class="h-500 w-1000">home</div>
 </template>
