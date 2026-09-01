@@ -3,11 +3,15 @@ import { PanelLeftClose, PanelLeftOpen, ChevronDown, Info } from '@lucide/vue';
 
 import { useAppStore } from '@/stores';
 
+const router = useRouter();
 const appStore = useAppStore();
+
 const expanded = ref(true);
 const menus = computed(() => appStore.getMenus());
 
-console.log(menus.value);
+function to(menu) {
+  router.push({ name: menu.name });
+}
 </script>
 
 <template>
@@ -26,15 +30,15 @@ console.log(menus.value);
           <div v-for="(menu, index) in menus" class="border-border border-b" :key="index">
             <div class="flex h-10 items-center gap-1.5 px-3">
               <Info class="shrink-0" size="16" />
-              <div class="flex-1">{{ menu.meta?.title }}</div>
+              <div class="flex-1 leading-none">{{ menu.meta?.title }}</div>
               <ChevronDown v-if="menu.children?.length" :class="[menu.meta?.expanded ? 'rotate-180' : '']" class="shrink-0 duration-200" size="16" />
             </div>
             <div v-if="menu.children?.length">
               <div class="bg-background">
                 <div v-for="(item, idx) in menu.children" :key="idx">
-                  <div class="flex h-10 items-center gap-1.5 px-3">
+                  <div @click="to(item)" class="flex h-10 items-center gap-1.5 px-3">
                     <div class="w-4"></div>
-                    <div class="flex-1">{{ item.meta?.title }}</div>
+                    <div class="flex-1 leading-none">{{ item.meta?.title }}</div>
                   </div>
                 </div>
               </div>
