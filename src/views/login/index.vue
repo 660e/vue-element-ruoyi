@@ -42,6 +42,7 @@ async function submit() {
     router.push({ name: 'Home' });
   } finally {
     submitting.value = false;
+    getCaptcha();
   }
 }
 </script>
