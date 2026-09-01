@@ -26,7 +26,7 @@ router.beforeEach(async (to) => {
   }
   if (appStore.routes.length === 0 && token) {
     await initializeRouter();
-    return true;
+    return to;
   }
 
   return true;
