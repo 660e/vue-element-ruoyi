@@ -28,6 +28,7 @@ function standardizeRoutes(routes = [], parentName = '') {
         meta: {
           title: route.meta.title,
           icon: route.meta.icon,
+          expanded: false,
           hidden: route.hidden,
         },
         children: standardizeRoutes(route.children, route.name),

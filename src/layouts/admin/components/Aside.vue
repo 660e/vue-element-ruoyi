@@ -1,5 +1,5 @@
 <script setup>
-import { PanelLeftClose, PanelLeftOpen } from '@lucide/vue';
+import { PanelLeftClose, PanelLeftOpen, ChevronDown } from '@lucide/vue';
 
 import { useAppStore } from '@/stores';
 
@@ -23,7 +23,12 @@ console.log(menus.value);
       </div>
       <div class="flex-1 overflow-auto">
         <el-scrollbar>
-          <div class="h-500"></div>
+          <div v-for="(menu, index) in menus" class="border-border border-b" :key="index">
+            <div class="flex h-10 items-center px-3">
+              <div class="flex-1">{{ menu.meta?.title }}</div>
+              <ChevronDown v-if="menu.children?.length" :class="[menu.meta?.expanded ? 'rotate-180' : '']" class="shrink-0 duration-200" size="16" />
+            </div>
+          </div>
         </el-scrollbar>
       </div>
     </div>
