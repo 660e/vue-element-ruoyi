@@ -5,7 +5,7 @@ export default {
       path: '',
       name: 'LayoutAdmin',
       component: () => import('@/layouts/admin/index.vue'),
-      redirect: { name: 'home' },
+      redirect: { name: 'Home' },
       children: [
         {
           path: 'home',
