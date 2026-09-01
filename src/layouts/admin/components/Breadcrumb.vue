@@ -1,3 +1,9 @@
+<script setup>
+const route = useRoute();
+
+console.log(route.matched);
+</script>
+
 <template>
-  <div>Breadcrumb</div>
+  <div>{{ $route.matched.length }}</div>
 </template>
