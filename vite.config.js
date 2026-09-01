@@ -43,9 +43,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/prod-api': {
-        target: 'https://vue.ruoyi.vip',
+      '/dev-api': {
+        target: 'http://172.19.12.110:8089',
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/dev-api/, ''),
       },
     },
   },
