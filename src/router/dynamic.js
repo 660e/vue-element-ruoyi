@@ -39,15 +39,22 @@ function standardizeRoutes(routes = [], parentName = '') {
       }
 
       case 'ParentView': {
-        // console.log(route);
+        console.log(route);
         break;
       }
 
       default: {
         const view = views[`/src/views/${route.component}.vue`];
-        console.log(route);
-        console.log(view);
-        break;
+        return {
+          path: route.path,
+          name: `${parentName}${route.name}`,
+          component: view ? markRaw(view.default) : () => import('@/views/Placeholder.vue'),
+          meta: {
+            title: route.meta.title,
+            icon: route.meta.icon,
+            hidden: route.hidden,
+          },
+        };
       }
     }
   });
@@ -55,8 +62,6 @@ function standardizeRoutes(routes = [], parentName = '') {
 
 export async function initializeRouter() {
   const appStore = useAppStore();
-
-  console.log(views);
 
   try {
     const { data } = await getRouters();
