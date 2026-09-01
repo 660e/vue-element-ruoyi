@@ -1,6 +1,8 @@
 import { getRouters } from '@/api';
 import { useAppStore } from '@/stores';
 
+const views = import.meta.glob('@/views/**/index.vue', { eager: true });
+
 function standardizeRoutes(routes = [], parentName = '') {
   return routes.map((route) => {
     switch (route.component) {
@@ -37,12 +39,14 @@ function standardizeRoutes(routes = [], parentName = '') {
       }
 
       case 'ParentView': {
-        // console.log(route)
+        // console.log(route);
         break;
       }
 
       default: {
-        // console.log(route)
+        const view = views[`/src/views/${route.component}.vue`];
+        console.log(route);
+        console.log(view);
         break;
       }
     }
@@ -51,6 +55,8 @@ function standardizeRoutes(routes = [], parentName = '') {
 
 export async function initializeRouter() {
   const appStore = useAppStore();
+
+  console.log(views);
 
   try {
     const { data } = await getRouters();
