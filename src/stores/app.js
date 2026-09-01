@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia';
 
-function filterHiddenRoutes(items = []) {
-  return items
-    .filter((item) => !item.meta?.hidden)
-    .map((item) => {
-      const filtered = { ...item };
-      if (item.children?.length) {
-        filtered.children = filterHiddenRoutes(item.children);
+function filterHiddenRoutes(routes = []) {
+  return routes
+    .filter((route) => !route.meta?.hidden)
+    .map((route) => {
+      const filtered = { ...route };
+      if (route.children?.length) {
+        filtered.children = filterHiddenRoutes(route.children);
         if (filtered.children.length === 0) {
           delete filtered.children;
         }
