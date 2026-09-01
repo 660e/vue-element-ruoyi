@@ -5,8 +5,9 @@ import { useAppStore } from '@/stores';
 
 const appStore = useAppStore();
 const expanded = ref(true);
+const menus = computed(() => appStore.getMenus());
 
-console.log(appStore.routes);
+console.log(menus.value);
 </script>
 
 <template>
