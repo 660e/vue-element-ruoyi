@@ -7,7 +7,7 @@ defineOptions({ name: 'QTable', inheritAttrs: false });
 
 const defaultPaginationProps = {
   page: 1,
-  size: 10,
+  size: 20,
   pageKey: 'pageNum',
   sizeKey: 'pageSize',
   hidden: false,
@@ -88,7 +88,6 @@ async function fetchTableData() {
           :total="paginationData.total"
           @current-change="fetchTableData"
           @size-change="fetchTableData"
-          size="small"
           background
         />
       </div>
