@@ -26,6 +26,11 @@ export const useAppStore = defineStore('app', () => {
     routes.value = n;
   }
 
+  function getMenus() {
+    const menus = filterHiddenRoutes(routes.value);
+    return JSON.parse(JSON.stringify(menus));
+  }
+
   function resetApp() {
     isForbidden.value = false;
     routes.value = [];
@@ -39,7 +44,7 @@ export const useAppStore = defineStore('app', () => {
     routes,
     setRoutes,
 
+    getMenus,
     resetApp,
-    getMenus: () => filterHiddenRoutes(routes.value),
   };
 });
