@@ -1,5 +1,9 @@
+<script setup>
+import { getDictTypeList } from '@/api/system/dict.js';
+</script>
+
 <template>
-  <q-table>
+  <q-table :request="getDictTypeList">
     <template #prepend>
       <div class="shrink-0">Prepend Content</div>
     </template>
