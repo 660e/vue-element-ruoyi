@@ -32,7 +32,7 @@ function to(menu) {
       <div class="flex-1 overflow-auto">
         <el-scrollbar>
           <div v-for="(menu, index) in menus" class="border-border border-b" :key="index">
-            <div @click="to(menu)" class="flex h-10 items-center gap-1.5 px-3">
+            <div @click="to(menu)" class="flex h-10 cursor-pointer items-center gap-1.5 px-3 duration-200 hover:bg-blue-100">
               <Info class="shrink-0" size="16" />
               <div class="flex-1 leading-none">{{ menu.meta?.title }}</div>
               <ChevronDown v-if="menu.children?.length" :class="[menu.meta?.expanded ? 'rotate-180' : '']" class="shrink-0 duration-200" size="16" />
@@ -44,7 +44,12 @@ function to(menu) {
             >
               <div class="bg-background overflow-hidden">
                 <div v-for="(item, idx) in menu.children" :key="idx">
-                  <div @click="to(item)" class="flex h-10 items-center gap-1.5 px-3">
+                  <div
+                    :class="[item.name === $route.name ? 'text-brand' : '']"
+                    @click="to(item)"
+                    class="relative flex h-10 cursor-pointer items-center gap-1.5 px-3 duration-200 hover:bg-neutral-100"
+                  >
+                    <div v-if="item.name === $route.name" class="border-brand absolute inset-0 border-t border-r-4 border-b"></div>
                     <div class="w-4"></div>
                     <div class="flex-1 leading-none">{{ item.meta?.title }}</div>
                   </div>
