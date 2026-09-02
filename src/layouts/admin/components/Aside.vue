@@ -3,11 +3,33 @@ import { PanelLeftClose, PanelLeftOpen, ChevronDown, Info } from '@lucide/vue';
 
 import { useAppStore } from '@/stores';
 
+const route = useRoute();
 const router = useRouter();
 const appStore = useAppStore();
 
 const expanded = ref(true);
 const menus = ref(appStore.getMenus());
+
+function expandActiveMenu(items) {
+  for (const item of items) {
+    if (item.children?.length) {
+      const containsActiveRoute = expandActiveMenu(item.children);
+      item.meta ??= {};
+      item.meta.expanded = containsActiveRoute;
+      if (containsActiveRoute) {
+        return true;
+      }
+    }
+    if (item.name === route.name) {
+      return true;
+    }
+  }
+  return false;
+}
+
+onMounted(() => {
+  expandActiveMenu(menus.value);
+});
 
 function to(menu) {
   if (menu.meta?.expanded !== undefined) {
