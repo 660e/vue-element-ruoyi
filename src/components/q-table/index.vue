@@ -13,6 +13,7 @@ const { autoRequest, request, data } = defineProps({
 });
 
 const attrs = useRestAttrs();
+const loading = ref(false);
 const tableData = ref([]);
 
 onMounted(() => {
@@ -25,11 +26,12 @@ async function fetchTableData() {
   if (data) {
     tableData.value = data;
   } else if (request) {
+    loading.value = true;
     try {
       const { rows } = await request();
       tableData.value = rows;
     } finally {
-      // Handle any cleanup or finalization if needed
+      loading.value = false;
     }
   } else {
     tableData.value = [];
@@ -43,7 +45,7 @@ async function fetchTableData() {
 
     <div class="flex flex-1 flex-col">
       <FilterField />
-      <el-table v-bind="attrs" :data="tableData" height="100%" border>
+      <el-table v-loading="loading" v-bind="attrs" :data="tableData" height="100%" border>
         <el-table-column label="#" type="index" />
       </el-table>
       <div class="shrink-0">Pagination</div>
