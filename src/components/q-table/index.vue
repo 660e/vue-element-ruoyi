@@ -1,17 +1,13 @@
 <script setup>
+import { useRestAttrs } from '@/hooks';
+
 defineOptions({ name: 'QTable', inheritAttrs: false });
 
-const attrs = useAttrs();
-const tableAttrs = computed(() => {
-  const attrsWithoutStyles = { ...attrs };
-  delete attrsWithoutStyles.class;
-  delete attrsWithoutStyles.style;
-  return attrsWithoutStyles;
-});
+const attrs = useRestAttrs();
 </script>
 
 <template>
-  <div :class="attrs.class" :style="attrs.style" class="h-full">
-    <el-table v-bind="tableAttrs" />
+  <div :class="$attrs.class" :style="$attrs.style" class="h-full">
+    <el-table v-bind="attrs" />
   </div>
 </template>

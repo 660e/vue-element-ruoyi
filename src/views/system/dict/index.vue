@@ -1,3 +1,3 @@
 <template>
-  <q-table class="bg-red-50" border />
+  <q-table />
 </template>

@@ -1,7 +1,7 @@
 import { getRouters } from '@/api';
 import { useAppStore } from '@/stores';
 
-import router from './index.js';
+import router from '.';
 
 const views = import.meta.glob('@/views/**/index.vue', { eager: true });
 
