@@ -1,3 +1,3 @@
 <template>
-  <pre>{{ $route }}</pre>
+  <q-table class="bg-red-50" border />
 </template>
