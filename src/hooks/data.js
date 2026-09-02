@@ -11,24 +11,31 @@ export function useDict() {
         return [];
       }
     } else {
-      const dictPromise = (async () => {
-        try {
-          const { data } = await getDictDataType(type);
-          const dict = data.map((e) => ({ label: e.dictLabel, value: e.dictValue, tag: e.listClass }));
+      try {
+        const { data } = await getDictDataType(type);
+        const dict = data.map((e) => ({ label: e.dictLabel, value: e.dictValue, tag: e.listClass }));
 
-          setSessionStorage(type, JSON.stringify(dict));
+        setSessionStorage(type, JSON.stringify(dict));
 
-          return dict;
-        } catch {
-          return [];
-        }
-      })();
-
-      return dictPromise;
+        return dict;
+      } catch {
+        return [];
+      }
     }
   }
 
-  function label() {}
+  async function label(type, value) {
+    // const promise = (async () => {
+    //   try {
+    //     const item = (await list(type)).find((e) => e.value === value);
+    //     return item ? item.label : '-';
+    //   } catch {
+    //     return '-';
+    //   }
+    // })();
+
+    return '-';
+  }
 
   function value() {}
 
