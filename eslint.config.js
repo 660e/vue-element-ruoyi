@@ -21,6 +21,11 @@ export default defineConfig([
         ...eslintrcAutoImport.globals,
         ...globals.browser,
       },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
   },
 
