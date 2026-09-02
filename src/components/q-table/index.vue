@@ -18,6 +18,7 @@ const defaultPaginationProps = {
 const attrs = useRestAttrs();
 const { autoRequest, pagination, request, data } = defineProps({
   autoRequest: { type: Boolean, default: true },
+  gap: { type: Number, default: 3 },
   pagination: { type: Object, default: () => ({}) },
   request: { type: Function, default: null },
 
@@ -59,15 +60,19 @@ async function fetchTableData() {
 </script>
 
 <template>
-  <div :class="$attrs.class" :style="$attrs.style" class="q-table flex h-full">
+  <div
+    :class="$attrs.class"
+    :style="{ gap: `calc(var(--spacing) * ${gap})`, padding: `calc(var(--spacing) * ${gap})`, ...$attrs.style }"
+    class="q-table flex h-full"
+  >
     <slot name="prepend"></slot>
 
-    <div class="flex flex-1 flex-col">
+    <div :style="{ gap: `calc(var(--spacing) * ${gap})` }" class="flex flex-1 flex-col">
       <FilterField />
       <el-table v-loading="loading" v-bind="attrs" :data="tableData" height="100%" border>
         <el-table-column label="#" type="index" />
       </el-table>
-      <div v-if="!paginationProps.hidden" class="shrink-0">
+      <div v-if="!paginationProps.hidden" class="flex shrink-0 justify-end">
         <el-pagination
           v-model:current-page="paginationData.page"
           :layout="paginationProps.layout.join(',')"
