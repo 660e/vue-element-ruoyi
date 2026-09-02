@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import { globalConfig } from '@/config/global.js';
 import { useAppStore } from '@/stores';
+import { getLocalStorage } from '@/utils';
 
 import { initializeRouter } from './dynamic.js';
 import staticRoutes from './static.js';
@@ -16,7 +17,7 @@ router.beforeEach(async (to) => {
   document.title = globalConfig.app.name + (to.meta.title ? ` - ${to.meta.title}` : '');
 
   const appStore = useAppStore();
-  const token = localStorage.getItem('token');
+  const token = getLocalStorage('token');
 
   if (to.name !== 'Login' && !token) {
     return { name: 'Login' };

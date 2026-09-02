@@ -2,6 +2,7 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus';
 
 import { useAppStore } from '@/stores';
+import { getLocalStorage } from '@/utils';
 
 function handleForbidden() {
   const appStore = useAppStore();
@@ -20,7 +21,7 @@ export class Request {
         if (requestInterceptors) {
           return requestInterceptors(config);
         } else {
-          config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+          config.headers.Authorization = `Bearer ${getLocalStorage('token')}`;
           return config;
         }
       },

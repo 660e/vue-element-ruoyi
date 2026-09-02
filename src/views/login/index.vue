@@ -4,6 +4,7 @@ import { UserRound, Lock, ScanBarcode } from '@lucide/vue';
 import { captchaImage, login } from '@/api';
 import { globalConfig } from '@/config/global.js';
 import { useAppStore } from '@/stores';
+import { setLocalStorage } from '@/utils';
 
 const router = useRouter();
 const appStore = useAppStore();
@@ -38,7 +39,7 @@ async function submit() {
   submitting.value = true;
   try {
     const { token } = await login(model);
-    localStorage.setItem('token', token);
+    setLocalStorage('token', token);
     router.push({ name: 'Home' });
   } finally {
     submitting.value = false;
