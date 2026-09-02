@@ -70,7 +70,14 @@ async function fetchTableData() {
     <div :style="{ gap: `calc(var(--spacing) * ${gap})` }" class="flex flex-1 flex-col">
       <FilterField />
       <el-table v-loading="loading" v-bind="attrs" :data="tableData" height="100%" border>
-        <el-table-column label="#" type="index" />
+        <el-table-column
+          :index="(index) => (paginationData.page - 1) * paginationData.size + index + 1"
+          align="center"
+          fixed="left"
+          label="#"
+          type="index"
+          width="60"
+        />
       </el-table>
       <div v-if="!paginationProps.hidden" class="flex shrink-0 justify-end">
         <el-pagination
