@@ -4,11 +4,10 @@ import { getDictTypeList } from '@/api/system/dict.js';
 
 <template>
   <q-table :request="getDictTypeList">
-    <template #prepend>
-      <div class="shrink-0">Prepend Content</div>
-    </template>
-    <template #append>
-      <div class="shrink-0">Append Content</div>
-    </template>
+    <q-column label="字典名称" prop="dictName" width="500" />
+    <q-column label="字典类型" prop="dictType" width="500" />
+    <q-column label="状态" prop="status" width="500" />
+    <q-column label="备注" prop="remark" width="500" />
+    <q-column label="创建时间" prop="createTime" width="500" />
   </q-table>
 </template>
