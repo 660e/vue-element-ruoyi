@@ -5,21 +5,20 @@ import FilterField from './FilterField.vue';
 
 defineOptions({ name: 'QTable', inheritAttrs: false });
 
+const defaultPaginationProps = {
+  page: 1,
+  size: 10,
+  pageKey: 'pageNum',
+  sizeKey: 'pageSize',
+  hidden: false,
+  layout: ['total', 'sizes', 'prev', 'pager', 'next'],
+  pageSizes: [10, 20, 50, 100],
+};
+
 const attrs = useRestAttrs();
-const { autoRequest, paginationProps, request, data } = defineProps({
+const { autoRequest, pagination, request, data } = defineProps({
   autoRequest: { type: Boolean, default: true },
-  paginationProps: {
-    type: Object,
-    default: () => ({
-      hidden: false,
-      layout: ['total', 'sizes', 'prev', 'pager', 'next'],
-      page: 1,
-      pageKey: 'pageNum',
-      pageSizes: [10, 20, 50, 100],
-      size: 10,
-      sizeKey: 'pageSize',
-    }),
-  },
+  pagination: { type: Object, default: () => ({}) },
   request: { type: Function, default: null },
 
   data: { type: Array, default: null },
@@ -28,7 +27,8 @@ const { autoRequest, paginationProps, request, data } = defineProps({
 const loading = ref(false);
 const tableData = ref([]);
 const queryParams = reactive({});
-const pagination = reactive({ page: paginationProps.page, size: paginationProps.size, total: 0 });
+const paginationProps = reactive({ ...defaultPaginationProps, ...pagination });
+const paginationData = reactive({ page: paginationProps.page, size: paginationProps.size, total: 0 });
 
 onMounted(() => {
   if (autoRequest) {
@@ -41,14 +41,14 @@ async function fetchTableData() {
     tableData.value = data;
   } else if (request) {
     const { pageKey, sizeKey } = paginationProps;
-    queryParams[pageKey] = pagination.page;
-    queryParams[sizeKey] = pagination.size;
+    queryParams[pageKey] = paginationData.page;
+    queryParams[sizeKey] = paginationData.size;
 
     loading.value = true;
     try {
       const { rows, total } = await request(queryParams);
       tableData.value = rows;
-      pagination.total = total;
+      paginationData.total = total;
     } finally {
       loading.value = false;
     }
@@ -69,11 +69,11 @@ async function fetchTableData() {
       </el-table>
       <div v-if="!paginationProps.hidden" class="shrink-0">
         <el-pagination
-          v-model:current-page="pagination.page"
+          v-model:current-page="paginationData.page"
           :layout="paginationProps.layout.join(',')"
-          :page-size="pagination.size"
+          :page-size="paginationData.size"
           :page-sizes="paginationProps.pageSizes"
-          :total="pagination.total"
+          :total="paginationData.total"
           @current-change="fetchTableData"
           @size-change="fetchTableData"
           size="small"
