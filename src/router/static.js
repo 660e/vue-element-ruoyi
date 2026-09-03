@@ -25,8 +25,12 @@ export default [
   },
   {
     path: '/playground',
-    name: 'Playground',
-    component: () => import('@/views/playground/index.vue'),
+    children: [
+      {
+        path: 'form-item',
+        component: () => import('@/views/playground/FormItem.vue'),
+      },
+    ],
   },
   {
     path: '/:pathMatch(.*)*',
