@@ -78,6 +78,8 @@ async function fetchTableData() {
     <div class="flex flex-1 flex-col overflow-auto" :style="{ gap: `calc(var(--spacing) * ${gap})` }">
       <FilterField />
 
+      <slot name="header"></slot>
+
       <el-table v-loading="loading" v-bind="attrs" class="flex-1" height="100%" border show-overflow-tooltip :data="tableData">
         <el-table-column
           align="center"
