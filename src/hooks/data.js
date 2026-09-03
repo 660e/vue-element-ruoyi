@@ -1,3 +1,4 @@
+/*
 import { getDictDataType } from '@/api/system/dict.js';
 import { setSessionStorage, getSessionStorage, is } from '@/utils';
 
@@ -54,6 +55,7 @@ export function useDict() {
 
   return { list, label, value };
 }
+*/
 
 export function useRestAttrs(ignore = ['class', 'style']) {
   const attrs = useAttrs();

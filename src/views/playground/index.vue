@@ -2,10 +2,12 @@
 import { useDictStore } from '@/stores';
 
 const dictStore = useDictStore();
+
+onMounted(async () => {
+  console.log(await dictStore.getList('sys_normal_disable'));
+});
 </script>
 
 <template>
-  <div>
-    <pre>{{ dictStore }}</pre>
-  </div>
+  <div></div>
 </template>
