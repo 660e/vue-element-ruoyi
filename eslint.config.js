@@ -50,12 +50,12 @@ export default defineConfig([
             'CONTENT', // v-text, v-html
             'SLOT', // slot, v-slot
             'OTHER_DIRECTIVES', // v-custom-directive
-            'ATTR_DYNAMIC', // v-bind:prop, :prop
             'EVENTS', // @click, v-on
             'ATTR_STATIC', // prop, custom-prop
             'GLOBAL', // id
             'UNIQUE', // ref, key
             'ATTR_SHORTHAND_BOOL', // boolean-prop
+            'ATTR_DYNAMIC', // v-bind:prop, :prop
           ],
           alphabetical: true,
         },
