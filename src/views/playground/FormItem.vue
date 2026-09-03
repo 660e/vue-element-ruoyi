@@ -5,7 +5,7 @@ const formData = ref({});
 </script>
 
 <template>
-  <div class="flex h-screen items-center justify-center">
+  <div class="flex h-screen items-center justify-center gap-12">
     <el-form class="w-100" label-width="150" :model="formData">
       <el-form-item label="标题" label-position="top" prop="top" :rules="[required]">
         <el-input v-model="formData.top" />
@@ -24,6 +24,10 @@ const formData = ref({});
       </el-form-item>
       <q-item hint="This is a hint" label="标题" label-position="right" prop="right" :rules="[required]" />
       <q-item hint="This is a hint" label="标题" label-position="right" prop="right" />
+    </el-form>
+
+    <el-form class="w-100" :model="formData">
+      <q-item label="标题" prop="input" />
     </el-form>
   </div>
 </template>

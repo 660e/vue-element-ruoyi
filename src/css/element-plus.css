@@ -41,10 +41,16 @@
   margin-bottom: calc(var(--spacing) * 6);
 }
 .el-form-item .el-form-item__label {
-  background-color: #eee;
   display: flex;
+  gap: var(--spacing);
   align-items: center;
 }
 .el-form-item.is-required:not(.is-no-asterisk).asterisk-left > .el-form-item__label:before {
   content: '必填';
+  background-color: var(--el-color-danger-light-8);
+  border-radius: 2px;
+  font-size: 8px;
+  line-height: 1;
+  padding: calc(var(--spacing) / 2) var(--spacing);
+  margin: 0;
 }
