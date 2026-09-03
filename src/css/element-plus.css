@@ -19,6 +19,9 @@
   align-items: center;
   justify-content: center;
 }
+.el-dialog .el-dialog__footer {
+  padding: calc(var(--spacing) * 6) 0 0;
+}
 
 .el-form .el-form-item {
   margin-bottom: calc(var(--spacing) * 6);
