@@ -13,9 +13,11 @@ const confirming = defineModel('confirming', { type: Boolean, default: false });
 
 <template>
   <el-dialog align-center destroy-on-close :close-icon="X" :close-on-click-modal="false" :close-on-press-escape="false">
-    <div class="overflow-auto px-6" :class="[$attrs.fullscreen ?? 'max-h-[70vh]']">
-      <slot></slot>
-    </div>
+    <el-scrollbar :max-height="$attrs.fullscreen ?? '70vh'">
+      <div class="px-6">
+        <slot></slot>
+      </div>
+    </el-scrollbar>
 
     <template #footer>
       <el-button @click="$emit('cancel')">{{ cancelText }}</el-button>
