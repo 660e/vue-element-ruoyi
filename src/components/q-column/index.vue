@@ -5,6 +5,7 @@ defineOptions({ name: 'QColumn' });
 
 const { dict } = defineProps({
   dict: { type: String, default: null },
+  operation: { type: Boolean, default: false },
 });
 
 const dictStore = useDictStore();
@@ -29,5 +30,12 @@ function formatter(_, __, cellValue) {
 </script>
 
 <template>
-  <el-table-column :formatter="formatter" />
+  <el-table-column v-if="operation" align="center" fixed="right" label="操作">
+    <template #default="{ row }">
+      <div class="flex justify-center gap-3">
+        <slot :row="row"></slot>
+      </div>
+    </template>
+  </el-table-column>
+  <el-table-column v-else :formatter="formatter" />
 </template>
