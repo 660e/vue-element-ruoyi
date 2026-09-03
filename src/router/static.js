@@ -24,6 +24,11 @@ export default [
     },
   },
   {
+    path: '/playground',
+    name: 'Playground',
+    component: () => import('@/views/playground/index.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: () => import('@/views/401.vue'),
   },
