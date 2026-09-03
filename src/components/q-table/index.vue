@@ -43,15 +43,21 @@ async function fetchTableData() {
   if (data) {
     tableData.value = data;
   } else if (request) {
-    const { pageKey, sizeKey, rowsKey, totalKey } = paginationProps;
-    queryParams[pageKey] = paginationData.page;
-    queryParams[sizeKey] = paginationData.size;
+    const { pageKey, sizeKey, rowsKey, totalKey, hidden } = paginationProps;
+
+    if (!hidden) {
+      queryParams[pageKey] = paginationData.page;
+      queryParams[sizeKey] = paginationData.size;
+    }
 
     loading.value = true;
     try {
       const { [rowsKey]: rows, [totalKey]: total } = await request(queryParams);
       tableData.value = rows;
-      paginationData.total = total;
+
+      if (!hidden) {
+        paginationData.total = total;
+      }
     } finally {
       loading.value = false;
     }
