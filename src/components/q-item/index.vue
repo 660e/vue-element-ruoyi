@@ -11,7 +11,9 @@ defineProps({
   <el-form-item class="q-item">
     <template #label="{ label }">
       <span>{{ label }}</span>
-      <Info size="14" />
+      <el-tooltip v-if="hint" placement="top" :content="hint">
+        <Info size="14" />
+      </el-tooltip>
     </template>
 
     <el-input />
