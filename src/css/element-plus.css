@@ -40,9 +40,10 @@
 .el-form-item {
   margin-bottom: calc(var(--spacing) * 6);
 }
-.el-form-item.is-required .el-form-item__label {
+.el-form-item .el-form-item__label {
   background-color: #eee;
   display: flex;
+  align-items: center;
 }
 .el-form-item.is-required:not(.is-no-asterisk).asterisk-left > .el-form-item__label:before {
   content: '必填';
