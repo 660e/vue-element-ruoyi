@@ -77,7 +77,7 @@ async function fetchTableData() {
           fixed="left"
           label="#"
           type="index"
-          width="60"
+          width="70"
         />
         <slot></slot>
       </el-table>
