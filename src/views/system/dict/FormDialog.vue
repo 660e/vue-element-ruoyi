@@ -24,6 +24,7 @@ function confirm() {
       <el-form-item label="name2" prop="name2" :rules="[required]">
         <el-input v-model="formData.name2" />
       </el-form-item>
+      <q-item label="name3" label-position="top" prop="name3" :rules="[required]" />
     </el-form>
   </q-dialog>
 </template>
