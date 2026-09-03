@@ -1,12 +1,16 @@
 <script setup>
 import { getDictTypeList } from '@/api/system/dict.js';
+
+import FormDialog from './FormDialog.vue';
+
+const formDialogRef = ref(null);
 </script>
 
 <template>
   <q-table :request="getDictTypeList">
     <template #header>
       <div>
-        <el-button type="primary" plain>新增</el-button>
+        <el-button @click="formDialogRef.open()" type="primary" plain>新增</el-button>
         <el-button type="warning" plain>导出</el-button>
         <el-button type="danger" plain>刷新缓存</el-button>
       </div>
@@ -19,9 +23,11 @@ import { getDictTypeList } from '@/api/system/dict.js';
     <q-column label="创建时间" prop="createTime" width="200" />
     <q-column width="100" operation>
       <template #default="{ row }">
-        <el-link type="primary">修改</el-link>
+        <el-link @click="formDialogRef.open(row)" type="primary">修改</el-link>
         <el-link type="danger">删除</el-link>
       </template>
     </q-column>
   </q-table>
+
+  <form-dialog ref="formDialogRef" />
 </template>
