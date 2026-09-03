@@ -12,7 +12,16 @@ const dictStore = useDictStore();
 function formatter(_, __, cellValue) {
   if (dict) {
     const label = dictStore.getLabel(dict, cellValue);
-    return <span>{label}</span>;
+    const tag = dictStore.getTag(dict, cellValue);
+
+    if (tag) {
+      return (
+        <el-tag type={tag} size="small">
+          {label}
+        </el-tag>
+      );
+    }
+    return label;
   }
 
   return cellValue;

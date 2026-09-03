@@ -73,7 +73,7 @@ export const useDictStore = defineStore('dict', () => {
     const dictList = dictCache.get(type);
     if (!dictList) {
       getList(type);
-      return '-';
+      return;
     }
 
     return dictList.find((e) => e.value === value)?.tag;
