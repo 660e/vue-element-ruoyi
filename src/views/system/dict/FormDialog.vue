@@ -3,7 +3,7 @@ const visible = ref(true);
 </script>
 
 <template>
-  <q-dialog v-model="visible">
-    <div>123</div>
+  <q-dialog v-model="visible" title="title" width="500">
+    <div>body</div>
   </q-dialog>
 </template>
