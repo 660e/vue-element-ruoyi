@@ -21,10 +21,10 @@ export const useDictStore = defineStore('dict', () => {
     const sessionData = getSessionStorage(type);
     if (sessionData) {
       try {
-        const dict = JSON.parse(sessionData);
-        dictCache.set(type, dict);
+        const dictList = JSON.parse(sessionData);
+        dictCache.set(type, dictList);
 
-        return dict;
+        return dictList;
       } catch {
         return [];
       }
@@ -33,11 +33,11 @@ export const useDictStore = defineStore('dict', () => {
     const request = (async () => {
       try {
         const { data } = await getDictDataType(type);
-        const dict = data.map((e) => ({ label: e.dictLabel, value: e.dictValue, tag: e.listClass }));
-        dictCache.set(type, dict);
-        setSessionStorage(type, JSON.stringify(dict));
+        const dictList = data.map((e) => ({ label: e.dictLabel, value: e.dictValue, tag: e.listClass }));
+        dictCache.set(type, dictList);
+        setSessionStorage(type, JSON.stringify(dictList));
 
-        return dict;
+        return dictList;
       } catch {
         return [];
       }
@@ -49,5 +49,16 @@ export const useDictStore = defineStore('dict', () => {
     return request;
   }
 
-  return { getList };
+  function getLabel(type, value) {
+    const dictList = dictCache.get(type);
+    if (!dictList) {
+      getList(type);
+      return '-';
+    }
+
+    const item = dictList.find((entry) => entry.value === value);
+    return item?.label ?? '-';
+  }
+
+  return { getList, getLabel };
 });
