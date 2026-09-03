@@ -26,8 +26,10 @@ const formData = ref({});
       <q-item hint="This is a hint" label="标题" label-position="right" prop="right" />
     </el-form>
 
-    <el-form class="w-100" :model="formData">
-      <q-item label="标题" prop="input" />
+    <el-form class="w-100" label-width="100" :model="formData">
+      <q-item label="input" prop="input" />
     </el-form>
+
+    <pre>{{ formData }}</pre>
   </div>
 </template>
