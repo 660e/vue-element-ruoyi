@@ -1,8 +1,21 @@
 <script setup lang="jsx">
+import { useDictStore } from '@/stores';
+
 defineOptions({ name: 'QColumn' });
 
+const { dict } = defineProps({
+  dict: { type: String, default: null },
+});
+
+const dictStore = useDictStore();
+
 function formatter(_, __, cellValue) {
-  return <span>{cellValue}</span>;
+  if (dict) {
+    const label = dictStore.getLabel(dict, cellValue);
+    return <span>{label}</span>;
+  }
+
+  return cellValue;
 }
 </script>
 
