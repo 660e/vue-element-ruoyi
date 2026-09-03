@@ -13,7 +13,9 @@ const confirming = defineModel('confirming', { type: Boolean, default: false });
 
 <template>
   <el-dialog align-center destroy-on-close :close-icon="X" :close-on-click-modal="false" :close-on-press-escape="false">
-    <slot></slot>
+    <div class="max-h-[70vh] overflow-auto px-6">
+      <slot></slot>
+    </div>
 
     <template #footer>
       <el-button @click="$emit('cancel')">{{ cancelText }}</el-button>

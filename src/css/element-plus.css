@@ -3,24 +3,27 @@
 }
 
 .el-dialog {
-  padding: calc(var(--spacing) * 6);
+  padding: 0;
 }
 .el-dialog .el-dialog__header {
   display: flex;
-  padding: 0 0 calc(var(--spacing) * 6);
+  padding: calc(var(--spacing) * 6);
 }
 .el-dialog .el-dialog__header .el-dialog__title {
   line-height: 1;
 }
 .el-dialog .el-dialog__header .el-dialog__headerbtn {
-  height: calc(var(--spacing) * 16);
-  width: calc(var(--spacing) * 16);
+  height: calc(var(--spacing) * 16 + 2px);
+  width: calc(var(--spacing) * 16 + 2px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.el-dialog .el-dialog__header .el-dialog__headerbtn .el-icon {
+  font-size: 18px;
+}
 .el-dialog .el-dialog__footer {
-  padding: calc(var(--spacing) * 6) 0 0;
+  padding: calc(var(--spacing) * 6);
 }
 
 .el-form .el-form-item {
