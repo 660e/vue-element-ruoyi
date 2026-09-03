@@ -1,7 +1,11 @@
 <script setup>
-console.log('Playground view loaded');
+import { useDictStore } from '@/stores';
+
+const dictStore = useDictStore();
 </script>
 
 <template>
-  <div></div>
+  <div>
+    <pre>{{ dictStore }}</pre>
+  </div>
 </template>
