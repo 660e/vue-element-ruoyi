@@ -59,5 +59,25 @@ export const useDictStore = defineStore('dict', () => {
     return dictList.find((e) => e.value === value)?.label ?? '-';
   }
 
-  return { getList, getLabel };
+  function getValue(type, label) {
+    const dictList = dictCache.get(type);
+    if (!dictList) {
+      getList(type);
+      return '-';
+    }
+
+    return dictList.find((e) => e.label === label)?.value ?? '-';
+  }
+
+  function getTag(type, value) {
+    const dictList = dictCache.get(type);
+    if (!dictList) {
+      getList(type);
+      return '-';
+    }
+
+    return dictList.find((e) => e.value === value)?.tag;
+  }
+
+  return { getList, getLabel, getValue, getTag };
 });
