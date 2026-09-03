@@ -56,8 +56,7 @@ export const useDictStore = defineStore('dict', () => {
       return '-';
     }
 
-    const item = dictList.find((entry) => entry.value === value);
-    return item?.label ?? '-';
+    return dictList.find((e) => e.value === value)?.label ?? '-';
   }
 
   return { getList, getLabel };
