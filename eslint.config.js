@@ -69,6 +69,7 @@ export default defineConfig([
       'vue/no-empty-component-block': 'error',
       'vue/no-lone-template': 'error',
       'vue/no-static-inline-styles': ['error', { allowBinding: true }],
+      'vue/require-default-prop': 'off',
       'vue/require-macro-variable-name': 'error',
       'vue/singleline-html-element-content-newline': 'off',
     },

@@ -3,14 +3,17 @@ import { Info } from '@lucide/vue';
 import { useFormItem } from 'element-plus';
 
 defineOptions({ name: 'QItem' });
-defineProps({
-  hint: { type: String, default: null },
-  props: { type: Object, default: () => ({}) },
-  type: { type: String, default: null },
+
+const defaultProps = { type: 'text' };
+
+const { props } = defineProps({
+  hint: { type: String },
+  props: { type: Object },
 });
 
 const { form } = useFormItem();
 const model = computed(() => form?.model);
+const itemProps = computed(() => ({ ...defaultProps, ...props }));
 </script>
 
 <template>
@@ -22,21 +25,19 @@ const model = computed(() => form?.model);
       </el-tooltip>
     </template>
 
-    <div v-if="type === ''"></div>
-
     <!-- 数字输入框 -->
     <el-input-number
-      v-else-if="type === 'number'"
+      v-if="itemProps.type === 'number'"
       v-model="model[$attrs.prop]"
       :placeholder="`请输入${$attrs.label}`"
       :style="{ width: '100%' }"
       align="left"
       controls-position="right"
       disabled-scientific
-      v-bind="props"
+      v-bind="itemProps"
     />
 
     <!-- 输入框、密码框、文本域 -->
-    <el-input v-else v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" :type="type" clearable show-word-limit v-bind="props" />
+    <el-input v-else v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" clearable show-word-limit v-bind="itemProps" />
   </el-form-item>
 </template>
