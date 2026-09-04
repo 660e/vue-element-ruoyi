@@ -22,23 +22,9 @@ const model = computed(() => form?.model);
       </el-tooltip>
     </template>
 
-    <!-- 输入框 -->
-    <el-input v-if="type === 'text'" v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" show-word-limit v-bind="props" />
+    <div v-if="type === ''"></div>
 
-    <!-- 文本域 -->
-    <el-input
-      v-else-if="type === 'textarea'"
-      v-model="model[$attrs.prop]"
-      :placeholder="`请输入${$attrs.label}`"
-      type="textarea"
-      show-word-limit
-      v-bind="props"
-    />
-
-    <!-- 密码框 -->
-    <el-input v-else-if="type === 'password'" v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" show-password v-bind="props" />
-
-    <!-- 默认 -->
-    <div v-else>{{ $attrs.prop }}</div>
+    <!-- 输入框、密码框、文本域 -->
+    <el-input v-else v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" :type="type" clearable show-word-limit v-bind="props" />
   </el-form-item>
 </template>
