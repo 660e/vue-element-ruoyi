@@ -3,17 +3,17 @@ import { useDictStore } from '@/stores';
 
 defineOptions({ name: 'QColumn' });
 
-const { dict } = defineProps({
-  dict: { type: String },
+const { config } = defineProps({
+  config: { type: Object },
   operation: { type: Boolean },
 });
 
 const dictStore = useDictStore();
 
 function formatter(_, __, cellValue) {
-  if (dict) {
-    const label = dictStore.getLabel(dict, cellValue);
-    const tag = dictStore.getTag(dict, cellValue);
+  if (config?.dict) {
+    const label = dictStore.getLabel(config.dict, cellValue);
+    const tag = dictStore.getTag(config.dict, cellValue);
 
     if (tag) {
       return (
