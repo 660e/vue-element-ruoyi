@@ -15,7 +15,20 @@ const { form } = useFormItem();
 const model = reactive(form?.model);
 
 const dictStore = useDictStore();
-const itemConfig = reactive({ ...getPrivateConfig(config?.type), ...config });
+const itemConfig = reactive({ ...config });
+
+const valueFormat = computed(() => {
+  switch (itemConfig.type) {
+    case 'date':
+      return 'YYYY-MM-DD';
+    case 'month':
+      return 'YYYY-MM';
+    case 'year':
+      return 'YYYY';
+    default:
+      return '';
+  }
+});
 
 onMounted(async () => {
   switch (itemConfig.type) {
@@ -27,21 +40,6 @@ onMounted(async () => {
     }
   }
 });
-
-function getPrivateConfig(type) {
-  switch (type) {
-    case 'date':
-      return { valueFormat: 'YYYY-MM-DD' };
-    case 'month':
-      return { valueFormat: 'YYYY-MM' };
-    case 'year':
-      return { valueFormat: 'YYYY' };
-    case 'textarea':
-      return { rows: 3 };
-    default:
-      return {};
-  }
-}
 </script>
 
 <template>
@@ -79,11 +77,12 @@ function getPrivateConfig(type) {
       v-else-if="['date', 'month', 'year'].includes(itemConfig.type)"
       v-model="model[$attrs.prop]"
       :placeholder="`请选择${$attrs.label}`"
+      :value-format="valueFormat"
       class="w-full!"
       v-bind="itemConfig"
     />
 
     <!-- 输入框、密码框、文本域 -->
-    <el-input v-else v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" clearable show-word-limit v-bind="itemConfig" />
+    <el-input v-else v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" :rows="3" clearable show-word-limit v-bind="itemConfig" />
   </el-form-item>
 </template>
