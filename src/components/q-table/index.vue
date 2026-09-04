@@ -65,6 +65,10 @@ async function fetchTableData() {
     tableData.value = [];
   }
 }
+
+defineExpose({
+  refresh: fetchTableData,
+});
 </script>
 
 <template>

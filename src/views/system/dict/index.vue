@@ -3,11 +3,12 @@ import { getDictTypeList } from '@/api/system/dict.js';
 
 import FormDialog from './FormDialog.vue';
 
+const tableRef = ref(null);
 const formDialogRef = ref(null);
 </script>
 
 <template>
-  <q-table :request="getDictTypeList">
+  <q-table :request="getDictTypeList" ref="tableRef">
     <template #header>
       <div>
         <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
@@ -27,5 +28,5 @@ const formDialogRef = ref(null);
     </q-column>
   </q-table>
 
-  <form-dialog ref="formDialogRef" />
+  <form-dialog @confirm="tableRef.refresh()" ref="formDialogRef" />
 </template>
