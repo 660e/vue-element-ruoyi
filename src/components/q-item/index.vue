@@ -23,15 +23,36 @@ const model = computed(() => form?.model);
     </template>
 
     <!-- 输入框 -->
-    <el-input v-if="type === 'text'" v-model="model[$attrs.prop]" show-word-limit :maxlength="props.maxlength" />
+    <el-input
+      v-if="type === 'text'"
+      v-model="model[$attrs.prop]"
+      word-limit-position="outside"
+      show-word-limit
+      :maxlength="props.maxlength"
+      :placeholder="`请输入${$attrs.label}`"
+    />
 
     <!-- 文本域 -->
-    <el-input v-else-if="type === 'textarea'" v-model="model[$attrs.prop]" type="textarea" show-word-limit :maxlength="props.maxlength" />
+    <el-input
+      v-else-if="type === 'textarea'"
+      v-model="model[$attrs.prop]"
+      type="textarea"
+      word-limit-position="outside"
+      show-word-limit
+      :maxlength="props.maxlength"
+      :placeholder="`请输入${$attrs.label}`"
+    />
 
     <!-- 密码框 -->
-    <el-input v-else-if="type === 'password'" v-model="model[$attrs.prop]" show-password :maxlength="props.maxlength" />
+    <el-input
+      v-else-if="type === 'password'"
+      v-model="model[$attrs.prop]"
+      show-password
+      :maxlength="props.maxlength"
+      :placeholder="`请输入${$attrs.label}`"
+    />
 
     <!-- 默认 -->
-    <div v-else>{{ type }}</div>
+    <div v-else>{{ $attrs.prop }}</div>
   </el-form-item>
 </template>
