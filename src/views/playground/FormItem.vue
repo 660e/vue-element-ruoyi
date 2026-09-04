@@ -32,6 +32,9 @@ const formData = ref({});
       <q-item :config="{ type: 'password', maxlength: 4, showPassword: true }" label="password" prop="password" />
       <q-item :config="{ type: 'number', min: 0, max: 100 }" label="number" prop="number" />
       <q-item :config="{ type: 'select', dict: 'sys_normal_disable' }" label="select" prop="select" />
+      <q-item :config="{ type: 'date' }" label="date" prop="date" />
+      <q-item :config="{ type: 'month' }" label="month" prop="month" />
+      <q-item :config="{ type: 'year' }" label="year" prop="year" />
     </el-form>
 
     <pre>{{ formData }}</pre>

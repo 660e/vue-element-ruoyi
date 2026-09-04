@@ -52,10 +52,19 @@ onMounted(async () => {
       v-else-if="itemConfig.type === 'number'"
       v-model="model[$attrs.prop]"
       :placeholder="`请输入${$attrs.label}`"
-      :style="{ width: '100%' }"
       align="left"
+      class="w-full!"
       controls-position="right"
       disabled-scientific
+      v-bind="itemConfig"
+    />
+
+    <!-- 日期选择器、月份选择器、年份选择器 -->
+    <el-date-picker
+      v-else-if="['date', 'month', 'year'].includes(itemConfig.type)"
+      v-model="model[$attrs.prop]"
+      :placeholder="`请选择${$attrs.label}`"
+      class="w-full!"
       v-bind="itemConfig"
     />
 
