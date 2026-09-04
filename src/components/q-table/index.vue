@@ -80,7 +80,7 @@ async function fetchTableData() {
 
       <slot name="header"></slot>
 
-      <el-table v-loading="loading" v-bind="attrs" class="flex-1" height="100%" border show-overflow-tooltip :data="tableData">
+      <el-table v-loading="loading" class="flex-1" height="100%" border show-overflow-tooltip :data="tableData" v-bind="attrs">
         <el-table-column
           align="center"
           fixed="left"

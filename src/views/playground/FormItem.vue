@@ -28,7 +28,7 @@ const formData = ref({});
 
     <el-form class="w-100" label-width="100" :model="formData">
       <q-item label="text" prop="text" type="text" :props="{ maxlength: 4 }" />
-      <q-item label="textarea" prop="textarea" type="textarea" :props="{ maxlength: 4 }" />
+      <q-item label="textarea" prop="textarea" type="textarea" :props="{ maxlength: 4, placeholder: '请输入内容' }" />
       <q-item label="password" prop="password" type="password" :props="{ maxlength: 4 }" />
       <!-- <q-item label="number" prop="number" type="number" /> -->
     </el-form>

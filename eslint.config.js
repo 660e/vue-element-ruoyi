@@ -58,6 +58,7 @@ export default defineConfig([
             'ATTR_DYNAMIC', // v-bind:prop, :prop
           ],
           alphabetical: true,
+          ignoreVBindObject: true,
         },
       ],
       'vue/block-lang': 'off',
