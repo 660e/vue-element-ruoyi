@@ -16,9 +16,7 @@ import Version from './components/Version.vue';
           <Version />
         </div>
         <div class="flex-1 overflow-auto">
-          <el-scrollbar>
-            <RouterView />
-          </el-scrollbar>
+          <RouterView />
         </div>
       </div>
     </div>
