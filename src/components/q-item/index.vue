@@ -1,10 +1,14 @@
 <script setup>
 import { Info } from '@lucide/vue';
+import { useFormItem } from 'element-plus';
 
 defineOptions({ name: 'QItem' });
 defineProps({
   hint: { type: String, default: null },
 });
+
+const { form } = useFormItem();
+const model = computed(() => form?.model);
 </script>
 
 <template>
@@ -16,6 +20,6 @@ defineProps({
       </el-tooltip>
     </template>
 
-    <el-input />
+    <el-input v-model="model[$attrs.prop]" />
   </el-form-item>
 </template>
