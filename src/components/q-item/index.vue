@@ -21,9 +21,12 @@ const model = computed(() => form?.model);
       </el-tooltip>
     </template>
 
+    <!-- 选择器 -->
+    <el-select v-if="props?.type === 'select'" v-model="model[$attrs.prop]" :placeholder="`请选择${$attrs.label}`" clearable v-bind="props" />
+
     <!-- 数字输入框 -->
     <el-input-number
-      v-if="props?.type === 'number'"
+      v-else-if="props?.type === 'number'"
       v-model="model[$attrs.prop]"
       :placeholder="`请输入${$attrs.label}`"
       :style="{ width: '100%' }"

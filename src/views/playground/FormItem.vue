@@ -31,6 +31,7 @@ const formData = ref({});
       <q-item :props="{ type: 'textarea', maxlength: 4 }" label="textarea" prop="textarea" />
       <q-item :props="{ type: 'password', maxlength: 4, showPassword: true }" label="password" prop="password" />
       <q-item :props="{ type: 'number', min: 0, max: 100 }" label="number" prop="number" />
+      <q-item :props="{ type: 'select' }" label="select" prop="select" />
     </el-form>
 
     <pre>{{ formData }}</pre>
