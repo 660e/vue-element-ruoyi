@@ -10,7 +10,7 @@ const formDialogRef = ref(null);
   <q-table :request="getDictTypeList">
     <template #header>
       <div>
-        <el-button @click="formDialogRef.open()" type="primary" plain>新增</el-button>
+        <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
       </div>
     </template>
 
@@ -21,7 +21,7 @@ const formDialogRef = ref(null);
     <q-column label="创建时间" prop="createTime" width="200" />
     <q-column width="100" operation>
       <template #default="{ row }">
-        <el-link @click="formDialogRef.open(row)" type="primary">修改</el-link>
+        <el-link type="primary" @click="formDialogRef.open(row)">修改</el-link>
         <el-link type="danger">删除</el-link>
       </template>
     </q-column>

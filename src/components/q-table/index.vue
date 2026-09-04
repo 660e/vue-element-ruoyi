@@ -69,25 +69,25 @@ async function fetchTableData() {
 
 <template>
   <div
+    class="q-table flex h-full"
     :class="$attrs.class"
     :style="{ gap: `calc(var(--spacing) * ${gap})`, padding: `calc(var(--spacing) * ${gap})`, ...$attrs.style }"
-    class="q-table flex h-full"
   >
     <slot name="prepend"></slot>
 
-    <div :style="{ gap: `calc(var(--spacing) * ${gap})` }" class="flex flex-1 flex-col overflow-auto">
+    <div class="flex flex-1 flex-col overflow-auto" :style="{ gap: `calc(var(--spacing) * ${gap})` }">
       <FilterField />
 
       <slot name="header"></slot>
 
-      <el-table v-loading="loading" :data="tableData" class="flex-1" height="100%" border show-overflow-tooltip v-bind="attrs">
+      <el-table v-loading="loading" class="flex-1" height="100%" :data="tableData" border show-overflow-tooltip v-bind="attrs">
         <el-table-column
-          :index="(index) => (paginationData.page - 1) * paginationData.size + index + 1"
           align="center"
           fixed="left"
           label="#"
           type="index"
           width="70"
+          :index="(index) => (paginationData.page - 1) * paginationData.size + index + 1"
         />
         <slot></slot>
       </el-table>

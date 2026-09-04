@@ -21,7 +21,7 @@ const confirming = defineModel('confirming', { type: Boolean, default: false });
 
     <template #footer>
       <el-button @click="$emit('cancel')">{{ cancelText }}</el-button>
-      <el-button :loading="confirming" @click="$emit('confirm')" type="primary">{{ confirmText }}</el-button>
+      <el-button type="primary" :loading="confirming" @click="$emit('confirm')">{{ confirmText }}</el-button>
     </template>
   </el-dialog>
 </template>

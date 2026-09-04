@@ -46,7 +46,7 @@ onMounted(async () => {
   <el-form-item class="q-item">
     <template #label="{ label }">
       <span>{{ label }}</span>
-      <el-tooltip v-if="hint" :content="hint" placement="top">
+      <el-tooltip v-if="hint" placement="top" :content="hint">
         <Info size="14" />
       </el-tooltip>
     </template>
@@ -64,10 +64,10 @@ onMounted(async () => {
     <el-input-number
       v-else-if="itemConfig.type === 'number'"
       v-model="model[$attrs.prop]"
-      :placeholder="`请输入${$attrs.label}`"
       align="left"
       class="w-full!"
       controls-position="right"
+      :placeholder="`请输入${$attrs.label}`"
       disabled-scientific
       v-bind="itemConfig"
     />
@@ -76,9 +76,9 @@ onMounted(async () => {
     <el-date-picker
       v-else-if="['date', 'month', 'year'].includes(itemConfig.type)"
       v-model="model[$attrs.prop]"
+      class="w-full!"
       :placeholder="`请选择${$attrs.label}`"
       :value-format="valueFormat"
-      class="w-full!"
       v-bind="itemConfig"
     />
 
