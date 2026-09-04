@@ -1,5 +1,5 @@
 <script setup>
-import { getDictTypeList } from '@/api/system/dict.js';
+import { getDictTypeList, deleteDictType } from '@/api/system/dict.js';
 
 import FormDialog from './FormDialog.vue';
 
@@ -12,7 +12,6 @@ const formDialogRef = ref(null);
     <template #header>
       <div>
         <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
-        <q-confirm text="测试" :button="{ link: false, plain: true, type: 'success' }" @confirm="tableRef.refresh()" />
       </div>
     </template>
 
@@ -24,7 +23,7 @@ const formDialogRef = ref(null);
     <q-column width="120" operation>
       <template #default="{ row }">
         <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button>
-        <q-confirm @confirm="tableRef.refresh()" />
+        <q-confirm :request="() => deleteDictType(row.dictId)" @confirm="tableRef.refresh()" />
       </template>
     </q-column>
   </q-table>
