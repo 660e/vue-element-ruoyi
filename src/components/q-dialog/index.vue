@@ -5,7 +5,9 @@ defineEmits(['cancel', 'confirm']);
 defineOptions({ name: 'QDialog' });
 defineProps({
   cancelText: { type: String, default: '取消' },
+  cancelType: { type: String },
   confirmText: { type: String, default: '确定' },
+  confirmType: { type: String, default: 'primary' },
 });
 
 const confirming = defineModel('confirming', { type: Boolean, default: false });
@@ -20,8 +22,8 @@ const confirming = defineModel('confirming', { type: Boolean, default: false });
     </el-scrollbar>
 
     <template #footer>
-      <el-button @click="$emit('cancel')">{{ cancelText }}</el-button>
-      <el-button type="primary" :loading="confirming" @click="$emit('confirm')">{{ confirmText }}</el-button>
+      <el-button :type="cancelType" @click="$emit('cancel')">{{ cancelText }}</el-button>
+      <el-button :loading="confirming" :type="confirmType" @click="$emit('confirm')">{{ confirmText }}</el-button>
     </template>
   </el-dialog>
 </template>

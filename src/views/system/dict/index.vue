@@ -12,7 +12,7 @@ const formDialogRef = ref(null);
     <template #header>
       <div>
         <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
-        <q-confirm :button="{ link: false, plain: true }" @confirm="tableRef.refresh()" />
+        <q-confirm text="测试" :button="{ link: false, plain: true, type: 'success' }" @confirm="tableRef.refresh()" />
       </div>
     </template>
 
