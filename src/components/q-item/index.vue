@@ -2,14 +2,26 @@
 import { Info } from '@lucide/vue';
 import { useFormItem } from 'element-plus';
 
+import { useDictStore } from '@/stores';
+
 defineOptions({ name: 'QItem' });
-defineProps({
+
+const { config } = defineProps({
+  config: { type: Object },
   hint: { type: String },
-  props: { type: Object },
 });
 
 const { form } = useFormItem();
+const dictStore = useDictStore();
+
 const model = computed(() => form?.model);
+const itemConfig = reactive({ ...config });
+
+onMounted(async () => {
+  if (itemConfig.type === 'select') {
+    itemConfig.options = await dictStore.getList(itemConfig.dict);
+  }
+});
 </script>
 
 <template>
@@ -22,21 +34,27 @@ const model = computed(() => form?.model);
     </template>
 
     <!-- 选择器 -->
-    <el-select v-if="props?.type === 'select'" v-model="model[$attrs.prop]" :placeholder="`请选择${$attrs.label}`" clearable v-bind="props" />
+    <el-select
+      v-if="itemConfig.type === 'select'"
+      v-model="model[$attrs.prop]"
+      :placeholder="`请选择${$attrs.label}`"
+      clearable
+      v-bind="itemConfig"
+    />
 
     <!-- 数字输入框 -->
     <el-input-number
-      v-else-if="props?.type === 'number'"
+      v-else-if="itemConfig.type === 'number'"
       v-model="model[$attrs.prop]"
       :placeholder="`请输入${$attrs.label}`"
       :style="{ width: '100%' }"
       align="left"
       controls-position="right"
       disabled-scientific
-      v-bind="props"
+      v-bind="itemConfig"
     />
 
     <!-- 输入框、密码框、文本域 -->
-    <el-input v-else v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" clearable show-word-limit v-bind="props" />
+    <el-input v-else v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" clearable show-word-limit v-bind="itemConfig" />
   </el-form-item>
 </template>

@@ -27,11 +27,11 @@ const formData = ref({});
     </el-form>
 
     <el-form :model="formData" class="w-100" label-width="100">
-      <q-item :props="{ maxlength: 4, onInput: (value) => console.log(value) }" label="text" prop="text" />
-      <q-item :props="{ type: 'textarea', maxlength: 4 }" label="textarea" prop="textarea" />
-      <q-item :props="{ type: 'password', maxlength: 4, showPassword: true }" label="password" prop="password" />
-      <q-item :props="{ type: 'number', min: 0, max: 100 }" label="number" prop="number" />
-      <q-item :props="{ type: 'select' }" label="select" prop="select" />
+      <q-item :config="{ maxlength: 4, onInput: (value) => console.log(value) }" label="text" prop="text" />
+      <q-item :config="{ type: 'textarea', maxlength: 4 }" label="textarea" prop="textarea" />
+      <q-item :config="{ type: 'password', maxlength: 4, showPassword: true }" label="password" prop="password" />
+      <q-item :config="{ type: 'number', min: 0, max: 100 }" label="number" prop="number" />
+      <q-item :config="{ type: 'select', dict: 'sys_normal_disable' }" label="select" prop="select" />
     </el-form>
 
     <pre>{{ formData }}</pre>
