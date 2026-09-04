@@ -17,7 +17,7 @@ function confirm() {
 
 <template>
   <q-dialog v-model="visible" v-model:confirming="confirming" @confirm="confirm" title="title" width="500">
-    <el-form ref="formRef" :model="formData">
+    <el-form :model="formData" ref="formRef">
       <!--  -->
     </el-form>
   </q-dialog>

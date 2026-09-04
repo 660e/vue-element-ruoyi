@@ -17,26 +17,26 @@ const model = computed(() => form?.model);
   <el-form-item class="q-item">
     <template #label="{ label }">
       <span>{{ label }}</span>
-      <el-tooltip v-if="hint" placement="top" :content="hint">
+      <el-tooltip v-if="hint" :content="hint" placement="top">
         <Info size="14" />
       </el-tooltip>
     </template>
 
     <!-- 输入框 -->
-    <el-input v-if="type === 'text'" v-model="model[$attrs.prop]" show-word-limit :placeholder="`请输入${$attrs.label}`" v-bind="props" />
+    <el-input v-if="type === 'text'" v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" show-word-limit v-bind="props" />
 
     <!-- 文本域 -->
     <el-input
       v-else-if="type === 'textarea'"
       v-model="model[$attrs.prop]"
+      :placeholder="`请输入${$attrs.label}`"
       type="textarea"
       show-word-limit
-      :placeholder="`请输入${$attrs.label}`"
       v-bind="props"
     />
 
     <!-- 密码框 -->
-    <el-input v-else-if="type === 'password'" v-model="model[$attrs.prop]" show-password :placeholder="`请输入${$attrs.label}`" v-bind="props" />
+    <el-input v-else-if="type === 'password'" v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" show-password v-bind="props" />
 
     <!-- 默认 -->
     <div v-else>{{ $attrs.prop }}</div>

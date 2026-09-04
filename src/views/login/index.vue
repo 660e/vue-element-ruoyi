@@ -52,7 +52,7 @@ async function submit() {
   <div class="flex h-screen items-center justify-center">
     <el-card class="w-100">
       <div class="text-center text-xl leading-none">{{ globalConfig.app.name }}</div>
-      <el-form @submit.prevent="submit" class="mt-6" :disabled="submitting">
+      <el-form :disabled="submitting" @submit.prevent="submit" class="mt-6">
         <el-form-item>
           <el-input v-model="model.username" placeholder="请输入账号" size="large" clearable>
             <template #prefix><UserRound size="18" /></template>
@@ -71,17 +71,17 @@ async function submit() {
             <div @click="getCaptcha" class="h-10 w-30 shrink-0">
               <img
                 v-if="code.status === 'success'"
-                class="h-full w-full"
                 :class="[submitting ? 'cursor-default' : 'cursor-pointer']"
                 :src="code.src"
+                class="h-full w-full"
               />
-              <el-button v-else class="w-full" size="large" :loading="code.status === 'loading'">
+              <el-button v-else :loading="code.status === 'loading'" class="w-full" size="large">
                 {{ code.status === 'loading' ? '加载中...' : '获取验证码' }}
               </el-button>
             </div>
           </div>
         </el-form-item>
-        <el-button class="w-full" native-type="submit" size="large" type="primary" :disabled="disabled" :loading="submitting">
+        <el-button :disabled="disabled" :loading="submitting" class="w-full" native-type="submit" size="large" type="primary">
           {{ submitting ? '登录中...' : '登录' }}
         </el-button>
       </el-form>

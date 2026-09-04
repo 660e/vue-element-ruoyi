@@ -42,7 +42,7 @@ function to(menu) {
 
 <template>
   <aside class="border-border bg-primary-light-9 border-r">
-    <div class="flex h-full flex-col duration-200" :class="[expanded ? 'w-50' : 'w-10']">
+    <div :class="[expanded ? 'w-50' : 'w-10']" class="flex h-full flex-col duration-200">
       <div class="border-border flex h-10 shrink-0 items-center justify-end border-b px-3">
         <component
           :is="expanded ? PanelLeftClose : PanelLeftOpen"
@@ -57,19 +57,19 @@ function to(menu) {
             <div @click="to(menu)" class="flex h-10 cursor-pointer items-center gap-1.5 px-3 duration-200 hover:bg-blue-100">
               <Info class="shrink-0" size="16" />
               <div class="flex-1 leading-none">{{ menu.meta?.title }}</div>
-              <ChevronDown v-if="menu.children?.length" class="shrink-0 duration-200" size="16" :class="[menu.meta?.expanded ? 'rotate-180' : '']" />
+              <ChevronDown v-if="menu.children?.length" :class="[menu.meta?.expanded ? 'rotate-180' : '']" class="shrink-0 duration-200" size="16" />
             </div>
             <div
               v-if="menu.children?.length"
-              class="grid duration-200"
               :style="{ gridTemplateRows: menu.children?.length && menu.meta?.expanded ? '1fr' : '0fr' }"
+              class="grid duration-200"
             >
               <div class="bg-background overflow-hidden">
                 <div v-for="(item, idx) in menu.children" :key="idx">
                   <div
+                    :class="[item.name === $route.name ? 'text-brand' : '']"
                     @click="to(item)"
                     class="relative flex h-10 cursor-pointer items-center gap-1.5 px-3 duration-200 hover:bg-neutral-100"
-                    :class="[item.name === $route.name ? 'text-brand' : '']"
                   >
                     <div v-if="item.name === $route.name" class="border-brand absolute inset-0 border-t border-r-4 border-b"></div>
                     <div class="w-4"></div>

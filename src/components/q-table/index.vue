@@ -69,38 +69,38 @@ async function fetchTableData() {
 
 <template>
   <div
-    class="q-table flex h-full"
     :class="$attrs.class"
     :style="{ gap: `calc(var(--spacing) * ${gap})`, padding: `calc(var(--spacing) * ${gap})`, ...$attrs.style }"
+    class="q-table flex h-full"
   >
     <slot name="prepend"></slot>
 
-    <div class="flex flex-1 flex-col overflow-auto" :style="{ gap: `calc(var(--spacing) * ${gap})` }">
+    <div :style="{ gap: `calc(var(--spacing) * ${gap})` }" class="flex flex-1 flex-col overflow-auto">
       <FilterField />
 
       <slot name="header"></slot>
 
-      <el-table v-loading="loading" class="flex-1" height="100%" border show-overflow-tooltip :data="tableData" v-bind="attrs">
+      <el-table v-loading="loading" :data="tableData" class="flex-1" height="100%" border show-overflow-tooltip v-bind="attrs">
         <el-table-column
+          :index="(index) => (paginationData.page - 1) * paginationData.size + index + 1"
           align="center"
           fixed="left"
           label="#"
           type="index"
           width="70"
-          :index="(index) => (paginationData.page - 1) * paginationData.size + index + 1"
         />
         <slot></slot>
       </el-table>
       <div v-if="!paginationProps.hidden" class="flex shrink-0 justify-end">
         <el-pagination
           v-model:current-page="paginationData.page"
-          @current-change="fetchTableData"
-          @size-change="fetchTableData"
-          background
           :layout="paginationProps.layout.join(',')"
           :page-size="paginationData.size"
           :page-sizes="paginationProps.pageSizes"
           :total="paginationData.total"
+          @current-change="fetchTableData"
+          @size-change="fetchTableData"
+          background
         />
       </div>
     </div>
