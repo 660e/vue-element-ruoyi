@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus';
 
-import { createDictType } from '@/api/system/dict.js';
+import { createDictType, updateDictType } from '@/api/system/dict.js';
 import { required } from '@/utils';
 
 const emit = defineEmits(['confirm']);
@@ -19,8 +19,9 @@ function confirm() {
   formRef.value.validate(async (valid) => {
     if (valid) {
       confirming.value = true;
+      const request = formData.value.dictId ? updateDictType : createDictType;
       try {
-        const { code, msg } = await createDictType(formData.value);
+        const { code, msg } = await request(formData.value);
         if (code === 200) {
           ElMessage.success(msg);
           emit('confirm');

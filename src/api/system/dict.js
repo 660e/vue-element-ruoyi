@@ -4,6 +4,10 @@ export function createDictType(data) {
   return request.post('/system/dict/type', { data });
 }
 
+export function updateDictType(data) {
+  return request.put('/system/dict/type', { data });
+}
+
 export function getDictTypeList(params) {
   return request.get('/system/dict/type/list', { params });
 }
