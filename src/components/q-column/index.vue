@@ -4,8 +4,8 @@ import { useDictStore } from '@/stores';
 defineOptions({ name: 'QColumn' });
 
 const { dict } = defineProps({
-  dict: { type: String, default: null },
-  operation: { type: Boolean, default: false },
+  dict: { type: String },
+  operation: { type: Boolean },
 });
 
 const dictStore = useDictStore();

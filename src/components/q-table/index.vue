@@ -21,10 +21,10 @@ const attrs = useRestAttrs();
 const { autoRequest, pagination, request, data } = defineProps({
   autoRequest: { type: Boolean, default: true },
   gap: { type: Number, default: 3 },
-  pagination: { type: Object, default: () => ({}) },
-  request: { type: Function, default: null },
+  pagination: { type: Object },
+  request: { type: Function },
 
-  data: { type: Array, default: null },
+  data: { type: Array },
 });
 
 const loading = ref(false);
