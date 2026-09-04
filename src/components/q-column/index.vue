@@ -32,7 +32,7 @@ function formatter(_, __, cellValue) {
 <template>
   <el-table-column v-if="operation" align="center" fixed="right" label="操作">
     <template #default="{ row }">
-      <div class="flex justify-center gap-3">
+      <div class="flex items-center justify-center gap-2 [&>button]:m-0!">
         <slot :row="row"></slot>
       </div>
     </template>
