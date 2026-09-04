@@ -15,18 +15,33 @@ const { form } = useFormItem();
 const model = reactive(form?.model);
 
 const dictStore = useDictStore();
-const itemConfig = reactive({ ...config });
+const itemConfig = reactive({ ...getPrivateConfig(config?.type), ...config });
 
 onMounted(async () => {
   switch (itemConfig.type) {
     case 'select': {
-      if (itemConfig.dict && !itemConfig.options) {
+      if (itemConfig.dict) {
         itemConfig.options = await dictStore.getList(itemConfig.dict);
       }
       break;
     }
   }
 });
+
+function getPrivateConfig(type) {
+  switch (type) {
+    case 'date':
+      return { valueFormat: 'YYYY-MM-DD' };
+    case 'month':
+      return { valueFormat: 'YYYY-MM' };
+    case 'year':
+      return { valueFormat: 'YYYY' };
+    case 'textarea':
+      return { rows: 3 };
+    default:
+      return {};
+  }
+}
 </script>
 
 <template>
