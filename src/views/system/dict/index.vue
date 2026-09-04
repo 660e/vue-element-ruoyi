@@ -11,8 +11,6 @@ const formDialogRef = ref(null);
     <template #header>
       <div>
         <el-button @click="formDialogRef.open()" type="primary" plain>新增</el-button>
-        <el-button type="warning" plain>导出</el-button>
-        <el-button type="danger" plain>刷新缓存</el-button>
       </div>
     </template>
 
