@@ -12,14 +12,19 @@ const { config } = defineProps({
 });
 
 const { form } = useFormItem();
-const dictStore = useDictStore();
+const model = reactive(form?.model);
 
-const model = computed(() => form?.model);
+const dictStore = useDictStore();
 const itemConfig = reactive({ ...config });
 
 onMounted(async () => {
-  if (itemConfig.type === 'select') {
-    itemConfig.options = await dictStore.getList(itemConfig.dict);
+  switch (itemConfig.type) {
+    case 'select': {
+      if (itemConfig.dict && !itemConfig.options) {
+        itemConfig.options = await dictStore.getList(itemConfig.dict);
+      }
+      break;
+    }
   }
 });
 </script>
