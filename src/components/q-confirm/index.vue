@@ -12,8 +12,14 @@ const { button, request } = defineProps({
 });
 
 const buttonProps = reactive({ link: true, type: 'danger', ...button });
+const rendered = ref(false);
 const visible = ref(false);
 const confirming = ref(false);
+
+function open() {
+  rendered.value = true;
+  visible.value = true;
+}
 
 async function confirm() {
   if (request) {
@@ -29,16 +35,16 @@ async function confirm() {
       confirming.value = false;
     }
   } else {
-    visible.value = true;
+    visible.value = false;
   }
 }
 </script>
 
 <template>
   <div class="flex">
-    <el-button v-bind="buttonProps" @click="visible = true">{{ text }}</el-button>
+    <el-button v-bind="buttonProps" @click="open">{{ text }}</el-button>
     <q-dialog
-      v-if="visible"
+      v-if="rendered"
       v-model="visible"
       v-model:confirming="confirming"
       title="提示"
@@ -46,6 +52,7 @@ async function confirm() {
       :confirm-text="text"
       :confirm-type="buttonProps.type"
       @cancel="visible = false"
+      @closed="rendered = false"
       @confirm="confirm"
       append-to-body
     >
