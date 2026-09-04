@@ -45,6 +45,9 @@
   gap: var(--spacing);
   align-items: center;
 }
+.el-form-item.el-form-item--label-top .el-form-item__label {
+  margin-bottom: calc(var(--spacing) / 2);
+}
 .el-form-item.is-required:not(.is-no-asterisk).asterisk-left > .el-form-item__label:before {
   content: '必填';
   background-color: var(--el-color-danger-light-8);
