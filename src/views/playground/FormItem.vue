@@ -30,7 +30,7 @@ const formData = ref({});
       <q-item :props="{ maxlength: 4, onInput: (value) => console.log(value) }" label="text" prop="text" type="text" />
       <q-item :props="{ maxlength: 4 }" label="textarea" prop="textarea" type="textarea" />
       <q-item :props="{ maxlength: 4, showPassword: true }" label="password" prop="password" type="password" />
-      <!-- <q-item label="number" prop="number" type="number" /> -->
+      <q-item :props="{ min: 0, max: 100 }" label="number" prop="number" type="number" />
     </el-form>
 
     <pre>{{ formData }}</pre>

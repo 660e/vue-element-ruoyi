@@ -24,6 +24,18 @@ const model = computed(() => form?.model);
 
     <div v-if="type === ''"></div>
 
+    <!-- 数字输入框 -->
+    <el-input-number
+      v-else-if="type === 'number'"
+      v-model="model[$attrs.prop]"
+      :placeholder="`请输入${$attrs.label}`"
+      :style="{ width: '100%' }"
+      align="left"
+      controls-position="right"
+      disabled-scientific
+      v-bind="props"
+    />
+
     <!-- 输入框、密码框、文本域 -->
     <el-input v-else v-model="model[$attrs.prop]" :placeholder="`请输入${$attrs.label}`" :type="type" clearable show-word-limit v-bind="props" />
   </el-form-item>

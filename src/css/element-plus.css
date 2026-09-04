@@ -54,3 +54,8 @@
   padding: calc(var(--spacing) / 2) var(--spacing);
   margin: 0;
 }
+
+/* el-input-number */
+.el-input-number.is-controls-right .el-input__wrapper {
+  padding-left: 11px;
+}
