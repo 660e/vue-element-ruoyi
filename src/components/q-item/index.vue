@@ -2,6 +2,7 @@
 import { Info } from '@lucide/vue';
 import { useFormItem } from 'element-plus';
 
+import { VALUE_FORMAT } from '@/config/constants.js';
 import { useDictStore } from '@/stores';
 
 defineOptions({ name: 'QItem' });
@@ -16,19 +17,6 @@ const model = reactive(form?.model);
 
 const dictStore = useDictStore();
 const itemConfig = reactive({ ...config });
-
-const valueFormat = computed(() => {
-  switch (itemConfig.type) {
-    case 'date':
-      return 'YYYY-MM-DD';
-    case 'month':
-      return 'YYYY-MM';
-    case 'year':
-      return 'YYYY';
-    default:
-      return '';
-  }
-});
 
 onMounted(async () => {
   switch (itemConfig.type) {
@@ -78,7 +66,7 @@ onMounted(async () => {
       v-model="model[$attrs.prop]"
       class="w-full!"
       :placeholder="`请选择${$attrs.label}`"
-      :value-format="valueFormat"
+      :value-format="VALUE_FORMAT[itemConfig.type]"
       v-bind="itemConfig"
     />
 
