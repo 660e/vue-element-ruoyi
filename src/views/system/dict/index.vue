@@ -1,19 +1,19 @@
 <script setup>
 import { getDictTypeList, deleteDictType } from '@/api/system/dict.js';
 
-import FormDialog from './FormDialog.vue';
-import ListDialog from './ListDialog.vue';
+import DataListDialog from './DataListDialog.vue';
+import TypeFormDialog from './TypeFormDialog.vue';
 
 const tableRef = ref(null);
-const formDialogRef = ref(null);
-const listDialogRef = ref(null);
+const typeFormDialogRef = ref(null);
+const dataListDialogRef = ref(null);
 </script>
 
 <template>
   <q-table :request="getDictTypeList" ref="tableRef">
     <template #header>
       <div>
-        <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
+        <el-button type="primary" @click="typeFormDialogRef.open()" plain>新增</el-button>
       </div>
     </template>
 
@@ -24,13 +24,13 @@ const listDialogRef = ref(null);
     <q-column label="创建时间" prop="createTime" width="200" />
     <q-column width="150" operation>
       <template #default="{ row }">
-        <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button>
-        <el-button type="primary" @click="listDialogRef.open(row)" link>列表</el-button>
+        <el-button type="primary" @click="typeFormDialogRef.open(row)" link>修改</el-button>
+        <el-button type="primary" @click="dataListDialogRef.open(row)" link>列表</el-button>
         <q-confirm :content="`字典名称：${row.dictName}`" :request="() => deleteDictType(row.dictId)" @confirm="tableRef.refresh()" />
       </template>
     </q-column>
   </q-table>
 
-  <FormDialog @confirm="tableRef.refresh()" ref="formDialogRef" />
-  <ListDialog ref="listDialogRef" />
+  <TypeFormDialog @confirm="tableRef.refresh()" ref="typeFormDialogRef" />
+  <DataListDialog ref="dataListDialogRef" />
 </template>
