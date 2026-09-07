@@ -11,7 +11,7 @@ const formRef = ref(null);
 const formData = ref({});
 
 function open(row) {
-  formData.value = row ? { ...row } : {};
+  formData.value = row ? { ...row } : { menuIds: [] };
   visible.value = true;
 }
 
@@ -20,9 +20,8 @@ function confirm() {
     if (valid) {
       confirming.value = true;
       const request = formData.value.roleId ? updateRole : createRole;
-      const menuIds = []; // TODO
       try {
-        const { code, msg } = await request({ ...formData.value, menuIds });
+        const { code, msg } = await request({ ...formData.value });
         if (code === 200) {
           ElMessage.success(msg);
           emit('confirm');
