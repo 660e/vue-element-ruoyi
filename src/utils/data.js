@@ -1,4 +1,4 @@
-import { globalConfig } from '@/config/global.js';
+import { globalConfig } from '@/config';
 
 export function setLocalStorage(key, value) {
   return localStorage.setItem(`${globalConfig.app.id}_${key}`, value);

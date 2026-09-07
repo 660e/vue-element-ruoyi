@@ -1,6 +1,6 @@
 <script setup>
 import headerImage from '@/assets/images/layout/header.png';
-import { globalConfig } from '@/config/global.js';
+import { globalConfig } from '@/config';
 </script>
 
 <template>

@@ -2,7 +2,7 @@
 import { Info } from '@lucide/vue';
 import { useFormItem } from 'element-plus';
 
-import { VALUE_FORMAT } from '@/config/constants.js';
+import { VALUE_FORMAT } from '@/config';
 import { useDictStore } from '@/stores';
 
 defineOptions({ name: 'QItem' });

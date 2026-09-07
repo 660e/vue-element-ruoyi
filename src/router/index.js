@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { globalConfig } from '@/config/global.js';
+import { globalConfig } from '@/config';
 import { useAppStore } from '@/stores';
 import { getLocalStorage } from '@/utils';
 

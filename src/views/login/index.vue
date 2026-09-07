@@ -2,7 +2,7 @@
 import { UserRound, Lock, ScanBarcode } from '@lucide/vue';
 
 import { captchaImage, login } from '@/api';
-import { globalConfig } from '@/config/global.js';
+import { globalConfig } from '@/config';
 import { useAppStore } from '@/stores';
 import { setLocalStorage } from '@/utils';
 
