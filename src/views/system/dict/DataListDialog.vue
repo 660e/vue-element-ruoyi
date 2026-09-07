@@ -20,7 +20,7 @@ defineExpose({ open });
   <q-dialog v-model="visible" width="1000" :title="rowData.dictName" @cancel="visible = false">
     <q-table class="p-0!" :pagination="{ size: 10 }" :request="(p) => getDictDataList({ ...p, dictType: rowData.dictType })" ref="tableRef">
       <template #header>
-        <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
+        <el-button type="primary" @click="formDialogRef.open({ dictType: rowData.dictType })" plain>新增</el-button>
       </template>
 
       <q-column label="字典标签" min-width="100" prop="dictLabel" />
