@@ -19,7 +19,12 @@ const dataListDialogRef = ref(null);
     <q-column label="字典类型" prop="dictType" width="200" :config="{ filter: 'text' }" />
     <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable', filter: 'select' }" />
     <q-column label="备注" min-width="200" prop="remark" />
-    <q-column label="创建时间" prop="createTime" width="200" :config="{ filter: 'date' }" />
+    <q-column
+      label="创建时间"
+      prop="createTime"
+      width="200"
+      :config="{ filter: 'date', props: { type: 'daterange', startPlaceholder: '开始日期', endPlaceholder: '结束日期' } }"
+    />
     <q-column width="150" operation>
       <template #default="{ row }">
         <el-button type="primary" @click="typeFormDialogRef.open(row)" link>修改</el-button>
