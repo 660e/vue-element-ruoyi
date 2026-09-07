@@ -28,7 +28,9 @@ onMounted(() => {
 });
 
 function reset() {
-  console.log(queryParams.value);
+  Object.keys(queryParams.value).forEach((key) => {
+    queryParams.value[key] = undefined;
+  });
   emit('search');
 }
 </script>

@@ -76,7 +76,7 @@ defineExpose({
     <slot name="prepend"></slot>
 
     <div class="flex flex-1 flex-col gap-3 overflow-auto p-3">
-      <FilterField v-model="queryParams" :parent-slots="$slots" />
+      <FilterField v-model="queryParams" :parent-slots="$slots" @search="fetchTableData" />
 
       <div v-if="$slots.header">
         <slot name="header"></slot>
