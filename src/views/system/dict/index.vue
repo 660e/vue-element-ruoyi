@@ -12,9 +12,7 @@ const dataListDialogRef = ref(null);
 <template>
   <q-table :request="getDictTypeList" ref="tableRef">
     <template #header>
-      <div>
-        <el-button type="primary" @click="typeFormDialogRef.open()" plain>新增</el-button>
-      </div>
+      <el-button type="primary" @click="typeFormDialogRef.open()" plain>新增</el-button>
     </template>
 
     <q-column label="字典名称" prop="dictName" width="200" />

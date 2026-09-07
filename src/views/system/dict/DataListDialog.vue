@@ -1,8 +1,12 @@
 <script setup>
 import { getDictDataList } from '@/api/system/dict.js';
 
+import DataFormDialog from './DataFormDialog.vue';
+
 const visible = ref(false);
 const rowData = ref({});
+const tableRef = ref(null);
+const formDialogRef = ref(null);
 
 function open(row) {
   rowData.value = row;
@@ -14,7 +18,11 @@ defineExpose({ open });
 
 <template>
   <q-dialog v-model="visible" width="1000" :title="rowData.dictName" @cancel="visible = false">
-    <q-table class="p-0!" :pagination="{ size: 10 }" :request="(p) => getDictDataList({ ...p, dictType: rowData.dictType })">
+    <q-table class="p-0!" :pagination="{ size: 10 }" :request="(p) => getDictDataList({ ...p, dictType: rowData.dictType })" ref="tableRef">
+      <template #header>
+        <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
+      </template>
+
       <q-column label="字典标签" min-width="100" prop="dictLabel" />
       <q-column label="字典键值" min-width="100" prop="dictValue" />
       <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable' }" />
@@ -22,7 +30,7 @@ defineExpose({ open });
       <q-column label="创建时间" prop="createTime" width="200" />
       <q-column width="100" operation>
         <template #default="{ row }">
-          <!-- <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button> -->
+          <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button>
           <!-- <q-confirm :content="`字典名称：${row.dictName}`" :request="() => deleteDictType(row.dictId)" @confirm="tableRef.refresh()" /> -->
         </template>
       </q-column>
@@ -31,5 +39,7 @@ defineExpose({ open });
     <template #footer>
       <el-button @click="visible = false">关闭</el-button>
     </template>
+
+    <DataFormDialog @confirm="tableRef.refresh()" ref="formDialogRef" />
   </q-dialog>
 </template>

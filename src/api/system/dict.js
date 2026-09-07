@@ -20,6 +20,18 @@ export function getDictDataType(type) {
   return request.get(`/system/dict/data/type/${type}`);
 }
 
+export function createDictData(data) {
+  return request.post('/system/dict/data', { data });
+}
+
+export function deleteDictData(id) {
+  return request.delete(`/system/dict/data/${id}`);
+}
+
+export function updateDictData(data) {
+  return request.put('/system/dict/data', { data });
+}
+
 export function getDictDataList(params) {
   return request.get('/system/dict/data/list', { params });
 }
