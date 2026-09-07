@@ -43,15 +43,16 @@ async function fetchTableData() {
     tableData.value = data;
   } else if (request) {
     const { pageKey, sizeKey, rowsKey, totalKey, hidden } = paginationProps;
+    const params = { ...queryParams };
 
     if (!hidden) {
-      queryParams[pageKey] = paginationData.page;
-      queryParams[sizeKey] = paginationData.size;
+      params[pageKey] = paginationData.page;
+      params[sizeKey] = paginationData.size;
     }
 
     loading.value = true;
     try {
-      const { [rowsKey]: rows, [totalKey]: total } = await request(queryParams);
+      const { [rowsKey]: rows, [totalKey]: total } = await request(params);
       tableData.value = rows;
 
       if (!hidden) {
@@ -75,7 +76,7 @@ defineExpose({
     <slot name="prepend"></slot>
 
     <div class="flex flex-1 flex-col gap-3">
-      <FilterField :parent-slots="$slots" />
+      <FilterField v-model="queryParams" :parent-slots="$slots" />
 
       <div v-if="$slots.header">
         <slot name="header"></slot>

@@ -1,5 +1,6 @@
 <script setup>
 const emit = defineEmits(['search']);
+const queryParams = defineModel({ type: Object });
 const { parentSlots } = defineProps({ parentSlots: { type: Object } });
 
 const items = computed(() => {
@@ -14,7 +15,7 @@ const items = computed(() => {
 });
 
 function reset() {
-  console.log('reset');
+  console.log(queryParams.value);
   emit('search');
 }
 </script>
@@ -25,9 +26,15 @@ function reset() {
       <div class="grid flex-1 grid-cols-4 gap-3">
         <el-form-item v-for="item in items" class="ring-border focus-within:ring-brand rounded-base m-0! ring-1 duration-200" :key="item.prop">
           <div class="flex w-full">
-            <div class="max-w-1/2 shrink-0 pl-3 text-ellipsis">{{ item.label }}</div>
+            <div class="text-regular-foreground max-w-1/2 shrink-0 pl-3 text-ellipsis">{{ item.label }}</div>
 
-            <el-input class="flex-1" />
+            <el-input
+              v-if="item.config.filter === 'text'"
+              v-model="queryParams[item.config.filter.alias || item.prop]"
+              class="flex-1"
+              :placeholder="`请输入${item.label}`"
+              clearable
+            />
           </div>
         </el-form-item>
       </div>
