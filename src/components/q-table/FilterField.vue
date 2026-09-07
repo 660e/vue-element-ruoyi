@@ -42,17 +42,19 @@ function reset() {
 
             <el-input
               v-if="item.config.filter === 'text'"
-              v-model="queryParams[item.config.filter.alias || item.prop]"
+              v-model="queryParams[item.config.props?.alias || item.prop]"
               :placeholder="`请输入${item.label}`"
               clearable
+              v-bind="item.config.props"
             />
 
             <el-select
               v-else-if="item.config.filter === 'select'"
-              v-model="queryParams[item.config.filter.alias || item.prop]"
+              v-model="queryParams[item.config.props?.alias || item.prop]"
               :options="dictListMap[item.config.dict]"
               :placeholder="`请选择${item.label}`"
               clearable
+              v-bind="item.config.props"
             />
           </div>
         </el-form-item>
