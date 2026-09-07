@@ -20,7 +20,6 @@ const defaultPaginationProps = {
 const attrs = useRestAttrs();
 const { autoRequest, pagination, request, data } = defineProps({
   autoRequest: { type: Boolean, default: true },
-  gap: { type: Number, default: 3 },
   pagination: { type: Object },
   request: { type: Function },
 
@@ -72,14 +71,10 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    class="q-table flex h-full"
-    :class="$attrs.class"
-    :style="{ gap: `calc(var(--spacing) * ${gap})`, padding: `calc(var(--spacing) * ${gap})`, ...$attrs.style }"
-  >
+  <div class="q-table flex h-full gap-3 p-3" :class="$attrs.class" :style="$attrs.style">
     <slot name="prepend"></slot>
 
-    <div class="flex flex-1 flex-col overflow-auto" :style="{ gap: `calc(var(--spacing) * ${gap})` }">
+    <div class="flex flex-1 flex-col gap-3 overflow-auto">
       <FilterField />
 
       <div v-if="$slots.header">
