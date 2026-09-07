@@ -104,8 +104,8 @@ defineExpose({
       <div v-if="!paginationProps.hidden" class="flex shrink-0 justify-end">
         <el-pagination
           v-model:current-page="paginationData.page"
+          v-model:page-size="paginationData.size"
           :layout="paginationProps.layout.join(',')"
-          :page-size="paginationData.size"
           :page-sizes="paginationProps.pageSizes"
           :total="paginationData.total"
           @current-change="fetchTableData"
