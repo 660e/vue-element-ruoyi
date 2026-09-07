@@ -14,7 +14,7 @@ const confirming = defineModel('confirming', { type: Boolean, default: false });
 </script>
 
 <template>
-  <el-dialog :close-icon="X" :close-on-click-modal="false" :close-on-press-escape="false" align-center destroy-on-close>
+  <el-dialog :close-icon="X" :close-on-click-modal="false" align-center destroy-on-close>
     <el-scrollbar :max-height="$attrs.fullscreen ?? '70vh'">
       <div class="px-6">
         <slot></slot>

@@ -23,7 +23,7 @@ const formDialogRef = ref(null);
     <q-column width="120" operation>
       <template #default="{ row }">
         <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button>
-        <q-confirm :request="() => deleteDictType(row.dictId)" @confirm="tableRef.refresh()" />
+        <q-confirm :content="`字典名称：${row.dictName}`" :request="() => deleteDictType(row.dictId)" @confirm="tableRef.refresh()" />
       </template>
     </q-column>
   </q-table>

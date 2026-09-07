@@ -3,12 +3,14 @@
   --color-foreground: var(--el-text-color-primary);
 
   --color-regular-foreground: var(--el-text-color-regular);
-
   --color-secondary-foreground: var(--el-text-color-secondary);
+
+  --color-border: var(--el-border-color);
+  --color-page-background: var(--el-bg-color-page);
 
   --color-brand: var(--el-color-primary);
 
-  --color-border: var(--el-border-color);
-
   --color-primary-light-9: var(--el-color-primary-light-9);
+
+  --radius-base: var(--el-border-radius-base);
 }

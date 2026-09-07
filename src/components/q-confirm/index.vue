@@ -6,7 +6,8 @@ defineOptions({ name: 'QConfirm' });
 const emit = defineEmits(['confirm']);
 const { button, request } = defineProps({
   button: { type: Object },
-  content: { type: String, default: '确定要删除该条数据吗？' },
+  content: { type: String },
+  message: { type: String, default: '确定要删除该条数据吗？' },
   request: { type: Function },
   text: { type: String, default: '删除' },
 });
@@ -56,7 +57,10 @@ async function confirm() {
       @confirm="confirm"
       append-to-body
     >
-      <div class="leading-none">{{ content }}</div>
+      <div class="space-y-3">
+        <div class="leading-none">{{ message }}</div>
+        <el-input v-if="content" :value="content" disabled />
+      </div>
     </q-dialog>
   </div>
 </template>
