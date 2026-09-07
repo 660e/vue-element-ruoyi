@@ -5,6 +5,7 @@ defineOptions({ name: 'QColumn' });
 
 const { config } = defineProps({
   config: { type: Object },
+  hidden: { type: Boolean },
   operation: { type: Boolean },
 });
 
@@ -37,5 +38,5 @@ function formatter(_, __, cellValue) {
       </div>
     </template>
   </el-table-column>
-  <el-table-column v-else :formatter="formatter" />
+  <el-table-column v-else-if="!hidden" :formatter="formatter" />
 </template>
