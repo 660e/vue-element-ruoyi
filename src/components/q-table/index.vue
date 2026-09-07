@@ -7,7 +7,7 @@ defineOptions({ name: 'QTable', inheritAttrs: false });
 
 const defaultPaginationProps = {
   page: 1,
-  size: 20,
+  size: 10,
   pageKey: 'pageNum',
   sizeKey: 'pageSize',
   rowsKey: 'rows',
@@ -86,7 +86,16 @@ defineExpose({
         <slot name="header"></slot>
       </div>
 
-      <el-table v-loading="loading" class="flex-1" height="100%" :data="tableData" border show-overflow-tooltip v-bind="attrs">
+      <el-table
+        v-loading="loading"
+        class="flex-1"
+        height="100%"
+        :data="tableData"
+        :header-cell-style="{ backgroundColor: 'var(--el-fill-color-light)' }"
+        border
+        show-overflow-tooltip
+        v-bind="attrs"
+      >
         <el-table-column
           align="center"
           fixed="left"
