@@ -18,7 +18,7 @@ defineExpose({ open });
 
 <template>
   <q-dialog v-model="visible" width="1000" :title="rowData.dictName" @cancel="visible = false">
-    <q-table class="p-0!" :request="(p) => getDictDataList({ ...p, dictType: rowData.dictType })" ref="tableRef">
+    <q-table :request="(p) => getDictDataList({ ...p, dictType: rowData.dictType })" ref="tableRef">
       <template #header>
         <el-button type="primary" @click="formDialogRef.open({ dictType: rowData.dictType })" plain>新增</el-button>
       </template>
@@ -43,3 +43,9 @@ defineExpose({ open });
     <DataFormDialog @confirm="tableRef.refresh()" ref="formDialogRef" />
   </q-dialog>
 </template>
+
+<style scoped>
+.q-table :deep(.q-table-wrapper) {
+  padding: 0;
+}
+</style>
