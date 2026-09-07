@@ -4,34 +4,34 @@ export function createDictType(data) {
   return request.post('/system/dict/type', { data });
 }
 
-export function deleteDictType(id) {
-  return request.delete(`/system/dict/type/${id}`);
+export function getDictTypeList(params) {
+  return request.get('/system/dict/type/list', { params });
 }
 
 export function updateDictType(data) {
   return request.put('/system/dict/type', { data });
 }
 
-export function getDictTypeList(params) {
-  return request.get('/system/dict/type/list', { params });
-}
-
-export function getDictDataType(type) {
-  return request.get(`/system/dict/data/type/${type}`);
+export function deleteDictType(id) {
+  return request.delete(`/system/dict/type/${id}`);
 }
 
 export function createDictData(data) {
   return request.post('/system/dict/data', { data });
 }
 
-export function deleteDictData(id) {
-  return request.delete(`/system/dict/data/${id}`);
+export function getDictDataList(params) {
+  return request.get('/system/dict/data/list', { params });
+}
+
+export function getDictDataType(type) {
+  return request.get(`/system/dict/data/type/${type}`);
 }
 
 export function updateDictData(data) {
   return request.put('/system/dict/data', { data });
 }
 
-export function getDictDataList(params) {
-  return request.get('/system/dict/data/list', { params });
+export function deleteDictData(id) {
+  return request.delete(`/system/dict/data/${id}`);
 }
