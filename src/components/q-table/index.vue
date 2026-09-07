@@ -82,7 +82,9 @@ defineExpose({
     <div class="flex flex-1 flex-col overflow-auto" :style="{ gap: `calc(var(--spacing) * ${gap})` }">
       <FilterField />
 
-      <slot name="header"></slot>
+      <div v-if="$slots.header">
+        <slot name="header"></slot>
+      </div>
 
       <el-table v-loading="loading" class="flex-1" height="100%" :data="tableData" border show-overflow-tooltip v-bind="attrs">
         <el-table-column
