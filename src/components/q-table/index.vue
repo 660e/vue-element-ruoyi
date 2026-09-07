@@ -75,7 +75,7 @@ defineExpose({
   <div class="q-table flex h-full gap-3 p-3" :class="$attrs.class" :style="$attrs.style">
     <slot name="prepend"></slot>
 
-    <div class="flex flex-1 flex-col gap-3">
+    <div class="flex flex-1 flex-col gap-3 overflow-auto">
       <FilterField v-model="queryParams" :parent-slots="$slots" />
 
       <div v-if="$slots.header">
