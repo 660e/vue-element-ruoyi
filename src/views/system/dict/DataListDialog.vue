@@ -1,5 +1,5 @@
 <script setup>
-import { getDictDataList } from '@/api/system/dict.js';
+import { getDictDataList, deleteDictData } from '@/api/system/dict.js';
 
 import DataFormDialog from './DataFormDialog.vue';
 
@@ -28,10 +28,10 @@ defineExpose({ open });
       <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable' }" />
       <q-column label="备注" min-width="200" prop="remark" />
       <q-column label="创建时间" prop="createTime" width="200" />
-      <q-column width="100" operation>
+      <q-column width="110" operation>
         <template #default="{ row }">
           <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button>
-          <!-- <q-confirm :content="`字典名称：${row.dictName}`" :request="() => deleteDictType(row.dictId)" @confirm="tableRef.refresh()" /> -->
+          <q-confirm :content="`字典标签：${row.dictLabel}`" :request="() => deleteDictData(row.dictCode)" @confirm="tableRef.refresh()" />
         </template>
       </q-column>
     </q-table>
