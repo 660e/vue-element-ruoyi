@@ -19,3 +19,7 @@ export function getDictTypeList(params) {
 export function getDictDataType(type) {
   return request.get(`/system/dict/data/type/${type}`);
 }
+
+export function getDictDataList(params) {
+  return request.get('/system/dict/data/list', { params });
+}

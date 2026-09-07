@@ -2,9 +2,11 @@
 import { getDictTypeList, deleteDictType } from '@/api/system/dict.js';
 
 import FormDialog from './FormDialog.vue';
+import ListDialog from './ListDialog.vue';
 
 const tableRef = ref(null);
 const formDialogRef = ref(null);
+const listDialogRef = ref(null);
 </script>
 
 <template>
@@ -20,13 +22,15 @@ const formDialogRef = ref(null);
     <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable' }" />
     <q-column label="备注" min-width="200" prop="remark" />
     <q-column label="创建时间" prop="createTime" width="200" />
-    <q-column width="120" operation>
+    <q-column width="150" operation>
       <template #default="{ row }">
         <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button>
+        <el-button type="primary" @click="listDialogRef.open(row)" link>列表</el-button>
         <q-confirm :content="`字典名称：${row.dictName}`" :request="() => deleteDictType(row.dictId)" @confirm="tableRef.refresh()" />
       </template>
     </q-column>
   </q-table>
 
-  <form-dialog @confirm="tableRef.refresh()" ref="formDialogRef" />
+  <FormDialog @confirm="tableRef.refresh()" ref="formDialogRef" />
+  <ListDialog ref="listDialogRef" />
 </template>
