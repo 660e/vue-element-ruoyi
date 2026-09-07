@@ -22,8 +22,11 @@ const confirming = defineModel('confirming', { type: Boolean, default: false });
     </el-scrollbar>
 
     <template #footer>
-      <el-button :type="cancelType" @click="$emit('cancel')">{{ cancelText }}</el-button>
-      <el-button :loading="confirming" :type="confirmType" @click="$emit('confirm')">{{ confirmText }}</el-button>
+      <slot v-if="$slots.footer" name="footer"></slot>
+      <template v-else>
+        <el-button :type="cancelType" @click="$emit('cancel')">{{ cancelText }}</el-button>
+        <el-button :loading="confirming" :type="confirmType" @click="$emit('confirm')">{{ confirmText }}</el-button>
+      </template>
     </template>
   </el-dialog>
 </template>
