@@ -36,7 +36,7 @@ function reset() {
 <template>
   <div class="q-table-filter-field shrink-0">
     <el-form class="flex gap-3" @submit.prevent="$emit('search')">
-      <div class="grid flex-1 grid-cols-3 gap-3 xl:grid-cols-4 2xl:grid-cols-5">
+      <div class="grid flex-1 grid-cols-3 gap-3 min-[90rem]:grid-cols-4 min-[110rem]:grid-cols-5">
         <el-form-item v-for="item in items" class="ring-border focus-within:ring-brand rounded-base m-0! ring-1 duration-200" :key="item.prop">
           <div class="flex w-full">
             <div class="text-regular-foreground max-w-1/2 shrink-0 pl-3 text-ellipsis">{{ item.label }}</div>
