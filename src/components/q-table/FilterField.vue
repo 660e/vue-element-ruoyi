@@ -1,4 +1,5 @@
 <script setup>
+import { VALUE_FORMAT } from '@/config';
 import { useDictStore } from '@/stores';
 
 const emit = defineEmits(['search']);
@@ -54,6 +55,16 @@ function reset() {
               :options="dictListMap[item.config.dict]"
               :placeholder="`请选择${item.label}`"
               clearable
+              v-bind="item.config.props"
+            />
+
+            <el-date-picker
+              v-else-if="['date', 'month', 'year'].includes(item.config.filter)"
+              v-model="queryParams[item.config.props?.alias || item.prop]"
+              class="flex-1"
+              :placeholder="`请选择${item.label}`"
+              :type="item.config.filter"
+              :value-format="VALUE_FORMAT[item.config.filter]"
               v-bind="item.config.props"
             />
           </div>
