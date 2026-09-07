@@ -72,10 +72,10 @@ defineExpose({
 </script>
 
 <template>
-  <div class="q-table flex h-full gap-3 p-3" :class="$attrs.class" :style="$attrs.style">
+  <div class="q-table flex h-full" :class="$attrs.class" :style="$attrs.style">
     <slot name="prepend"></slot>
 
-    <div class="flex flex-1 flex-col gap-3 overflow-auto">
+    <div class="flex flex-1 flex-col gap-3 overflow-auto p-3">
       <FilterField v-model="queryParams" :parent-slots="$slots" />
 
       <div v-if="$slots.header">
