@@ -1,4 +1,6 @@
 <script setup>
+import { useDictStore } from '@/stores';
+
 const emit = defineEmits(['search']);
 const queryParams = defineModel({ type: Object });
 const { parentSlots } = defineProps({ parentSlots: { type: Object } });
@@ -9,9 +11,19 @@ const items = computed(() => {
       return item.type.name === 'QColumn' && item.props?.config?.filter;
     })
     .map((item) => {
-      console.log(item.props);
       return item.props;
     });
+});
+
+const dictStore = useDictStore();
+const dictListMap = reactive({});
+
+onMounted(() => {
+  items.value.forEach(async (item) => {
+    if (item.config.dict && !dictListMap[item.config.dict]) {
+      dictListMap[item.config.dict] = await dictStore.getList(item.config.dict);
+    }
+  });
 });
 
 function reset() {
@@ -31,8 +43,15 @@ function reset() {
             <el-input
               v-if="item.config.filter === 'text'"
               v-model="queryParams[item.config.filter.alias || item.prop]"
-              class="flex-1"
               :placeholder="`请输入${item.label}`"
+              clearable
+            />
+
+            <el-select
+              v-else-if="item.config.filter === 'select'"
+              v-model="queryParams[item.config.filter.alias || item.prop]"
+              :options="dictListMap[item.config.dict]"
+              :placeholder="`请选择${item.label}`"
               clearable
             />
           </div>
@@ -48,7 +67,7 @@ function reset() {
 
 <style scoped>
 .q-table-filter-field :deep(.el-input) .el-input__wrapper,
-.q-table-filter-field :deep(.el-select) .el-input__wrapper {
+.q-table-filter-field :deep(.el-select) .el-select__wrapper {
   box-shadow: none;
 }
 </style>
