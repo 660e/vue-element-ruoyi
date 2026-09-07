@@ -1,9 +1,10 @@
 <script setup>
 import { getRole, deleteRole } from '@/api/system/role.js';
-// import TypeFormDialog from './TypeFormDialog.vue';
+
+import FormDialog from './FormDialog.vue';
 
 const tableRef = ref(null);
-const typeFormDialogRef = ref(null);
+const formDialogRef = ref(null);
 
 function request(params) {
   if (params.createTime) {
@@ -17,7 +18,7 @@ function request(params) {
 <template>
   <q-table :request="request" ref="tableRef">
     <template #header>
-      <el-button type="primary" @click="typeFormDialogRef.open()" plain>新增</el-button>
+      <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
     </template>
 
     <q-column label="角色名称" prop="roleName" width="200" :config="{ filter: 'text' }" />
@@ -32,11 +33,11 @@ function request(params) {
     />
     <q-column width="150" operation>
       <template #default="{ row }">
-        <el-button type="primary" @click="typeFormDialogRef.open(row)" link>修改</el-button>
+        <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button>
         <q-confirm :content="`角色名称：${row.roleName}`" :request="() => deleteRole(row.roleId)" @confirm="tableRef.refresh()" />
       </template>
     </q-column>
   </q-table>
 
-  <!-- <TypeFormDialog @confirm="tableRef.refresh()" ref="typeFormDialogRef" /> -->
+  <FormDialog @confirm="tableRef.refresh()" ref="formDialogRef" />
 </template>
