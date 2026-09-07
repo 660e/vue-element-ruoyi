@@ -31,7 +31,7 @@ function request(params) {
       width="200"
       :config="{ filter: 'date', props: { type: 'daterange', startPlaceholder: '开始日期', endPlaceholder: '结束日期' } }"
     />
-    <q-column width="150" operation>
+    <q-column width="110" operation>
       <template #default="{ row }">
         <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button>
         <q-confirm :content="`角色名称：${row.roleName}`" :request="() => deleteRole(row.roleId)" @confirm="tableRef.refresh()" />
