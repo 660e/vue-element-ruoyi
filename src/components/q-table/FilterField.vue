@@ -27,11 +27,6 @@ onMounted(() => {
   });
 });
 
-function search() {
-  console.log(queryParams.value);
-  emit('search');
-}
-
 function reset() {
   Object.keys(queryParams.value).forEach((key) => {
     queryParams.value[key] = undefined;
@@ -42,7 +37,7 @@ function reset() {
 
 <template>
   <div v-if="items.length" class="q-table-filter-field shrink-0">
-    <el-form class="flex gap-3" @submit.prevent="search">
+    <el-form class="flex gap-3" @submit.prevent="$emit('search')">
       <div class="grid flex-1 grid-cols-3 gap-3 min-[90rem]:grid-cols-4 min-[110rem]:grid-cols-5">
         <el-form-item v-for="item in items" class="ring-border focus-within:ring-brand rounded-base m-0! ring-1 duration-200" :key="item.prop">
           <div class="flex w-full">

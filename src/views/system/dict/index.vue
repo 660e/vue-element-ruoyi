@@ -7,10 +7,18 @@ import TypeFormDialog from './TypeFormDialog.vue';
 const tableRef = ref(null);
 const typeFormDialogRef = ref(null);
 const dataListDialogRef = ref(null);
+
+function request(params) {
+  if (params.createTime) {
+    params.params = { beginTime: params.createTime[0], endTime: params.createTime[1] };
+    delete params.createTime;
+  }
+  return getDictTypeList(params);
+}
 </script>
 
 <template>
-  <q-table :request="getDictTypeList" ref="tableRef">
+  <q-table :request="request" ref="tableRef">
     <template #header>
       <el-button type="primary" @click="typeFormDialogRef.open()" plain>新增</el-button>
     </template>
