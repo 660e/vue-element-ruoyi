@@ -1,9 +1,8 @@
 <script setup>
 import { ElMessage } from 'element-plus';
 
-import { getMenu } from '@/api/system/menu.js';
 import { createRole, updateRole } from '@/api/system/role.js';
-import { required, buildTree } from '@/utils';
+import { required } from '@/utils';
 
 const emit = defineEmits(['confirm']);
 const visible = ref(false);
@@ -15,18 +14,13 @@ const treeRef = ref(null);
 const menuData = ref([]);
 const checkStrictly = ref(false);
 
-onMounted(async () => {
-  try {
-    const { data } = await getMenu();
-    menuData.value = buildTree(data, { idKey: 'menuId', rootId: 0 });
-  } catch {
-    menuData.value = [];
-  }
-});
-
-function open(row) {
+async function open({ row, tree = [], checkedKeys = [] }) {
   formData.value = row ? { ...row } : {};
+  menuData.value = tree;
   visible.value = true;
+
+  await nextTick();
+  treeRef.value.setCheckedKeys(checkedKeys);
 }
 
 function confirm() {
@@ -75,14 +69,7 @@ defineExpose({ open });
         <div class="flex-1 overflow-auto">
           <el-scrollbar>
             <div class="py-1.5">
-              <el-tree
-                node-key="menuId"
-                :check-strictly="checkStrictly"
-                :data="menuData"
-                :props="{ label: 'menuName' }"
-                ref="treeRef"
-                show-checkbox
-              />
+              <el-tree node-key="id" :check-strictly="checkStrictly" :data="menuData" ref="treeRef" show-checkbox />
             </div>
           </el-scrollbar>
         </div>

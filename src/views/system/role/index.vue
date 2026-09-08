@@ -1,4 +1,5 @@
 <script setup>
+import { treeselect, roleMenuTreeselect } from '@/api/system/menu.js';
 import { getRole, deleteRole } from '@/api/system/role.js';
 
 import FormDialog from './FormDialog.vue';
@@ -13,12 +14,22 @@ function request(params) {
   }
   return getRole(params);
 }
+
+async function handleEdit(row) {
+  tableRef.value.setLoading(true);
+  try {
+    const { checkedKeys, data, menus } = await (row ? roleMenuTreeselect(row.roleId) : treeselect());
+    formDialogRef.value.open({ row, tree: row?.roleId ? menus : data, checkedKeys });
+  } finally {
+    tableRef.value.setLoading(false);
+  }
+}
 </script>
 
 <template>
   <q-table :request="request" ref="tableRef">
     <template #header>
-      <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
+      <el-button type="primary" @click="handleEdit()" plain>新增</el-button>
     </template>
 
     <q-column label="角色名称" prop="roleName" width="200" :config="{ filter: 'text' }" />
@@ -33,7 +44,7 @@ function request(params) {
     />
     <q-column width="110" operation>
       <template #default="{ row }">
-        <el-button type="primary" @click="formDialogRef.open(row)" link>修改</el-button>
+        <el-button type="primary" @click="handleEdit(row)" link>修改</el-button>
         <q-confirm :content="`角色名称：${row.roleName}`" :request="() => deleteRole(row.roleId)" @confirm="tableRef.refresh()" />
       </template>
     </q-column>

@@ -19,3 +19,11 @@ export function deleteMenu(menuId) {
 export function updateSort(data) {
   return request.put('/system/menu/updateSort', { data });
 }
+
+export function treeselect() {
+  return request.get('/system/menu/treeselect');
+}
+
+export function roleMenuTreeselect(roleId) {
+  return request.get(`/system/menu/roleMenuTreeselect/${roleId}`);
+}
