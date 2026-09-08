@@ -13,12 +13,10 @@ const formData = ref({});
 const treeRef = ref(null);
 const menuData = ref([]);
 const checkStrictly = ref(false);
-const checkedCount = ref(0);
 
 async function open({ row, tree = [], checkedKeys = [] }) {
   formData.value = row ? { ...row } : {};
   menuData.value = tree;
-  checkedCount.value = checkedKeys.length;
   visible.value = true;
 
   await nextTick();
@@ -65,8 +63,7 @@ defineExpose({ open });
         <q-item label="备注" prop="remark" :config="{ type: 'textarea' }" />
       </el-form>
       <div class="border-border rounded-base flex h-120 flex-1 flex-col border">
-        <div class="border-border flex items-center justify-between border-b px-3">
-          <span>已选：{{ checkedCount }}</span>
+        <div class="border-border flex justify-end border-b pr-3">
           <el-checkbox v-model="checkStrictly" label="精确选择" />
         </div>
         <div class="flex-1 overflow-auto">
