@@ -59,6 +59,7 @@ async function fetchTableData() {
 }
 
 defineExpose({
+  getTableData: () => tableData.value,
   refresh: fetchTableData,
   setLoading: (value) => (loading.value = value),
 });
