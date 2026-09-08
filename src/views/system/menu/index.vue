@@ -12,7 +12,7 @@ async function request() {
   return { rows: buildTree(data, { idKey: 'menuId', rootId: 0 }) };
 }
 
-async function handleEdit(row) {
+async function handleEdit(row, id) {
   tableRef.value.setLoading(true);
   try {
     const { data } = await getMenu();
@@ -20,7 +20,7 @@ async function handleEdit(row) {
       data.filter((e) => e.menuType !== 'F'),
       { idKey: 'menuId', rootId: 0 },
     );
-    formDialogRef.value.open(row, tree);
+    formDialogRef.value.open(row, tree, id);
   } finally {
     tableRef.value.setLoading(false);
   }
@@ -39,8 +39,9 @@ async function handleEdit(row) {
     <q-column label="权限标识" prop="perms" width="200" />
     <q-column label="组件路径" min-width="200" prop="component" />
     <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable', filter: 'select' }" />
-    <q-column width="110" operation>
+    <q-column width="150" operation>
       <template #default="{ row }">
+        <el-button v-if="row.menuType !== 'F'" type="primary" @click="handleEdit(null, row.menuId)" link>新增</el-button>
         <el-button type="primary" @click="handleEdit(row)" link>修改</el-button>
         <q-confirm :content="`菜单名称：${row.menuName}`" :request="() => deleteMenu(row.menuId)" @confirm="tableRef.refresh()" />
       </template>
