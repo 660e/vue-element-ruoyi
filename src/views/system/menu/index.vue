@@ -2,7 +2,7 @@
 import { getMenu, deleteMenu } from '@/api/system/menu.js';
 import { buildTree } from '@/utils';
 
-// import FormDialog from './FormDialog.vue';
+import FormDialog from './FormDialog.vue';
 
 const tableRef = ref(null);
 const formDialogRef = ref(null);
@@ -33,5 +33,5 @@ async function request(params) {
     </q-column>
   </q-table>
 
-  <!-- <FormDialog @confirm="tableRef.refresh()" ref="formDialogRef" /> -->
+  <FormDialog @confirm="tableRef.refresh()" ref="formDialogRef" />
 </template>
