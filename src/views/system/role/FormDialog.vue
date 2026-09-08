@@ -41,7 +41,7 @@ defineExpose({ open });
   <q-dialog
     v-model="visible"
     v-model:confirming="confirming"
-    width="500"
+    width="400"
     :title="formData.roleId ? '修改' : '新增'"
     @cancel="visible = false"
     @confirm="confirm"

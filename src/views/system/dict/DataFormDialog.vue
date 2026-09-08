@@ -41,19 +41,19 @@ defineExpose({ open });
   <q-dialog
     v-model="visible"
     v-model:confirming="confirming"
-    width="500"
+    width="800"
     :title="formData.dictCode ? '修改' : '新增'"
     @cancel="visible = false"
     @confirm="confirm"
   >
-    <el-form label-position="top" :model="formData" ref="formRef">
+    <el-form class="grid grid-cols-2 gap-x-6" label-position="top" :model="formData" ref="formRef">
       <q-item label="字典类型" prop="dictType" :config="{ disabled: true }" />
+      <q-item label="排序" prop="dictSort" :config="{ type: 'number' }" :rules="[required]" />
       <q-item label="数据标签" prop="dictLabel" :rules="[required]" />
       <q-item label="数据键值" prop="dictValue" :rules="[required]" />
-      <q-item label="排序" prop="dictSort" :config="{ type: 'number' }" :rules="[required]" />
-      <q-item label="标签类型" prop="listClass" :config="{ type: 'select', dict: 'sys_tag_type' }" />
       <q-item label="状态" prop="status" :config="{ type: 'select', dict: 'sys_normal_disable' }" :rules="[required]" />
-      <q-item label="备注" prop="remark" :config="{ type: 'textarea' }" />
+      <q-item label="标签类型" prop="listClass" :config="{ type: 'select', dict: 'sys_tag_type' }" />
+      <q-item class="col-span-2" label="备注" prop="remark" :config="{ type: 'textarea' }" />
     </el-form>
   </q-dialog>
 </template>

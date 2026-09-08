@@ -1,17 +1,17 @@
 <script setup>
 import { ElMessage } from 'element-plus';
 
-import { createRole, updateRole } from '@/api/system/role.js';
+import { createMenu, updateMenu } from '@/api/system/menu.js';
 import { required } from '@/utils';
 
 const emit = defineEmits(['confirm']);
-const visible = ref(false);
+const visible = ref(true);
 const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
 
 function open(row) {
-  formData.value = row ? { ...row } : { menuIds: [] };
+  formData.value = row ? { ...row } : {};
   visible.value = true;
 }
 
@@ -19,7 +19,7 @@ function confirm() {
   formRef.value.validate(async (valid) => {
     if (valid) {
       confirming.value = true;
-      const request = formData.value.roleId ? updateRole : createRole;
+      const request = formData.value.menuId ? updateMenu : createMenu;
       try {
         const { code, msg } = await request({ ...formData.value });
         if (code === 200) {
@@ -41,15 +41,15 @@ defineExpose({ open });
   <q-dialog
     v-model="visible"
     v-model:confirming="confirming"
-    width="500"
-    :title="formData.roleId ? '修改' : '新增'"
+    width="800"
+    :title="formData.menuId ? '修改' : '新增'"
     @cancel="visible = false"
     @confirm="confirm"
   >
-    <el-form label-position="top" :model="formData" ref="formRef">
-      <q-item label="角色名称" prop="roleName" :rules="[required]" />
-      <q-item label="权限字符" prop="roleKey" :rules="[required]" />
-      <q-item label="角色顺序" prop="roleSort" :config="{ type: 'number' }" :rules="[required]" />
+    <el-form class="grid grid-cols-2 gap-x-6" label-position="top" :model="formData" ref="formRef">
+      <q-item label="菜单名称" prop="menuName" :rules="[required]" />
+      <q-item label="类型" prop="menuType" :rules="[required]" />
+      <q-item label="排序" prop="orderNum" :config="{ type: 'number' }" :rules="[required]" />
       <q-item label="状态" prop="status" :config="{ type: 'select', dict: 'sys_normal_disable' }" :rules="[required]" />
       <q-item label="备注" prop="remark" :config="{ type: 'textarea' }" />
     </el-form>
