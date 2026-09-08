@@ -11,14 +11,16 @@ const visible = ref(false);
 const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
+const menuData = ref([]);
 
 const isCatalog = computed(() => formData.value.menuType === 'M');
 const isMenu = computed(() => formData.value.menuType === 'C');
 const isButton = computed(() => formData.value.menuType === 'F');
 const formLabel = computed(() => dictStore.getLabel('sys_menu_type', formData.value.menuType));
 
-function open(row) {
+function open(row, tree) {
   formData.value = row ? { ...row } : { menuType: 'C', isFrame: '1' };
+  menuData.value = tree;
   visible.value = true;
 }
 
