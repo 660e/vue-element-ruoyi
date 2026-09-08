@@ -1,7 +1,7 @@
 <script setup>
-import { getUser, deleteUser } from '@/api/system/user.js';
+import { getUser, deleteUser, getUserById } from '@/api/system/user.js';
 
-// import FormDialog from './FormDialog.vue';
+import FormDialog from './FormDialog.vue';
 
 const tableRef = ref(null);
 const formDialogRef = ref(null);
@@ -13,8 +13,10 @@ function request(params) {
 async function handleEdit(row) {
   tableRef.value.setLoading(true);
   try {
-    // const { checkedKeys, data, menus } = await (row ? roleMenuTreeselect(row.roleId) : treeselect());
-    // formDialogRef.value.open({ row, tree: row?.roleId ? menus : data, checkedKeys });
+    const { code, data, postIds, posts, roleIds, roles } = await getUserById(row?.userId || '');
+    if (code === 200) {
+      formDialogRef.value.open({ row: data });
+    }
   } finally {
     tableRef.value.setLoading(false);
   }
@@ -50,5 +52,5 @@ async function handleEdit(row) {
     </q-column>
   </q-table>
 
-  <!-- <FormDialog @confirm="tableRef.refresh()" ref="formDialogRef" /> -->
+  <FormDialog @confirm="tableRef.refresh()" ref="formDialogRef" />
 </template>

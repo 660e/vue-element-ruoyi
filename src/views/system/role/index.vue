@@ -18,8 +18,10 @@ function request(params) {
 async function handleEdit(row) {
   tableRef.value.setLoading(true);
   try {
-    const { checkedKeys, data, menus } = await (row ? roleMenuTreeselect(row.roleId) : treeselect());
-    formDialogRef.value.open({ row, tree: row?.roleId ? menus : data, checkedKeys });
+    const { checkedKeys, code, data, menus } = await (row ? roleMenuTreeselect(row.roleId) : treeselect());
+    if (code === 200) {
+      formDialogRef.value.open({ row, tree: row?.roleId ? menus : data, checkedKeys });
+    }
   } finally {
     tableRef.value.setLoading(false);
   }

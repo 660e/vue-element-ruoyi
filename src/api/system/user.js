@@ -8,6 +8,10 @@ export function getUser(params) {
   return request.get('/system/user/list', { params });
 }
 
+export function getUserById(userId) {
+  return request.get(`/system/user/${userId}`);
+}
+
 export function updateUser(data) {
   return request.put('/system/user', { data });
 }
