@@ -1,6 +1,8 @@
 <script setup>
-import { getMenu, deleteMenu } from '@/api/system/menu.js';
-import { buildTree } from '@/utils';
+import { ElMessage } from 'element-plus';
+
+import { getMenu, deleteMenu, updateSort } from '@/api/system/menu.js';
+import { buildTree, flattenTree } from '@/utils';
 
 import FormDialog from './FormDialog.vue';
 
@@ -9,7 +11,12 @@ const formDialogRef = ref(null);
 
 async function request(params) {
   const { data } = await getMenu(params);
-  return { rows: buildTree(data, { idKey: 'menuId', rootId: 0 }) };
+  return {
+    rows: buildTree(
+      data.map((e) => ({ ...e, _orderNum: e.orderNum })),
+      { idKey: 'menuId', rootId: 0 },
+    ),
+  };
 }
 
 async function handleEdit(row, id) {
@@ -25,17 +32,46 @@ async function handleEdit(row, id) {
     tableRef.value.setLoading(false);
   }
 }
+
+async function saveOrder() {
+  const tableData = tableRef.value.getTableData();
+  const menuIds = [];
+  const orderNums = [];
+
+  flattenTree(tableData).forEach((item) => {
+    if (item.orderNum !== item._orderNum) {
+      menuIds.push(item.menuId);
+      orderNums.push(item._orderNum);
+    }
+  });
+
+  tableRef.value.setLoading(true);
+  try {
+    const { code, msg } = await updateSort({ menuIds: menuIds.join(','), orderNums: orderNums.join(',') });
+    if (code === 200) {
+      tableRef.value.refresh();
+      ElMessage.success(msg);
+    }
+  } finally {
+    tableRef.value.setLoading(false);
+  }
+}
 </script>
 
 <template>
   <q-table row-key="menuId" :pagination="{ hidden: true }" :request="request" ref="tableRef">
     <template #header>
       <el-button type="primary" @click="handleEdit()" plain>新增</el-button>
+      <el-button type="warning" @click="saveOrder" plain>保存排序</el-button>
     </template>
 
     <el-table-column label="菜单名称" prop="menuName" width="200" :config="{ filter: 'text' }" />
     <q-column label="类型" prop="menuType" width="100" :config="{ dict: 'sys_menu_type' }" />
-    <q-column label="排序" prop="orderNum" width="100" />
+    <el-table-column class-name="p-0!" label="排序" width="100">
+      <template #default="{ row }">
+        <el-input-number v-model="row._orderNum" class="w-full!" size="small" :controls="false" :precision="0" disabled-scientific />
+      </template>
+    </el-table-column>
     <q-column label="权限标识" prop="perms" width="200" />
     <q-column label="组件路径" min-width="200" prop="component" />
     <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable', filter: 'select' }" />

@@ -15,3 +15,7 @@ export function updateMenu(data) {
 export function deleteMenu(menuId) {
   return request.delete(`/system/menu/${menuId}`);
 }
+
+export function updateSort(data) {
+  return request.put('/system/menu/updateSort', { data });
+}
