@@ -10,12 +10,12 @@ const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
 
-function open({ row, roleIds = [], roles = [] }) {
-  formData.value = row ? { ...row } : {};
-  visible.value = true;
+const roleOptions = ref([]);
 
-  console.log(roleIds);
-  console.log(roles);
+function open({ row, roleIds = [], roles = [] }) {
+  formData.value = row ? { ...row, roleIds } : { roleIds };
+  roleOptions.value = roles;
+  visible.value = true;
 }
 
 function confirm() {
@@ -56,7 +56,12 @@ defineExpose({ open });
       <q-item label="邮箱" prop="email" :rules="[email]" />
       <q-item label="状态" prop="status" :config="{ type: 'radio', dict: 'sys_normal_disable' }" :rules="[required]" />
       <q-item label="用户性别" prop="sex" :config="{ type: 'radio', dict: 'sys_user_sex' }" />
-      <q-item class="col-span-2" label="角色" prop="roleIds" :config="{ type: 'select', options: [] }" />
+      <q-item
+        class="col-span-2"
+        label="角色"
+        prop="roleIds"
+        :config="{ type: 'select', options: roleOptions, multiple: true, props: { label: 'roleName', value: 'roleId' } }"
+      />
       <q-item class="col-span-2" label="备注" prop="remark" :config="{ type: 'textarea' }" />
     </el-form>
   </q-dialog>
