@@ -1,5 +1,6 @@
 <script setup>
 import { getMenu, deleteMenu } from '@/api/system/menu.js';
+import { buildTree } from '@/utils';
 
 // import FormDialog from './FormDialog.vue';
 
@@ -8,7 +9,7 @@ const formDialogRef = ref(null);
 
 async function request(params) {
   const { data } = await getMenu(params);
-  return { rows: data };
+  return { rows: buildTree(data, { idKey: 'menuId', rootId: 0 }) };
 }
 </script>
 
