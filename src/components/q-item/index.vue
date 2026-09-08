@@ -17,12 +17,14 @@ const model = reactive(form?.model);
 
 const dictStore = useDictStore();
 const itemConfig = reactive({ ...config });
+const options = ref([]);
 
 onMounted(async () => {
   switch (itemConfig.type) {
-    case 'select': {
+    case 'select':
+    case 'radio': {
       if (itemConfig.dict) {
-        itemConfig.options = await dictStore.getList(itemConfig.dict);
+        options.value = await dictStore.getList(itemConfig.dict);
       }
       break;
     }
@@ -45,8 +47,11 @@ onMounted(async () => {
       v-model="model[$attrs.prop]"
       :placeholder="`请选择${$attrs.label}`"
       clearable
-      v-bind="itemConfig"
+      v-bind="{ options, ...itemConfig }"
     />
+
+    <!-- 单选框 -->
+    <el-radio-group v-else-if="itemConfig.type === 'radio'" v-model="model[$attrs.prop]" type="button" v-bind="{ options, ...itemConfig }" />
 
     <!-- 数字输入框 -->
     <el-input-number

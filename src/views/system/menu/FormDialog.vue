@@ -47,6 +47,9 @@ defineExpose({ open });
     @confirm="confirm"
   >
     <el-form class="grid grid-cols-2 gap-x-6" label-position="top" :model="formData" ref="formRef">
+      <q-item label="上级菜单" prop="parentId" />
+      <q-item label="菜单类型" prop="menuType" :config="{ type: 'radio', dict: 'sys_menu_type' }" :rules="[required]" />
+
       <q-item label="菜单名称" prop="menuName" :rules="[required]" />
       <q-item label="类型" prop="menuType" :rules="[required]" />
       <q-item label="排序" prop="orderNum" :config="{ type: 'number' }" :rules="[required]" />
