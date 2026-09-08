@@ -62,3 +62,8 @@
 .el-input-number.is-controls-right .el-input__wrapper {
   padding-left: 11px;
 }
+
+/* el-table */
+.el-table .el-table__expand-icon {
+  height: 20px;
+}
