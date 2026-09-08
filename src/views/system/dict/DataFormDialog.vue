@@ -51,8 +51,8 @@ defineExpose({ open });
       <q-item label="排序" prop="dictSort" :config="{ type: 'number' }" :rules="[required]" />
       <q-item label="数据标签" prop="dictLabel" :rules="[required]" />
       <q-item label="数据键值" prop="dictValue" :rules="[required]" />
-      <q-item label="状态" prop="status" :config="{ type: 'select', dict: 'sys_normal_disable' }" :rules="[required]" />
       <q-item label="标签类型" prop="listClass" :config="{ type: 'select', dict: 'sys_tag_type' }" />
+      <q-item label="状态" prop="status" :config="{ type: 'radio', dict: 'sys_normal_disable' }" :rules="[required]" />
       <q-item class="col-span-2" label="备注" prop="remark" :config="{ type: 'textarea' }" />
     </el-form>
   </q-dialog>

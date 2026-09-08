@@ -50,7 +50,7 @@ defineExpose({ open });
       <q-item label="角色名称" prop="roleName" :rules="[required]" />
       <q-item label="权限字符" prop="roleKey" :rules="[required]" />
       <q-item label="角色顺序" prop="roleSort" :config="{ type: 'number' }" :rules="[required]" />
-      <q-item label="状态" prop="status" :config="{ type: 'select', dict: 'sys_normal_disable' }" :rules="[required]" />
+      <q-item label="状态" prop="status" :config="{ type: 'radio', dict: 'sys_normal_disable' }" :rules="[required]" />
       <q-item label="备注" prop="remark" :config="{ type: 'textarea' }" />
     </el-form>
   </q-dialog>

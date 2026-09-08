@@ -51,7 +51,7 @@ onMounted(async () => {
     />
 
     <!-- 单选框 -->
-    <el-radio-group v-else-if="itemConfig.type === 'radio'" v-model="model[$attrs.prop]" type="button" v-bind="{ options, ...itemConfig }" />
+    <el-radio-group v-else-if="itemConfig.type === 'radio'" v-model="model[$attrs.prop]" v-bind="{ options, ...itemConfig, type: 'button' }" />
 
     <!-- 数字输入框 -->
     <el-input-number

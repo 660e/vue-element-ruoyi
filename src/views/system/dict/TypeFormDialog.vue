@@ -49,7 +49,7 @@ defineExpose({ open });
     <el-form label-position="top" :model="formData" ref="formRef">
       <q-item label="字典名称" prop="dictName" :rules="[required]" />
       <q-item label="字典类型" prop="dictType" :rules="[required]" />
-      <q-item label="状态" prop="status" :config="{ type: 'select', dict: 'sys_normal_disable' }" :rules="[required]" />
+      <q-item label="状态" prop="status" :config="{ type: 'radio', dict: 'sys_normal_disable' }" :rules="[required]" />
       <q-item label="备注" prop="remark" :config="{ type: 'textarea' }" />
     </el-form>
   </q-dialog>
