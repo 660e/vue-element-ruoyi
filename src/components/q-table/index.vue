@@ -16,12 +16,10 @@ const defaultPaginationProps = {
 };
 
 const attrs = useRestAttrs();
-const { autoRequest, pagination, request, data } = defineProps({
+const { autoRequest, pagination, request } = defineProps({
   autoRequest: { type: Boolean, default: true },
   pagination: { type: Object },
   request: { type: Function },
-
-  data: { type: Array },
 });
 
 const loading = ref(false);
@@ -37,9 +35,7 @@ onMounted(() => {
 });
 
 async function fetchTableData() {
-  if (data) {
-    tableData.value = data;
-  } else if (request) {
+  if (request) {
     const { pageKey, sizeKey, hidden } = paginationProps;
     const params = { ...queryParams };
 
@@ -59,8 +55,6 @@ async function fetchTableData() {
     } finally {
       loading.value = false;
     }
-  } else {
-    tableData.value = [];
   }
 }
 
