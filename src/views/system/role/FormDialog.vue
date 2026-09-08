@@ -1,8 +1,9 @@
 <script setup>
 import { ElMessage } from 'element-plus';
 
+import { getMenu } from '@/api/system/menu.js';
 import { createRole, updateRole } from '@/api/system/role.js';
-import { required } from '@/utils';
+import { required, buildTree } from '@/utils';
 
 const emit = defineEmits(['confirm']);
 const visible = ref(false);
@@ -10,8 +11,20 @@ const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
 
+const menuData = ref([]);
+const checkStrictly = ref(false);
+
+onMounted(async () => {
+  try {
+    const { data } = await getMenu();
+    menuData.value = buildTree(data, { idKey: 'menuId', rootId: 0 });
+  } catch {
+    menuData.value = [];
+  }
+});
+
 function open(row) {
-  formData.value = row ? { ...row } : { menuIds: [] };
+  formData.value = row ? { ...row } : {};
   visible.value = true;
 }
 
@@ -41,17 +54,29 @@ defineExpose({ open });
   <q-dialog
     v-model="visible"
     v-model:confirming="confirming"
-    width="400"
+    width="800"
     :title="formData.roleId ? '修改' : '新增'"
     @cancel="visible = false"
     @confirm="confirm"
   >
-    <el-form label-position="top" :model="formData" ref="formRef">
-      <q-item label="角色名称" prop="roleName" :rules="[required]" />
-      <q-item label="权限字符" prop="roleKey" :rules="[required]" />
-      <q-item label="角色顺序" prop="roleSort" :config="{ type: 'number' }" :rules="[required]" />
-      <q-item label="状态" prop="status" :config="{ type: 'radio', dict: 'sys_normal_disable' }" :rules="[required]" />
-      <q-item label="备注" prop="remark" :config="{ type: 'textarea' }" />
-    </el-form>
+    <div class="flex gap-6">
+      <el-form class="flex-1" label-position="top" :model="formData" ref="formRef">
+        <q-item label="角色名称" prop="roleName" :rules="[required]" />
+        <q-item label="权限字符" prop="roleKey" :rules="[required]" />
+        <q-item label="角色顺序" prop="roleSort" :config="{ type: 'number' }" :rules="[required]" />
+        <q-item label="状态" prop="status" :config="{ type: 'radio', dict: 'sys_normal_disable' }" :rules="[required]" />
+        <q-item label="备注" prop="remark" :config="{ type: 'textarea' }" />
+      </el-form>
+      <div class="border-border rounded-base flex h-120 flex-1 flex-col border">
+        <div class="border-border flex justify-end border-b pr-3">
+          <el-checkbox v-model="checkStrictly" label="精确选择" />
+        </div>
+        <div class="flex-1 overflow-auto">
+          <el-scrollbar>
+            <el-tree node-key="menuId" :check-strictly="checkStrictly" :data="menuData" :props="{ label: 'menuName' }" show-checkbox />
+          </el-scrollbar>
+        </div>
+      </div>
+    </div>
   </q-dialog>
 </template>
