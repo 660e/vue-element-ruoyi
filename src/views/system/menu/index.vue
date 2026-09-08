@@ -33,7 +33,7 @@ async function handleEdit(row, id) {
       <el-button type="primary" @click="handleEdit()" plain>新增</el-button>
     </template>
 
-    <q-column label="菜单名称" prop="menuName" width="200" :config="{ filter: 'text' }" />
+    <el-table-column label="菜单名称" prop="menuName" width="200" :config="{ filter: 'text' }" />
     <q-column label="类型" prop="menuType" width="100" :config="{ dict: 'sys_menu_type' }" />
     <q-column label="排序" prop="orderNum" width="100" />
     <q-column label="权限标识" prop="perms" width="200" />

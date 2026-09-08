@@ -7,13 +7,7 @@ const queryParams = defineModel({ type: Object });
 const { parentSlots } = defineProps({ parentSlots: { type: Object } });
 
 const items = computed(() => {
-  return (parentSlots.default?.() || [])
-    .filter((item) => {
-      return item.type.name === 'QColumn' && item.props?.config?.filter;
-    })
-    .map((item) => {
-      return item.props;
-    });
+  return (parentSlots.default?.() || []).filter((item) => item.props?.config?.filter).map((item) => item.props);
 });
 
 const dictStore = useDictStore();
