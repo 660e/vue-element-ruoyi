@@ -7,8 +7,8 @@ import FormDialog from './FormDialog.vue';
 const tableRef = ref(null);
 const formDialogRef = ref(null);
 
-async function request() {
-  const { data } = await getMenu();
+async function request(params) {
+  const { data } = await getMenu(params);
   return { rows: buildTree(data, { idKey: 'menuId', rootId: 0 }) };
 }
 
