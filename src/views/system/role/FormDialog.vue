@@ -11,6 +11,7 @@ const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
 
+const treeRef = ref(null);
 const menuData = ref([]);
 const checkStrictly = ref(false);
 
@@ -34,7 +35,7 @@ function confirm() {
       confirming.value = true;
       const request = formData.value.roleId ? updateRole : createRole;
       try {
-        const { code, msg } = await request({ ...formData.value });
+        const { code, msg } = await request({ ...formData.value, menuIds: treeRef.value.getCheckedKeys() });
         if (code === 200) {
           ElMessage.success(msg);
           emit('confirm');
@@ -73,7 +74,16 @@ defineExpose({ open });
         </div>
         <div class="flex-1 overflow-auto">
           <el-scrollbar>
-            <el-tree node-key="menuId" :check-strictly="checkStrictly" :data="menuData" :props="{ label: 'menuName' }" show-checkbox />
+            <div class="py-1.5">
+              <el-tree
+                node-key="menuId"
+                :check-strictly="checkStrictly"
+                :data="menuData"
+                :props="{ label: 'menuName' }"
+                ref="treeRef"
+                show-checkbox
+              />
+            </div>
           </el-scrollbar>
         </div>
       </div>
