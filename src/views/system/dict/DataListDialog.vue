@@ -13,12 +13,16 @@ function open(row) {
   visible.value = true;
 }
 
+function request(params) {
+  return getDictDataList({ ...params, dictType: rowData.value.dictType });
+}
+
 defineExpose({ open });
 </script>
 
 <template>
   <q-dialog v-model="visible" width="1000" :title="rowData.dictName" @cancel="visible = false">
-    <q-table :request="(p) => getDictDataList({ ...p, dictType: rowData.dictType })" ref="tableRef">
+    <q-table :request="request" ref="tableRef">
       <template #header>
         <el-button type="primary" @click="formDialogRef.open({ dictType: rowData.dictType })" plain>新增</el-button>
       </template>

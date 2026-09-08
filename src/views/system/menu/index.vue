@@ -5,10 +5,15 @@ import { getMenu, deleteMenu } from '@/api/system/menu.js';
 
 const tableRef = ref(null);
 const formDialogRef = ref(null);
+
+async function request(params) {
+  const { data } = await getMenu(params);
+  return { rows: data };
+}
 </script>
 
 <template>
-  <q-table row-key="menuId" :pagination="{ rowsKey: 'data', hidden: true }" :request="getMenu" ref="tableRef">
+  <q-table row-key="menuId" :pagination="{ hidden: true }" :request="request" ref="tableRef">
     <template #header>
       <el-button type="primary" @click="formDialogRef.open()" plain>新增</el-button>
     </template>

@@ -10,8 +10,6 @@ const defaultPaginationProps = {
   size: 10,
   pageKey: 'pageNum',
   sizeKey: 'pageSize',
-  rowsKey: 'rows',
-  totalKey: 'total',
   hidden: false,
   layout: ['total', 'sizes', 'prev', 'pager', 'next'],
   pageSizes: [10, 20, 50, 100],
@@ -42,7 +40,7 @@ async function fetchTableData() {
   if (data) {
     tableData.value = data;
   } else if (request) {
-    const { pageKey, sizeKey, rowsKey, totalKey, hidden } = paginationProps;
+    const { pageKey, sizeKey, hidden } = paginationProps;
     const params = { ...queryParams };
 
     if (!hidden) {
@@ -52,7 +50,7 @@ async function fetchTableData() {
 
     loading.value = true;
     try {
-      const { [rowsKey]: rows, [totalKey]: total } = await request(params);
+      const { rows, total } = await request(params);
       tableData.value = rows;
 
       if (!hidden) {
