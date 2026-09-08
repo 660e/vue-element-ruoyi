@@ -69,9 +69,18 @@ onMounted(async () => {
     <el-date-picker
       v-else-if="['date', 'month', 'year'].includes(itemConfig.type)"
       v-model="model[$attrs.prop]"
-      class="w-full!"
       :placeholder="`请选择${$attrs.label}`"
       :value-format="VALUE_FORMAT[itemConfig.type]"
+      v-bind="itemConfig"
+    />
+
+    <!-- 级联选择器 -->
+    <el-cascader
+      v-else-if="itemConfig.type === 'cascader'"
+      v-model="model[$attrs.prop]"
+      class="w-full"
+      :placeholder="`请选择${$attrs.label}`"
+      clearable
       v-bind="itemConfig"
     />
 

@@ -56,7 +56,11 @@ defineExpose({ open });
     @confirm="confirm"
   >
     <el-form class="grid grid-cols-2 gap-x-6" label-position="top" :model="formData" ref="formRef">
-      <q-item label="上级菜单" prop="parentId" />
+      <q-item
+        label="上级菜单"
+        prop="parentId"
+        :config="{ type: 'cascader', options: menuData, props: { checkStrictly: true, label: 'menuName', value: 'menuId' } }"
+      />
       <q-item label="菜单类型" prop="menuType" :config="{ type: 'radio', dict: 'sys_menu_type' }" />
       <q-item prop="menuName" :label="`${formLabel}名称`" :rules="[required]" />
       <q-item label="排序" prop="orderNum" :config="{ type: 'number' }" :rules="[required]" />
