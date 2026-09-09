@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus';
 
-import { getDept } from '@/api/system/dept.js';
+import { getDept, deleteDept, updateSort } from '@/api/system/dept.js';
 import { buildTree, flattenTree } from '@/utils';
 
 import FormDialog from './FormDialog.vue';
@@ -11,7 +11,8 @@ const formDialogRef = ref(null);
 
 async function request(params) {
   const { data } = await getDept(params);
-  return { rows: data };
+  const rows = flattenTree(data).map((e) => ({ ...e, _orderNum: e.orderNum }));
+  return { rows: buildTree(rows, { idKey: 'deptId', rootId: 0 }) };
 }
 
 async function handleEdit(row, id) {
@@ -30,19 +31,19 @@ async function handleEdit(row, id) {
 
 async function saveOrder() {
   const tableData = tableRef.value.getTableData();
-  const menuIds = [];
+  const deptIds = [];
   const orderNums = [];
 
   flattenTree(tableData).forEach((item) => {
     if (item.orderNum !== item._orderNum) {
-      menuIds.push(item.menuId);
+      deptIds.push(item.deptId);
       orderNums.push(item._orderNum);
     }
   });
 
   tableRef.value.setLoading(true);
   try {
-    const { code, msg } = await updateSort({ menuIds: menuIds.join(','), orderNums: orderNums.join(',') });
+    const { code, msg } = await updateSort({ deptIds: deptIds.join(','), orderNums: orderNums.join(',') });
     if (code === 200) {
       tableRef.value.refresh();
       ElMessage.success(msg);
@@ -54,7 +55,7 @@ async function saveOrder() {
 </script>
 
 <template>
-  <q-table row-key="deptId" :expand-row-keys="['100']" :pagination="{ hidden: true }" :request="request">
+  <q-table row-key="deptId" :expand-row-keys="['100']" :pagination="{ hidden: true }" :request="request" ref="tableRef">
     <template #header>
       <el-button type="primary" @click="handleEdit()" plain>新增</el-button>
       <el-button type="warning" @click="saveOrder" plain>保存排序</el-button>
@@ -71,9 +72,9 @@ async function saveOrder() {
 
     <q-column width="150" operation>
       <template #default="{ row }">
-        <el-button v-if="row.menuType !== 'F'" type="primary" @click="handleEdit(null, row.menuId)" link>新增</el-button>
+        <el-button v-if="row.menuType !== 'F'" type="primary" @click="handleEdit(null, row.deptId)" link>新增</el-button>
         <el-button type="primary" @click="handleEdit(row)" link>修改</el-button>
-        <q-confirm :content="`菜单名称：${row.menuName}`" :request="() => deleteMenu(row.menuId)" @confirm="tableRef.refresh()" />
+        <q-confirm :content="`机构名称：${row.deptName}`" :request="() => deleteDept(row.deptId)" @confirm="tableRef.refresh()" />
       </template>
     </q-column>
   </q-table>
