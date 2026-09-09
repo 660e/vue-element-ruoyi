@@ -15,3 +15,7 @@ export function updateJob(data) {
 export function deleteJob(jobId) {
   return request.delete(`/monitor/job/${jobId}`);
 }
+
+export function runJob(data) {
+  return request.put('/monitor/job/run', { data });
+}
