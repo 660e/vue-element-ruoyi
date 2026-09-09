@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus';
 
-import { createRole, updateRole } from '@/api/system/role.js';
+import { createJob, updateJob } from '@/api/monitor/job.js';
 import { required } from '@/utils';
 
 const emit = defineEmits(['confirm']);
@@ -10,26 +10,18 @@ const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
 
-const treeRef = ref(null);
-const menuData = ref([]);
-const checkStrictly = ref(false);
-
-async function open({ row, tree = [], checkedKeys = [] }) {
+function open(row) {
   formData.value = row ? { ...row } : {};
-  menuData.value = tree;
   visible.value = true;
-
-  await nextTick();
-  treeRef.value.setCheckedKeys(checkedKeys);
 }
 
 function confirm() {
   formRef.value.validate(async (valid) => {
     if (valid) {
       confirming.value = true;
-      const request = formData.value.roleId ? updateRole : createRole;
+      const request = formData.value.jobId ? updateJob : createJob;
       try {
-        const { code, msg } = await request({ ...formData.value, menuIds: treeRef.value.getCheckedKeys() });
+        const { code, msg } = await request(formData.value);
         if (code === 200) {
           ElMessage.success(msg);
           emit('confirm');
@@ -49,31 +41,18 @@ defineExpose({ open });
   <q-dialog
     v-model="visible"
     v-model:confirming="confirming"
-    width="800"
-    :title="formData.roleId ? '修改' : '新增'"
+    width="400"
+    :title="formData.jobId ? '修改' : '新增'"
     @cancel="visible = false"
     @confirm="confirm"
   >
-    <div class="flex gap-6">
-      <el-form class="flex-1" label-position="top" :model="formData" ref="formRef">
-        <q-item label="角色名称" prop="roleName" :rules="[required]" />
-        <q-item label="权限字符" prop="roleKey" :rules="[required]" />
-        <q-item label="角色顺序" prop="roleSort" :config="{ type: 'number' }" :rules="[required]" />
-        <q-item label="状态" prop="status" :config="{ type: 'radio', dict: 'sys_normal_disable' }" :rules="[required]" />
-        <q-item label="备注" prop="remark" :config="{ type: 'textarea' }" />
-      </el-form>
-      <div class="border-border rounded-base flex h-120 flex-1 flex-col border">
-        <div class="border-border flex justify-end border-b pr-3">
-          <el-checkbox v-model="checkStrictly" label="精确选择" />
-        </div>
-        <div class="flex-1 overflow-auto">
-          <el-scrollbar>
-            <div class="py-1.5">
-              <el-tree node-key="id" :check-strictly="checkStrictly" :data="menuData" ref="treeRef" show-checkbox />
-            </div>
-          </el-scrollbar>
-        </div>
-      </div>
-    </div>
+    <el-form label-position="top" :model="formData" ref="formRef">
+      <q-item label="任务名称" prop="jobName" :rules="[required]" />
+      <q-item label="任务组名" prop="jobGroup" :config="{ type: 'select', dict: 'sys_job_group' }" :rules="[required]" />
+      <q-item label="调用目标字符串" prop="invokeTarget" :config="{ type: 'textarea' }" :rules="[required]" />
+      <q-item label="cron执行表达式" prop="cronExpression" :config="{ type: 'textarea' }" :rules="[required]" />
+      <q-item label="执行策略" prop="misfirePolicy" :config="{ type: 'radio', dict: 'sys_misfire_policy' }" :rules="[required]" />
+      <q-item label="是否并发" prop="concurrent" :config="{ type: 'radio', dict: 'sys_concurrent' }" :rules="[required]" />
+    </el-form>
   </q-dialog>
 </template>
