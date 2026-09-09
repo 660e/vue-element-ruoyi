@@ -65,6 +65,8 @@ defineExpose({ open });
         :rules="[required]"
       />
       <q-item label="管辖区域" prop="managerArea" :config="{ type: 'area' }" :rules="[required]" />
+      <q-item label="机构类型" prop="type" :config="{ type: 'select', dict: 'sys_office_type' }" :rules="[required]" />
+      <q-item label="机构等级" prop="grade" :config="{ type: 'select', dict: 'sys_office_grade' }" :rules="[required]" />
       <q-item label="负责人" prop="leader" />
       <q-item label="联系电话" prop="phone" :rules="[mobile]" />
       <q-item label="邮箱" prop="email" :rules="[email]" />
