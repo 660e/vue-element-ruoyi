@@ -5,7 +5,6 @@ export default {
     "ComputedRef": "readonly",
     "DirectiveBinding": "readonly",
     "EffectScope": "readonly",
-    "ElMessage": "readonly",
     "ExtractDefaultPropTypes": "readonly",
     "ExtractPropTypes": "readonly",
     "ExtractPublicPropTypes": "readonly",
