@@ -118,6 +118,7 @@ onMounted(async () => {
       :options="options"
       :placeholder="`请选择${$attrs.label}`"
       :props="cascaderProps"
+      :show-all-levels="itemConfig.type !== 'dept'"
       clearable
       v-bind="itemConfig"
     />

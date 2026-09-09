@@ -53,7 +53,12 @@ defineExpose({ open });
         <q-item
           label="上级机构"
           prop="parentId"
-          :config="{ type: 'cascader', options: deptData, props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' } }"
+          :config="{
+            type: 'cascader',
+            options: deptData,
+            showAllLevels: false,
+            props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' },
+          }"
           :rules="[required]"
         />
         <q-item label="排序" prop="orderNum" :config="{ type: 'number' }" :rules="[required]" />
@@ -63,7 +68,12 @@ defineExpose({ open });
       <q-item
         label="管辖机构"
         prop="managerOffice"
-        :config="{ type: 'cascader', options: deptData, props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' } }"
+        :config="{
+          type: 'cascader',
+          options: deptData,
+          showAllLevels: false,
+          props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' },
+        }"
         :rules="[required]"
       />
       <q-item label="管辖区域" prop="managerArea" :config="{ type: 'area' }" :rules="[required]" />
