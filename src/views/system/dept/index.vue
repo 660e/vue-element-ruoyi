@@ -19,9 +19,9 @@ async function handleEdit(row, id) {
   tableRef.value.setLoading(true);
   try {
     if (row) {
-      const { data } = await getExclude(row.deptId);
+      const { data: treeData } = await getExclude(row.deptId);
       const { data: rowData } = await getDeptById(row.deptId);
-      formDialogRef.value.open({ row: rowData, tree: buildTree(data, { idKey: 'deptId', rootId: 0 }), parentId: id });
+      formDialogRef.value.open({ row: rowData, tree: buildTree(treeData, { idKey: 'deptId', rootId: 0 }), parentId: id });
     } else {
       const { data } = await getDept();
       formDialogRef.value.open({ row, tree: data });

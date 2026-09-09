@@ -18,9 +18,12 @@ function request(params) {
 async function handleEdit(row) {
   tableRef.value.setLoading(true);
   try {
-    const { checkedKeys, code, data, menus } = await (row ? roleMenuTreeselect(row.roleId) : treeselect());
-    if (code === 200) {
-      formDialogRef.value.open({ row, tree: row?.roleId ? menus : data, checkedKeys });
+    if (row) {
+      const { checkedKeys, menus } = await roleMenuTreeselect(row.roleId);
+      formDialogRef.value.open({ row, tree: menus, checkedKeys });
+    } else {
+      const { data } = await treeselect();
+      formDialogRef.value.open({ row, tree: data });
     }
   } finally {
     tableRef.value.setLoading(false);
