@@ -13,10 +13,8 @@ function request(params) {
 async function handleEdit(row) {
   tableRef.value.setLoading(true);
   try {
-    const { code, data, roleIds, roles } = await getUserById(row?.userId || '');
-    if (code === 200) {
-      formDialogRef.value.open({ row: data, roleIds, roles });
-    }
+    const { data, roleIds, roles } = await getUserById(row?.userId || '');
+    formDialogRef.value.open({ row: data, roleIds, roles });
   } finally {
     tableRef.value.setLoading(false);
   }
