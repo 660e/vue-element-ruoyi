@@ -27,7 +27,7 @@ async function handleEdit(row, id) {
       data.filter((e) => e.menuType !== 'F'),
       { idKey: 'menuId', rootId: 0 },
     );
-    formDialogRef.value.open(row, tree, id);
+    formDialogRef.value.open({ row, tree, parentId: id });
   } finally {
     tableRef.value.setLoading(false);
   }

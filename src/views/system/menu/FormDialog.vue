@@ -18,7 +18,7 @@ const isMenu = computed(() => formData.value.menuType === 'C');
 const isButton = computed(() => formData.value.menuType === 'F');
 const formLabel = computed(() => dictStore.getLabel('sys_menu_type', formData.value.menuType));
 
-function open(row, tree = [], parentId = 0) {
+function open({ row, tree = [], parentId = 0 }) {
   formData.value = row ? { ...row } : { menuType: 'C', isFrame: '1', parentId };
   menuData.value = tree;
   visible.value = true;

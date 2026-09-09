@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus';
 
-import { getDept, deleteDept, updateSort } from '@/api/system/dept.js';
+import { getDept, deleteDept, updateSort, getExclude } from '@/api/system/dept.js';
 import { buildTree, flattenTree } from '@/utils';
 
 import FormDialog from './FormDialog.vue';
@@ -18,12 +18,8 @@ async function request(params) {
 async function handleEdit(row, id) {
   tableRef.value.setLoading(true);
   try {
-    const { data } = await exclude();
-    const tree = buildTree(
-      data.filter((e) => e.menuType !== 'F'),
-      { idKey: 'menuId', rootId: 0 },
-    );
-    formDialogRef.value.open(row, tree, id);
+    const { data } = await (row ? getExclude(row.deptId) : getDept());
+    formDialogRef.value.open({ row, tree: data, parentId: id });
   } finally {
     tableRef.value.setLoading(false);
   }
