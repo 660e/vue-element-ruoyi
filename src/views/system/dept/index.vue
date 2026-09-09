@@ -18,9 +18,14 @@ async function request(params) {
 async function handleEdit(row, id) {
   tableRef.value.setLoading(true);
   try {
-    const { data: treeData } = await (row ? getExclude(row.deptId) : getDept());
-    const { data: rowData } = row ? await getDeptById(row.deptId) : {};
-    formDialogRef.value.open({ row: rowData, tree: treeData, parentId: id });
+    if (row) {
+      const { data } = await getExclude(row.deptId);
+      const { data: rowData } = await getDeptById(row.deptId);
+      formDialogRef.value.open({ row: rowData, tree: buildTree(data, { idKey: 'deptId', rootId: 0 }), parentId: id });
+    } else {
+      const { data } = await getDept();
+      formDialogRef.value.open({ row, tree: data });
+    }
   } finally {
     tableRef.value.setLoading(false);
   }
