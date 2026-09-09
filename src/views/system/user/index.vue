@@ -5,9 +5,15 @@ import FormDialog from './FormDialog.vue';
 
 const tableRef = ref(null);
 const formDialogRef = ref(null);
+const deptId = ref(0);
 
 function request(params) {
-  return getUser({ ...params, deptId: 0 });
+  return getUser({ ...params, deptId: deptId.value });
+}
+
+function deptClick(node) {
+  deptId.value = node?.deptId || 0;
+  tableRef.value.refresh();
 }
 
 async function handleEdit(row) {
@@ -25,7 +31,7 @@ async function handleEdit(row) {
   <q-table :request="request" ref="tableRef">
     <template #prepend>
       <div class="py-3 pl-3">
-        <q-dept-tree class="h-full w-60" />
+        <q-dept-tree class="h-full w-60" @node-click="deptClick" />
       </div>
     </template>
 
