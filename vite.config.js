@@ -11,6 +11,7 @@ import vueDevTools from 'vite-plugin-vue-devtools';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/bzh-web/',
   plugins: [
     // https://github.com/unplugin/unplugin-auto-import
     AutoImport({
