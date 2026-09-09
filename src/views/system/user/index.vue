@@ -24,7 +24,7 @@ async function handleEdit(row) {
 <template>
   <q-table :request="request" ref="tableRef">
     <template #prepend>
-      <DeptTree />
+      <q-dept-tree />
     </template>
 
     <template #header>
