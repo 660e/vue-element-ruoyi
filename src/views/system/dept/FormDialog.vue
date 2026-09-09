@@ -49,13 +49,15 @@ defineExpose({ open });
     @confirm="confirm"
   >
     <el-form class="grid grid-cols-2 gap-x-6" label-position="top" :model="formData" ref="formRef">
-      <q-item
-        label="上级机构"
-        prop="parentId"
-        :config="{ type: 'cascader', options: deptData, props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' } }"
-        :rules="[required]"
-      />
-      <q-item label="排序" prop="orderNum" :config="{ type: 'number' }" :rules="[required]" />
+      <template v-if="formData.deptId !== 100">
+        <q-item
+          label="上级机构"
+          prop="parentId"
+          :config="{ type: 'cascader', options: deptData, props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' } }"
+          :rules="[required]"
+        />
+        <q-item label="排序" prop="orderNum" :config="{ type: 'number' }" :rules="[required]" />
+      </template>
       <q-item label="机构名称" prop="deptName" :rules="[required]" />
       <q-item label="归属区域" prop="areaId" :config="{ type: 'area' }" :rules="[required]" />
       <q-item

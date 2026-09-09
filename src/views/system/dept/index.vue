@@ -21,10 +21,10 @@ async function handleEdit(row, id) {
     if (row) {
       const { data: treeData } = await getExclude(row.deptId);
       const { data: rowData } = await getDeptById(row.deptId);
-      formDialogRef.value.open({ row: rowData, tree: buildTree(treeData, { idKey: 'deptId', rootId: 0 }), parentId: id });
+      formDialogRef.value.open({ row: rowData, tree: buildTree(treeData, { idKey: 'deptId', rootId: 0 }) });
     } else {
       const { data } = await getDept();
-      formDialogRef.value.open({ row, tree: data });
+      formDialogRef.value.open({ row, tree: data, parentId: id });
     }
   } finally {
     tableRef.value.setLoading(false);
@@ -66,7 +66,15 @@ async function saveOrder() {
     <el-table-column label="机构名称" min-width="200" prop="deptName" :config="{ filter: 'text' }" />
     <el-table-column class-name="p-0!" label="排序" width="100">
       <template #default="{ row }">
-        <el-input-number v-model="row._orderNum" class="w-full!" size="small" :controls="false" :precision="0" disabled-scientific />
+        <el-input-number
+          v-if="row.deptId !== 100"
+          v-model="row._orderNum"
+          class="w-full!"
+          size="small"
+          :controls="false"
+          :precision="0"
+          disabled-scientific
+        />
       </template>
     </el-table-column>
     <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable', filter: 'select' }" />
@@ -76,7 +84,12 @@ async function saveOrder() {
       <template #default="{ row }">
         <el-button v-if="row.menuType !== 'F'" type="primary" @click="handleEdit(null, row.deptId)" link>新增</el-button>
         <el-button type="primary" @click="handleEdit(row)" link>修改</el-button>
-        <q-confirm :content="`机构名称：${row.deptName}`" :request="() => deleteDept(row.deptId)" @confirm="tableRef.refresh()" />
+        <q-confirm
+          v-if="row.deptId !== 100"
+          :content="`机构名称：${row.deptName}`"
+          :request="() => deleteDept(row.deptId)"
+          @confirm="tableRef.refresh()"
+        />
       </template>
     </q-column>
   </q-table>
