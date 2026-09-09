@@ -3,6 +3,7 @@ import { Info } from '@lucide/vue';
 import { useFormItem } from 'element-plus';
 
 import { queryAreaList } from '@/api/system/area.js';
+import { getDept } from '@/api/system/dept.js';
 import { VALUE_FORMAT } from '@/config';
 import { useDictStore } from '@/stores';
 
@@ -20,6 +21,18 @@ const dictStore = useDictStore();
 const itemConfig = reactive({ ...config });
 const options = ref([]);
 
+const cascaderProps = computed(() => {
+  const defaultProps = { checkStrictly: true, emitPath: false };
+  switch (itemConfig.type) {
+    case 'area':
+      return { ...defaultProps, label: 'areaName', value: 'areaId' };
+    case 'dept':
+      return { ...defaultProps, label: 'deptName', value: 'deptId' };
+  }
+
+  return defaultProps;
+});
+
 onMounted(async () => {
   switch (itemConfig.type) {
     case 'select':
@@ -32,6 +45,12 @@ onMounted(async () => {
 
     case 'area': {
       const { data } = await queryAreaList();
+      options.value = data;
+      break;
+    }
+
+    case 'dept': {
+      const { data } = await getDept();
       options.value = data;
       break;
     }
@@ -91,15 +110,16 @@ onMounted(async () => {
       v-bind="itemConfig"
     />
 
-    <!-- 区域 -->
+    <!-- 区域、部门 -->
     <el-cascader
-      v-else-if="itemConfig.type === 'area'"
+      v-else-if="['area', 'dept'].includes(itemConfig.type)"
       v-model="model[$attrs.prop]"
       class="w-full"
       :options="options"
       :placeholder="`请选择${$attrs.label}`"
-      :props="{ checkStrictly: true, emitPath: false, label: 'areaName', value: 'areaId' }"
+      :props="cascaderProps"
       clearable
+      v-bind="itemConfig"
     />
 
     <!-- 输入框、密码框、文本域 -->

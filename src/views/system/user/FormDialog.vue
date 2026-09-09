@@ -51,7 +51,7 @@ defineExpose({ open });
   >
     <el-form class="grid grid-cols-2 gap-x-6" label-position="top" :model="formData" ref="formRef">
       <q-item label="用户昵称" prop="nickName" :rules="[required]" />
-      <q-item label="归属部门" prop="deptId" :config="{ type: 'cascader', options: [] }" :rules="[required]" />
+      <q-item label="归属部门" prop="deptId" :config="{ type: 'dept' }" :rules="[required]" />
       <q-item label="手机号码" prop="phonenumber" :rules="[required, mobile]" />
       <q-item label="邮箱" prop="email" :rules="[email]" />
       <q-item label="状态" prop="status" :config="{ type: 'radio', dict: 'sys_normal_disable' }" :rules="[required]" />
