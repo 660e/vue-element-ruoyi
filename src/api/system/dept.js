@@ -8,6 +8,10 @@ export function getDept(params) {
   return request.get('/system/dept/list', { params });
 }
 
+export function getDeptById(deptId) {
+  return request.get(`/system/dept/${deptId}`);
+}
+
 export function getExclude(deptId) {
   return request.get(`/system/dept/list/exclude/${deptId}`);
 }
