@@ -2,6 +2,7 @@
 import { Info } from '@lucide/vue';
 import { useFormItem } from 'element-plus';
 
+import { queryAreaList } from '@/api/system/area.js';
 import { VALUE_FORMAT } from '@/config';
 import { useDictStore } from '@/stores';
 
@@ -26,6 +27,12 @@ onMounted(async () => {
       if (itemConfig.dict) {
         options.value = await dictStore.getList(itemConfig.dict);
       }
+      break;
+    }
+
+    case 'area': {
+      const { data } = await queryAreaList();
+      options.value = data;
       break;
     }
   }
@@ -82,6 +89,17 @@ onMounted(async () => {
       :placeholder="`请选择${$attrs.label}`"
       clearable
       v-bind="itemConfig"
+    />
+
+    <!-- 区域 -->
+    <el-cascader
+      v-else-if="itemConfig.type === 'area'"
+      v-model="model[$attrs.prop]"
+      class="w-full"
+      :options="options"
+      :placeholder="`请选择${$attrs.label}`"
+      :props="{ checkStrictly: true, emitPath: false, label: 'areaName', value: 'areaId' }"
+      clearable
     />
 
     <!-- 输入框、密码框、文本域 -->

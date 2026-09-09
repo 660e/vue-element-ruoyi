@@ -52,19 +52,19 @@ defineExpose({ open });
       <q-item
         label="上级机构"
         prop="parentId"
-        :config="{ type: 'cascader', options: deptData, props: { checkStrictly: true, label: 'deptName', value: 'deptId' } }"
+        :config="{ type: 'cascader', options: deptData, props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' } }"
         :rules="[required]"
       />
       <q-item label="排序" prop="orderNum" :config="{ type: 'number' }" :rules="[required]" />
       <q-item label="机构名称" prop="deptName" :rules="[required]" />
-      <q-item label="归属区域" prop="areaId" :rules="[required]" />
+      <q-item label="归属区域" prop="areaId" :config="{ type: 'area' }" :rules="[required]" />
       <q-item
         label="管辖机构"
         prop="managerOffice"
-        :config="{ type: 'cascader', options: deptData, props: { checkStrictly: true, label: 'deptName', value: 'deptId' } }"
+        :config="{ type: 'cascader', options: deptData, props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' } }"
         :rules="[required]"
       />
-      <q-item label="管辖区域" prop="managerArea" :rules="[required]" />
+      <q-item label="管辖区域" prop="managerArea" :config="{ type: 'area' }" :rules="[required]" />
       <q-item label="负责人" prop="leader" />
       <q-item label="联系电话" prop="phone" :rules="[mobile]" />
       <q-item label="邮箱" prop="email" :rules="[email]" />
