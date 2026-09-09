@@ -72,6 +72,7 @@ async function saveOrder() {
         <el-input-number v-model="row._orderNum" class="w-full!" size="small" :controls="false" :precision="0" disabled-scientific />
       </template>
     </el-table-column>
+    <q-column label="地址" prop="path" width="100" />
     <q-column label="权限标识" prop="perms" width="200" />
     <q-column label="组件路径" min-width="200" prop="component" />
     <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable', filter: 'select' }" />
