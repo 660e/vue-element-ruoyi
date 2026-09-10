@@ -10,7 +10,7 @@ const router = useRouter();
 const appStore = useAppStore();
 
 const expanded = ref(true);
-const menus = ref([homeRoute].concat(appStore.getMenus()));
+const menus = ref([homeRoute, ...appStore.getMenus()]);
 
 function expandActiveMenu(items) {
   for (const item of items) {
@@ -56,7 +56,12 @@ function to(menu) {
       <div class="flex-1 overflow-auto">
         <el-scrollbar>
           <div v-for="(menu, index) in menus" class="border-border border-b" :key="index">
-            <div class="flex h-10 cursor-pointer items-center gap-1.5 px-3 duration-200 hover:bg-blue-100" @click="to(menu)">
+            <div
+              class="relative flex h-10 cursor-pointer items-center gap-1.5 px-3 duration-200 hover:bg-blue-100"
+              :class="[menu.name === $route.name ? 'text-brand' : '']"
+              @click="to(menu)"
+            >
+              <div v-if="menu.name === $route.name" class="border-brand absolute inset-0 border-x-4 border-y"></div>
               <Info class="shrink-0" size="16" />
               <div class="flex-1 leading-none">{{ menu.meta?.title }}</div>
               <ChevronDown v-if="menu.children?.length" class="shrink-0 duration-200" size="16" :class="[menu.meta?.expanded ? 'rotate-180' : '']" />
@@ -73,7 +78,7 @@ function to(menu) {
                     :class="[item.name === $route.name ? 'text-brand' : '']"
                     @click="to(item)"
                   >
-                    <div v-if="item.name === $route.name" class="border-brand absolute inset-0 border-t border-r-4 border-b"></div>
+                    <div v-if="item.name === $route.name" class="border-brand absolute inset-0 border-x-4 border-y"></div>
                     <div class="w-4"></div>
                     <div class="flex-1 leading-none">{{ item.meta?.title }}</div>
                   </div>
