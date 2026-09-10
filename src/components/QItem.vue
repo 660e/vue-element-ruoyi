@@ -95,6 +95,7 @@ onMounted(async () => {
     <el-date-picker
       v-else-if="['date', 'month', 'year'].includes(itemConfig.type)"
       v-model="model[$attrs.prop]"
+      class="w-full!"
       :placeholder="`请选择${$attrs.label}`"
       :value-format="VALUE_FORMAT[itemConfig.type]"
       v-bind="itemConfig"
