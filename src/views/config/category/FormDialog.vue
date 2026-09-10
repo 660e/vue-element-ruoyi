@@ -40,7 +40,7 @@ function confirm() {
 }
 
 function handleBonusChange(value) {
-  if (value === '0') {
+  if (value === '1') {
     formData.value.weight = 1;
   }
 }
@@ -70,12 +70,12 @@ defineExpose({ open });
       <q-item label="是否加分项" prop="bonus" :config="{ type: 'radio', dict: 'yes_no', onChange: handleBonusChange }" :rules="[required]" />
       <q-item label="分类名称" prop="categoryName" :rules="[required]" />
       <q-item v-if="!formData.parentId" label="分类编码" prop="categoryCode" />
-      <q-item label="权重" prop="weight" :config="{ type: 'number', min: 0, max: 1, disabled: formData.bonus === '0' }" :rules="[required]" />
+      <q-item label="权重" prop="weight" :config="{ type: 'number', min: 0, max: 1, disabled: formData.bonus === '1' }" :rules="[required]" />
       <q-item
         label="标准分值"
         prop="standardScore"
         :config="{ type: 'number', min: 0, max: 100 }"
-        :rules="[formData.bonus === '0' ? required : '']"
+        :rules="[formData.bonus === '1' ? required : '']"
       />
       <q-item label="显示顺序" prop="sortOrder" :config="{ type: 'number' }" :rules="[required]" />
       <q-item

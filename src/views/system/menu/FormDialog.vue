@@ -11,7 +11,12 @@ const visible = ref(false);
 const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
+
 const menuOptions = ref([]);
+const yesNoOptions = [
+  { label: '是', value: '0' },
+  { label: '否', value: '1' },
+];
 
 const isCatalog = computed(() => formData.value.menuType === 'M');
 const isMenu = computed(() => formData.value.menuType === 'C');
@@ -70,7 +75,7 @@ defineExpose({ open });
         <q-item v-if="isMenu && formData.isFrame === '1'" label="组件路径" prop="component" :rules="[required]" />
         <q-item v-if="!isCatalog && formData.isFrame === '1'" label="权限字符" prop="perms" />
         <q-item v-if="!isButton" label="图标" prop="icon" />
-        <q-item v-if="isMenu" label="是否外链" prop="isFrame" :config="{ type: 'radio', dict: 'yes_no' }" :rules="[required]" />
+        <q-item v-if="isMenu" label="是否外链" prop="isFrame" :config="{ type: 'radio', options: yesNoOptions }" :rules="[required]" />
         <q-item v-if="!isButton" label="显示状态" prop="visible" :config="{ type: 'radio', dict: 'sys_show_hide' }" :rules="[required]" />
       </template>
       <q-item label="状态" prop="status" :config="{ type: 'radio', dict: 'sys_normal_disable' }" :rules="[required]" />
