@@ -14,14 +14,8 @@ async function request(params) {
 async function handleEdit(row, id) {
   tableRef.value.setLoading(true);
   try {
-    if (row) {
-      const { data: treeData } = await getExclude(row.deptId);
-      const { data: rowData } = await getDeptById(row.deptId);
-      formDialogRef.value.open({ row: rowData, tree: buildTree(treeData, { idKey: 'deptId', rootId: 0 }) });
-    } else {
-      const { data } = await getDept();
-      formDialogRef.value.open({ row, tree: data, parentId: id });
-    }
+    const { data } = await getCategoryTree();
+    formDialogRef.value.open({ row, tree: data, parentId: id });
   } finally {
     tableRef.value.setLoading(false);
   }
@@ -40,7 +34,7 @@ async function handleEdit(row, id) {
     <q-column label="修改时间" prop="updateTime" width="200" />
     <q-column width="150" operation>
       <template #default="{ row }">
-        <el-button v-if="row.categoryId !== 100" type="primary" @click="handleEdit(null, row.categoryId)" link>新增</el-button>
+        <el-button type="primary" @click="handleEdit(null, row.categoryId)" link>新增</el-button>
         <el-button type="primary" @click="handleEdit(row)" link>修改</el-button>
         <q-confirm :content="`分类名称：${row.categoryName}`" :request="() => deleteCategory(row.categoryId)" @confirm="tableRef.refresh()" />
       </template>
