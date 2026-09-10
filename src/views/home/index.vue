@@ -29,13 +29,10 @@ function updateStatisticSources(sources) {
       <el-alert title="当前页面仅供功能演示和调试使用，不具备真实性及实时性，请勿作为实际业务依据" type="warning" :closable="false" />
     </div>
     <div class="grid grid-cols-4 gap-3">
-      <el-statistic
-        v-for="item in statistics"
-        class="border-border rounded-base border px-3 py-2"
-        :title="item.title"
-        :value="item.output"
-        :key="item.title"
-      />
+      <div v-for="item in statistics" class="border-border rounded-base space-y-3 border p-3" :key="item.title">
+        <div class="text-secondary-foreground text-sm leading-none">{{ item.title }}</div>
+        <div class="font-mono text-2xl leading-none">{{ item.output.toFixed(0) }}</div>
+      </div>
     </div>
   </div>
 </template>
