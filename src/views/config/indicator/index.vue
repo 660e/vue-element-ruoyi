@@ -1,6 +1,7 @@
 <script setup>
 import { getCategoryTree } from '@/api/assessment/category.js';
 import { getScoreTable, deleteScoreTable } from '@/api/assessment/scoreTable.js';
+import { getTemplate } from '@/api/assessment/template.js';
 
 import FormDialog from './FormDialog.vue';
 
@@ -10,8 +11,9 @@ const formDialogRef = ref(null);
 async function handleEdit(row) {
   tableRef.value.setLoading(true);
   try {
-    const { data } = await getCategoryTree();
-    formDialogRef.value.open({ row, tree: data });
+    const { data: treeData } = await getCategoryTree();
+    const { rows: listData } = await getTemplate();
+    formDialogRef.value.open({ row, tree: treeData, list: listData });
   } finally {
     tableRef.value.setLoading(false);
   }

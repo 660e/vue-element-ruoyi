@@ -10,10 +10,12 @@ const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
 const categoryData = ref([]);
+const templateData = ref([]);
 
-function open({ row, tree = [] }) {
+function open({ row, tree = [], list = [] }) {
   formData.value = row ? { ...row } : {};
   categoryData.value = tree;
+  templateData.value = list;
   visible.value = true;
 }
 
@@ -52,7 +54,12 @@ defineExpose({ open });
       <q-item label="评分表名称" prop="tableName" :rules="[required]" />
       <q-item label="权重" prop="weight" :config="{ type: 'number' }" :rules="[required]" />
       <q-item label="煤矿类型" prop="mineType" :config="{ type: 'select', dict: 'mine_type' }" :rules="[required]" />
-      <q-item label="所属模板" prop="templateId" :rules="[required]" />
+      <q-item
+        label="所属模板"
+        prop="templateId"
+        :config="{ type: 'select', options: templateData, props: { label: 'templateName', value: 'templateId' } }"
+        :rules="[required]"
+      />
       <q-item
         label="专业大类"
         prop="categoryId"
