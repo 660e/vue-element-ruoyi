@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus';
 
-import { createCategory, updateCategory } from '@/api/assessment/category.js';
+import { createScoreTable, updateScoreTable } from '@/api/assessment/scoreTable.js';
 import { required } from '@/utils';
 
 const emit = defineEmits(['confirm']);
@@ -11,8 +11,8 @@ const formRef = ref(null);
 const formData = ref({});
 const categoryData = ref([]);
 
-function open({ row, tree = [], parentId }) {
-  formData.value = row ? { ...row } : { parentId };
+function open({ row, tree = [] }) {
+  formData.value = row ? { ...row } : {};
   categoryData.value = tree;
   visible.value = true;
 }
@@ -21,7 +21,7 @@ function confirm() {
   formRef.value.validate(async (valid) => {
     if (valid) {
       confirming.value = true;
-      const request = formData.value.categoryId ? updateCategory : createCategory;
+      const request = formData.value.scoreTableId ? updateScoreTable : createScoreTable;
       try {
         const { code, msg } = await request({ ...formData.value });
         if (code === 200) {
@@ -44,23 +44,25 @@ defineExpose({ open });
     v-model="visible"
     v-model:confirming="confirming"
     width="400"
-    :title="formData.categoryId ? '修改' : '新增'"
+    :title="formData.scoreTableId ? '修改' : '新增'"
     @cancel="visible = false"
     @confirm="confirm"
   >
     <el-form label-position="top" :model="formData" ref="formRef">
+      <q-item label="评分表名称" prop="tableName" :rules="[required]" />
+      <q-item label="权重" prop="weight" :config="{ type: 'number' }" :rules="[required]" />
+      <q-item label="煤矿类型" prop="mineType" :config="{ type: 'select', dict: 'mine_type' }" :rules="[required]" />
+      <q-item label="所属模板" prop="templateId" :rules="[required]" />
       <q-item
-        label="上级分类"
-        prop="parentId"
+        label="专业大类"
+        prop="categoryId"
         :config="{
           type: 'cascader',
           options: categoryData,
           props: { checkStrictly: true, emitPath: false, label: 'categoryName', value: 'categoryId' },
         }"
+        :rules="[required]"
       />
-      <q-item label="分类名称" prop="categoryName" :rules="[required]" />
-      <q-item v-if="!formData.parentId" label="分类编码" prop="categoryCode" />
-      <q-item label="显示顺序" prop="sortOrder" :config="{ type: 'number' }" :rules="[required]" />
     </el-form>
   </q-dialog>
 </template>
