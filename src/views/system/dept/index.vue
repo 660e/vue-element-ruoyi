@@ -79,7 +79,6 @@ async function saveOrder() {
     </el-table-column>
     <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable', filter: 'select' }" />
     <q-column label="创建时间" prop="createTime" width="200" />
-
     <q-column width="150" operation>
       <template #default="{ row }">
         <el-button v-if="row.menuType !== 'F'" type="primary" @click="handleEdit(null, row.deptId)" link>新增</el-button>

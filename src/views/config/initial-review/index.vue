@@ -1,8 +1,5 @@
 <script setup>
-import { ElMessage } from 'element-plus';
-
-import { getDept, getDeptById, deleteDept, updateSort, getExclude } from '@/api/system/dept.js';
-import { buildTree, flattenTree } from '@/utils';
+import { getCategoryTree, deleteCategory } from '@/api/assessment/category.js';
 
 import FormDialog from './FormDialog.vue';
 
@@ -10,9 +7,8 @@ const tableRef = ref(null);
 const formDialogRef = ref(null);
 
 async function request(params) {
-  const { data } = await getDept(params);
-  const rows = flattenTree(data).map((e) => ({ ...e, _orderNum: e.orderNum }));
-  return { rows: buildTree(rows, { idKey: 'deptId', rootId: 0 }) };
+  const { data } = await getCategoryTree(params);
+  return { rows: data };
 }
 
 async function handleEdit(row, id) {
@@ -30,66 +26,23 @@ async function handleEdit(row, id) {
     tableRef.value.setLoading(false);
   }
 }
-
-async function saveOrder() {
-  const tableData = tableRef.value.getTableData();
-  const deptIds = [];
-  const orderNums = [];
-
-  flattenTree(tableData).forEach((item) => {
-    if (item.orderNum !== item._orderNum) {
-      deptIds.push(item.deptId);
-      orderNums.push(item._orderNum);
-    }
-  });
-
-  tableRef.value.setLoading(true);
-  try {
-    const { code, msg } = await updateSort({ deptIds: deptIds.join(','), orderNums: orderNums.join(',') });
-    if (code === 200) {
-      tableRef.value.refresh();
-      ElMessage.success(msg);
-    }
-  } finally {
-    tableRef.value.setLoading(false);
-  }
-}
 </script>
 
 <template>
-  <q-table row-key="deptId" :expand-row-keys="['100']" :pagination="{ hidden: true }" :request="request" ref="tableRef">
+  <q-table row-key="categoryId" :pagination="{ hidden: true }" :request="request" ref="tableRef" default-expand-all>
     <template #header>
       <el-button type="primary" @click="handleEdit()" plain>新增</el-button>
-      <el-button type="warning" @click="saveOrder" plain>保存排序</el-button>
     </template>
 
-    <el-table-column label="机构名称" min-width="200" prop="deptName" :config="{ filter: 'text' }" />
-    <el-table-column class-name="p-0!" label="排序" width="100">
-      <template #default="{ row }">
-        <el-input-number
-          v-if="row.deptId !== 100"
-          v-model="row._orderNum"
-          class="w-full!"
-          size="small"
-          :controls="false"
-          :precision="0"
-          disabled-scientific
-        />
-      </template>
-    </el-table-column>
-    <q-column label="状态" prop="status" width="100" :config="{ dict: 'sys_normal_disable', filter: 'select' }" />
-    <q-column label="创建时间" prop="createTime" width="200" />
-
+    <el-table-column label="分类名称" min-width="200" prop="categoryName" :config="{ filter: 'text' }" />
+    <q-column label="分类编码" min-width="200" prop="categoryCode" :config="{ filter: 'text' }" />
+    <q-column label="显示顺序" prop="sortOrder" width="100" />
+    <q-column label="修改时间" prop="updateTime" width="200" />
     <q-column width="150" operation>
       <template #default="{ row }">
-        <el-button v-if="row.menuType !== 'F'" type="primary" @click="handleEdit(null, row.deptId)" link>新增</el-button>
+        <el-button v-if="row.categoryId !== 100" type="primary" @click="handleEdit(null, row.categoryId)" link>新增</el-button>
         <el-button type="primary" @click="handleEdit(row)" link>修改</el-button>
-        <q-confirm
-          v-if="row.deptId !== 100"
-          :content="`机构名称：${row.deptName}`"
-          :request="() => deleteDept(row.deptId)"
-          @confirm="tableRef.refresh()"
-        />
+        <q-confirm :content="`分类名称：${row.categoryName}`" :request="() => deleteCategory(row.categoryId)" @confirm="tableRef.refresh()" />
       </template>
     </q-column>
   </q-table>
