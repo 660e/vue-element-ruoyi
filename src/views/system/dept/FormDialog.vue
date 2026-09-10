@@ -9,11 +9,11 @@ const visible = ref(false);
 const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
-const deptData = ref([]);
+const deptOptions = ref([]);
 
-function open({ row, tree = [], parentId = 100 }) {
+function open({ row, deptTree = [], parentId = 100 }) {
   formData.value = row ? { ...row } : { parentId };
-  deptData.value = tree;
+  deptOptions.value = deptTree;
   visible.value = true;
 }
 
@@ -55,7 +55,7 @@ defineExpose({ open });
           prop="parentId"
           :config="{
             type: 'cascader',
-            options: deptData,
+            options: deptOptions,
             showAllLevels: false,
             props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' },
           }"
@@ -70,7 +70,7 @@ defineExpose({ open });
         prop="managerOffice"
         :config="{
           type: 'cascader',
-          options: deptData,
+          options: deptOptions,
           showAllLevels: false,
           props: { checkStrictly: true, emitPath: false, label: 'deptName', value: 'deptId' },
         }"

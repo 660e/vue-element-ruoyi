@@ -9,11 +9,11 @@ const visible = ref(false);
 const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
-const categoryData = ref([]);
+const categoryOptions = ref([]);
 
-function open({ row, tree = [], parentId }) {
+function open({ row, categoryTree = [], parentId }) {
   formData.value = row ? { ...row } : { parentId };
-  categoryData.value = tree;
+  categoryOptions.value = categoryTree;
   visible.value = true;
 }
 
@@ -54,7 +54,7 @@ defineExpose({ open });
         prop="parentId"
         :config="{
           type: 'cascader',
-          options: categoryData,
+          options: categoryOptions,
           props: { checkStrictly: true, emitPath: false, label: 'categoryName', value: 'categoryId' },
         }"
       />

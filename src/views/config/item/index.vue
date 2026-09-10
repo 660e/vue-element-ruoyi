@@ -15,7 +15,7 @@ async function handleEdit(row, id) {
   tableRef.value.setLoading(true);
   try {
     const { data } = await getCategoryTree();
-    formDialogRef.value.open({ row, tree: data, parentId: id });
+    formDialogRef.value.open({ row, categoryTree: data, parentId: id });
   } finally {
     tableRef.value.setLoading(false);
   }

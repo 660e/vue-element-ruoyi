@@ -20,10 +20,10 @@ async function handleEdit(row) {
   try {
     if (row) {
       const { checkedKeys, menus } = await roleMenuTreeselect(row.roleId);
-      formDialogRef.value.open({ row, tree: menus, checkedKeys });
+      formDialogRef.value.open({ row, menuTree: menus, checkedKeys });
     } else {
       const { data } = await treeselect();
-      formDialogRef.value.open({ row, tree: data });
+      formDialogRef.value.open({ row, menuTree: data });
     }
   } finally {
     tableRef.value.setLoading(false);

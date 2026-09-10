@@ -23,11 +23,11 @@ async function handleEdit(row, id) {
   tableRef.value.setLoading(true);
   try {
     const { data } = await getMenu();
-    const tree = buildTree(
+    const menuTree = buildTree(
       data.filter((e) => e.menuType !== 'F'),
       { idKey: 'menuId', rootId: 0 },
     );
-    formDialogRef.value.open({ row, tree, parentId: id });
+    formDialogRef.value.open({ row, menuTree, parentId: id });
   } finally {
     tableRef.value.setLoading(false);
   }

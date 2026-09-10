@@ -9,13 +9,13 @@ const visible = ref(false);
 const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
-const categoryData = ref([]);
-const templateData = ref([]);
+const categoryOptions = ref([]);
+const templateOptions = ref([]);
 
-function open({ row, tree = [], list = [] }) {
+function open({ row, categoryTree = [], templateList = [] }) {
   formData.value = row ? { ...row } : {};
-  categoryData.value = tree;
-  templateData.value = list;
+  categoryOptions.value = categoryTree;
+  templateOptions.value = templateList;
   visible.value = true;
 }
 
@@ -58,7 +58,7 @@ defineExpose({ open });
       <q-item
         label="所属模板"
         prop="templateId"
-        :config="{ type: 'select', options: templateData, props: { label: 'templateName', value: 'templateId' } }"
+        :config="{ type: 'select', options: templateOptions, props: { label: 'templateName', value: 'templateId' } }"
         :rules="[required]"
       />
       <q-item
@@ -66,7 +66,7 @@ defineExpose({ open });
         prop="categoryId"
         :config="{
           type: 'cascader',
-          options: categoryData,
+          options: categoryOptions,
           props: { checkStrictly: true, emitPath: false, label: 'categoryName', value: 'categoryId' },
         }"
         :rules="[required]"

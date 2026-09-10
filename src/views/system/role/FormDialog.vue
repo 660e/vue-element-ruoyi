@@ -11,12 +11,12 @@ const formRef = ref(null);
 const formData = ref({});
 
 const treeRef = ref(null);
-const menuData = ref([]);
+const menuOptions = ref([]);
 const checkStrictly = ref(false);
 
-async function open({ row, tree = [], checkedKeys = [] }) {
+async function open({ row, menuTree = [], checkedKeys = [] }) {
   formData.value = row ? { ...row } : {};
-  menuData.value = tree;
+  menuOptions.value = menuTree;
   visible.value = true;
 
   await nextTick();
@@ -69,7 +69,7 @@ defineExpose({ open });
         <div class="flex-1 overflow-auto">
           <el-scrollbar>
             <div class="py-1.5">
-              <el-tree node-key="id" :check-strictly="checkStrictly" :data="menuData" ref="treeRef" show-checkbox />
+              <el-tree node-key="id" :check-strictly="checkStrictly" :data="menuOptions" ref="treeRef" show-checkbox />
             </div>
           </el-scrollbar>
         </div>

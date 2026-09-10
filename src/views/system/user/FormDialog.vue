@@ -9,7 +9,6 @@ const visible = ref(false);
 const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
-
 const roleOptions = ref([]);
 
 function open({ row, roleIds = [], roles = [] }) {

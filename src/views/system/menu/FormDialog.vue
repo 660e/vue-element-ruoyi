@@ -11,16 +11,16 @@ const visible = ref(false);
 const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
-const menuData = ref([]);
+const menuOptions = ref([]);
 
 const isCatalog = computed(() => formData.value.menuType === 'M');
 const isMenu = computed(() => formData.value.menuType === 'C');
 const isButton = computed(() => formData.value.menuType === 'F');
 const formLabel = computed(() => dictStore.getLabel('sys_menu_type', formData.value.menuType));
 
-function open({ row, tree = [], parentId = 0 }) {
+function open({ row, menuTree = [], parentId = 0 }) {
   formData.value = row ? { ...row } : { menuType: 'C', isFrame: '1', parentId };
-  menuData.value = tree;
+  menuOptions.value = menuTree;
   visible.value = true;
 }
 
@@ -59,7 +59,7 @@ defineExpose({ open });
       <q-item
         label="上级菜单"
         prop="parentId"
-        :config="{ type: 'cascader', options: menuData, props: { checkStrictly: true, label: 'menuName', value: 'menuId' } }"
+        :config="{ type: 'cascader', options: menuOptions, props: { checkStrictly: true, label: 'menuName', value: 'menuId' } }"
       />
       <q-item label="菜单类型" prop="menuType" :config="{ type: 'radio', dict: 'sys_menu_type' }" />
       <q-item prop="menuName" :label="`${formLabel}名称`" :rules="[required]" />
