@@ -39,6 +39,12 @@ function confirm() {
   });
 }
 
+function handleBonusChange(value) {
+  if (value === '0') {
+    formData.value.weight = 1;
+  }
+}
+
 defineExpose({ open });
 </script>
 
@@ -61,7 +67,7 @@ defineExpose({ open });
           props: { checkStrictly: true, emitPath: false, label: 'categoryName', value: 'categoryId' },
         }"
       />
-      <q-item label="是否加分项" prop="bonus" :config="{ type: 'radio', dict: 'yes_no' }" :rules="[required]" />
+      <q-item label="是否加分项" prop="bonus" :config="{ type: 'radio', dict: 'yes_no', onChange: handleBonusChange }" :rules="[required]" />
       <q-item label="分类名称" prop="categoryName" :rules="[required]" />
       <q-item v-if="!formData.parentId" label="分类编码" prop="categoryCode" />
       <q-item label="权重" prop="weight" :config="{ type: 'number', min: 0, max: 1, disabled: formData.bonus === '0' }" :rules="[required]" />

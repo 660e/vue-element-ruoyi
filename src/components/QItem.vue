@@ -18,12 +18,12 @@ const { form } = useFormItem();
 const model = reactive(form?.model);
 
 const dictStore = useDictStore();
-const itemConfig = reactive({ ...config });
+const itemConfig = computed(() => ({ ...config }));
 const options = ref([]);
 
 const cascaderProps = computed(() => {
   const defaultProps = { checkStrictly: true, emitPath: false };
-  switch (itemConfig.type) {
+  switch (itemConfig.value.type) {
     case 'area':
       return { ...defaultProps, label: 'areaName', value: 'areaId' };
     case 'dept':
@@ -34,11 +34,11 @@ const cascaderProps = computed(() => {
 });
 
 onMounted(async () => {
-  switch (itemConfig.type) {
+  switch (itemConfig.value.type) {
     case 'select':
     case 'radio': {
-      if (itemConfig.dict) {
-        options.value = await dictStore.getList(itemConfig.dict);
+      if (itemConfig.value.dict) {
+        options.value = await dictStore.getList(itemConfig.value.dict);
       }
       break;
     }
