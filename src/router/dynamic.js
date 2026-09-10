@@ -57,6 +57,6 @@ export async function initializeRouter() {
     appStore.setRoutes(standardizeRoutes(data));
     appStore.routes.forEach((route) => router.addRoute('LayoutAdmin', route));
   } catch {
-    appStore.resetApp();
+    appStore.reset();
   }
 }

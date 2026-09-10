@@ -15,7 +15,7 @@ const disabled = computed(() => !model.username || !model.password || !model.cod
 const submitting = ref(false);
 
 onMounted(() => {
-  appStore.resetApp();
+  appStore.reset();
   getCaptcha();
 });
 

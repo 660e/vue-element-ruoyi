@@ -33,7 +33,7 @@ export const useAppStore = defineStore('app', () => {
     return JSON.parse(JSON.stringify(menus));
   }
 
-  function resetApp() {
+  function reset() {
     isForbidden.value = false;
     routes.value = [];
     removeLocalStorage('token');
@@ -47,6 +47,6 @@ export const useAppStore = defineStore('app', () => {
     setRoutes,
 
     getMenus,
-    resetApp,
+    reset,
   };
 });
