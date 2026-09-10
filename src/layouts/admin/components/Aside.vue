@@ -3,12 +3,14 @@ import { PanelLeftClose, PanelLeftOpen, ChevronDown, Info } from '@lucide/vue';
 
 import { useAppStore } from '@/stores';
 
+const homeRoute = { path: 'home', name: 'Home', meta: { title: '首页' } };
+
 const route = useRoute();
 const router = useRouter();
 const appStore = useAppStore();
 
 const expanded = ref(true);
-const menus = ref(appStore.getMenus());
+const menus = ref([homeRoute].concat(appStore.getMenus()));
 
 function expandActiveMenu(items) {
   for (const item of items) {
