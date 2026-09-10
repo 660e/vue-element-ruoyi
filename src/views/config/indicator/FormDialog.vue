@@ -54,6 +54,7 @@ defineExpose({ open });
       <q-item label="评分表名称" prop="tableName" :rules="[required]" />
       <q-item label="权重" prop="weight" :config="{ type: 'number' }" :rules="[required]" />
       <q-item label="煤矿类型" prop="mineType" :config="{ type: 'select', dict: 'mine_type' }" :rules="[required]" />
+      <q-item label="排序" prop="sortOrder" :config="{ type: 'number' }" :rules="[required]" />
       <q-item
         label="所属模板"
         prop="templateId"

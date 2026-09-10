@@ -29,8 +29,9 @@ async function handleEdit(row) {
     <q-column label="评分表名称" min-width="200" prop="tableName" :config="{ filter: 'text' }" />
     <q-column label="权重" prop="weight" width="100" />
     <q-column label="煤矿类型" prop="mineType" width="100" :config="{ filter: 'select', dict: 'mine_type' }" />
+    <q-column label="排序" prop="sortOrder" width="100" />
     <q-column label="所属模板" min-width="200" prop="templateName" />
-    <q-column label="专业大类" prop="categoryId" width="200" />
+    <q-column label="专业大类" min-width="200" prop="categoryName" />
     <q-column width="110" operation>
       <template #default="{ row }">
         <el-button type="primary" @click="handleEdit(row)" link>修改</el-button>
