@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 
+import { globalConfig } from '@/config';
 import { removeLocalStorage } from '@/utils';
 
 function filterHiddenRoutes(routes = []) {
@@ -37,6 +38,11 @@ export const useAppStore = defineStore('app', () => {
     isForbidden.value = false;
     routes.value = [];
     removeLocalStorage('token');
+    Object.keys(sessionStorage).forEach((key) => {
+      if (key.startsWith(globalConfig.app.id)) {
+        sessionStorage.removeItem(key);
+      }
+    });
   }
 
   return {

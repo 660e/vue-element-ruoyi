@@ -4,15 +4,17 @@ import { Power } from '@lucide/vue';
 import { logout } from '@/api';
 import headerImage from '@/assets/images/layout/header.png';
 import { globalConfig } from '@/config';
-import { useAppStore } from '@/stores';
+import { removeLocalStorage } from '@/utils';
 
-const appStore = useAppStore();
 const router = useRouter();
 
 async function signOut() {
-  await logout();
-  appStore.reset();
-  router.push('/login');
+  try {
+    await logout();
+  } finally {
+    removeLocalStorage('token');
+    router.push('/login');
+  }
 }
 </script>
 
