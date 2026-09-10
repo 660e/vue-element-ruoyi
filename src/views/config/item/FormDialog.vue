@@ -9,11 +9,14 @@ const visible = ref(false);
 const confirming = ref(false);
 const formRef = ref(null);
 const formData = ref({});
-const categoryOptions = ref([]);
 
-function open({ row, categoryTree = [], parentId }) {
+const categoryOptions = ref([]);
+const templateOptions = ref([]);
+
+function open({ row, categoryTree = [], templateList = [], parentId }) {
   formData.value = row ? { ...row } : { parentId };
   categoryOptions.value = categoryTree;
+  templateOptions.value = templateList;
   visible.value = true;
 }
 
@@ -43,12 +46,12 @@ defineExpose({ open });
   <q-dialog
     v-model="visible"
     v-model:confirming="confirming"
-    width="400"
+    width="800"
     :title="formData.categoryId ? '修改' : '新增'"
     @cancel="visible = false"
     @confirm="confirm"
   >
-    <el-form label-position="top" :model="formData" ref="formRef">
+    <el-form class="grid grid-cols-2 gap-x-6" label-position="top" :model="formData" ref="formRef">
       <q-item
         label="上级分类"
         prop="parentId"
@@ -58,9 +61,23 @@ defineExpose({ open });
           props: { checkStrictly: true, emitPath: false, label: 'categoryName', value: 'categoryId' },
         }"
       />
+      <q-item label="是否加分项" prop="bonus" :config="{ type: 'radio', dict: 'yes_no' }" :rules="[required]" />
       <q-item label="分类名称" prop="categoryName" :rules="[required]" />
       <q-item v-if="!formData.parentId" label="分类编码" prop="categoryCode" />
+      <q-item label="权重" prop="weight" :config="{ type: 'number', min: 0, max: 1, disabled: formData.bonus === '0' }" :rules="[required]" />
+      <q-item
+        label="标准分值"
+        prop="standardScore"
+        :config="{ type: 'number', min: 0, max: 100 }"
+        :rules="[formData.bonus === '0' ? required : '']"
+      />
       <q-item label="显示顺序" prop="sortOrder" :config="{ type: 'number' }" :rules="[required]" />
+      <q-item
+        label="所属模板"
+        prop="templateId"
+        :config="{ type: 'select', options: templateOptions, props: { label: 'templateName', value: 'templateId' } }"
+        :rules="[required]"
+      />
     </el-form>
   </q-dialog>
 </template>

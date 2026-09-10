@@ -15,7 +15,7 @@ const formDialogRef = ref(null);
 
     <q-column label="模板名称" min-width="200" prop="templateName" :config="{ filter: 'text' }" />
     <q-column label="煤矿类型" prop="mineType" width="100" :config="{ filter: 'select', dict: 'mine_type' }" />
-    <q-column label="模板状态" prop="templateStatus" width="100" />
+    <q-column label="模板状态" prop="templateStatus" width="100" :config="{ filter: 'select', dict: 'template_status' }" />
     <q-column label="版本" prop="templateVersion" width="100" />
     <q-column label="生效日期" prop="effectiveDate" width="200" />
     <q-column label="失效日期" prop="expireDate" width="200" />
