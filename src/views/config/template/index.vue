@@ -37,12 +37,7 @@ const formDialogRef = ref(null);
           :request="() => obsoleteTemplate(row.templateId)"
           @confirm="tableRef.refresh()"
         />
-        <q-confirm
-          message="确定要删除该模板吗？"
-          :content="`模板名称：${row.templateName}`"
-          :request="() => deleteTemplate(row.templateId)"
-          @confirm="tableRef.refresh()"
-        />
+        <q-confirm :content="`模板名称：${row.templateName}`" :request="() => deleteTemplate(row.templateId)" @confirm="tableRef.refresh()" />
       </template>
     </q-column>
   </q-table>
