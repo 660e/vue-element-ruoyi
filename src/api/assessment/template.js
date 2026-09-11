@@ -19,3 +19,11 @@ export function updateTemplate(data) {
 export function deleteTemplate(templateIds) {
   return request.delete(`/assessment/template/${templateIds}`);
 }
+
+export function activateTemplate(templateId) {
+  return request.post(`/assessment/template/${templateId}/activate`);
+}
+
+export function obsoleteTemplate(templateId) {
+  return request.post(`/assessment/template/${templateId}/obsolete`);
+}
