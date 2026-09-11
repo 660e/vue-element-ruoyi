@@ -50,7 +50,7 @@ defineExpose({ open });
       <q-item label="模板名称" prop="templateName" :rules="[required]" />
       <q-item label="煤矿类型" prop="mineType" :config="{ type: 'select', dict: 'mine_type' }" :rules="[required]" />
       <q-item label="生效日期" prop="effectiveDate" :config="{ type: 'date' }" />
-      <q-item label="失效日期" prop="expirationDate" :config="{ type: 'date' }" />
+      <q-item label="失效日期" prop="expireDate" :config="{ type: 'date' }" />
     </el-form>
   </q-dialog>
 </template>
